@@ -1,4 +1,5 @@
 import {AfterViewInit, Directive, ElementRef, HostListener, Input, NgZone} from '@angular/core';
+import {SortService} from './sort.service';
 
 @Directive({
   selector: '[ngSortgridItem]'
@@ -8,22 +9,21 @@ export class NgSortgridItemDirective implements AfterViewInit {
   @Input('ngSortgridItem')
   private ngSortGridItemKey: string;
 
-  constructor(public el: ElementRef, public zone: NgZone) {
+  constructor(public el: ElementRef, public zone: NgZone, private sortService: SortService) {
   }
 
   ngAfterViewInit(): void {
-    console.log('Key', this.ngSortGridItemKey);
     this.el.nativeElement.draggable = true;
   }
 
   @HostListener('dragstart', ['$event'])
   dragStart(event): void {
-    console.log('Drag start', event);
+    this.sortService.startDrag(event.target);
   }
 
   @HostListener('dragenter', ['$event'])
   dragEnter(event): void {
-    console.log('Drag enter', event);
+    this.sortService.sort(event.target);
   }
 
   @HostListener('dragover', ['$event'])
