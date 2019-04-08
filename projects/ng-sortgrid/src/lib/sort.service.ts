@@ -12,9 +12,10 @@ export class SortService {
   constructor(private selectionService: SelectionService) {
   }
 
-  public initSort(dragItem: Node): void {
-    this.dragIndex = this.indexOf(dragItem.parentNode.children, dragItem);
+  public initSort(dragedElement: Node): void {
     const slectedElements = this.selectionService.getSelectedElements();
+    const dragItem = slectedElements.length > 0 ? slectedElements[0] : dragedElement;
+    this.dragIndex = this.indexOf(dragItem.parentNode.children, dragItem);
     this.dragElements = slectedElements.length > 0 ? slectedElements : [dragItem];
   }
 
@@ -28,6 +29,9 @@ export class SortService {
     }
 
     const el = this.getReferenceElement(allElements, this.dragIndex, hoverIndex);
+    if (this.dragElements.includes(el)) {
+      return;
+    }
     this.dragElements.forEach(dragElement => {
       const insertedNode = parent.insertBefore(dragElement, el);
       (insertedNode as any).classList.add('placeholder');

@@ -12,8 +12,6 @@ export class NgSortgridItemDirective implements OnInit, AfterViewInit {
   private ngSortGridItemKey: string;
   private selected: boolean;
 
-  private readonly SELECTED_CLASS = 'selected';
-
   constructor(public el: ElementRef, public zone: NgZone, private sortService: SortService, private selectionService: SelectionService) {
   }
 
@@ -66,7 +64,6 @@ export class NgSortgridItemDirective implements OnInit, AfterViewInit {
   clicked(event): void {
     const element = event.target;
     this.selected = !this.selected;
-    this.selected ? element.classList.add(this.SELECTED_CLASS) : element.classList.remove(this.SELECTED_CLASS);
     this.selectionService.updateSelectedDragItem(element, this.selected);
   }
 }

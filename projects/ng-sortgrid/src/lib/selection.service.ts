@@ -33,8 +33,10 @@ export class SelectionService {
   private handleSelectionChange(selectionChange: SelectionChange): void {
     if (selectionChange.action === ChangeAction.ADD) {
       this.selectedElements.push(selectionChange.item);
+      (selectionChange.item as any).classList.add('selected');
     }
     if (selectionChange.action === ChangeAction.REMOVE) {
+      (selectionChange.item as any).classList.remove('selected');
       this.selectedElements = this.selectedElements.filter(
         (element: Node) => element !== selectionChange.item
       );
