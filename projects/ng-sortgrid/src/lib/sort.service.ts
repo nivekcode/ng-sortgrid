@@ -12,8 +12,7 @@ export class SortService {
   constructor(private selectionService: SelectionService) {
   }
 
-  public startDrag(dragItem: Node): void {
-    console.log('Im drag start');
+  public initSort(dragItem: Node): void {
     this.dragIndex = this.indexOf(dragItem.parentNode.children, dragItem);
     const slectedElements = this.selectionService.getSelectedElements();
     this.dragElements = slectedElements.length > 0 ? slectedElements : [dragItem];

@@ -59,4 +59,8 @@ export class SelectionService {
   public getSelectedElements(): Node[] {
     return this.selectedElements;
   }
+
+  public resetSelectedElements(): void {
+    this.selectedElements = [];
+  }
 }

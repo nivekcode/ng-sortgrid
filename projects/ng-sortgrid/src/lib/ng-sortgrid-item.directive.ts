@@ -1,6 +1,7 @@
 import {AfterViewInit, Directive, ElementRef, HostListener, Input, NgZone, OnInit} from '@angular/core';
 import {SortService} from './sort.service';
 import {SelectionService} from './selection.service';
+import {timer} from 'rxjs';
 
 @Directive({
   selector: '[ngSortgridItem]'
@@ -26,7 +27,7 @@ export class NgSortgridItemDirective implements OnInit, AfterViewInit {
 
   @HostListener('dragstart', ['$event'])
   dragStart(event): void {
-    this.sortService.startDrag(event.target);
+    this.sortService.initSort(event.target);
   }
 
   @HostListener('dragenter', ['$event'])
@@ -44,7 +45,21 @@ export class NgSortgridItemDirective implements OnInit, AfterViewInit {
 
   @HostListener('drop', ['$event'])
   drop(event): void {
-    console.log('Drop', event);
+    const selectedElements = this.selectionService.getSelectedElements();
+    const element = event.target;
+    if (selectedElements.length > 0) {
+      selectedElements.forEach((el: Node) => {
+        (el as any).classList.remove('placeholder');
+        (el as any).classList.remove('selected');
+        (el as any).classList.add('dropped');
+        timer(500).subscribe(() => (el as any).classList.remove('dropped'));
+      });
+      this.selectionService.resetSelectedElements();
+    } else {
+      element.classList.remove('placeholder');
+      element.classList.add('dropped');
+      timer(500).subscribe(() => element.classList.remove('dropped'));
+    }
   }
 
   @HostListener('click', ['$event'])
