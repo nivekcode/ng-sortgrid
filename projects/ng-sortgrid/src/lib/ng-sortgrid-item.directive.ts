@@ -2,6 +2,7 @@ import {AfterViewInit, Directive, ElementRef, HostListener, Input, NgZone, OnIni
 import {SortService} from './sort.service';
 import {SelectionService} from './selection.service';
 import {timer} from 'rxjs';
+import {ClassService} from './class.service';
 
 @Directive({
   selector: '[ngSortgridItem]'
@@ -12,7 +13,9 @@ export class NgSortgridItemDirective implements OnInit, AfterViewInit {
   private ngSortGridItemKey: string;
   private selected: boolean;
 
-  constructor(public el: ElementRef, public zone: NgZone, private sortService: SortService, private selectionService: SelectionService) {
+  constructor(public el: ElementRef, public zone: NgZone,
+              private sortService: SortService, private selectionService: SelectionService,
+              private classService: ClassService) {
   }
 
   ngOnInit(): void {
@@ -41,23 +44,9 @@ export class NgSortgridItemDirective implements OnInit, AfterViewInit {
     return false;
   }
 
-  @HostListener('drop', ['$event'])
-  drop(event): void {
-    const selectedElements = this.selectionService.getSelectedElements();
-    const element = event.target;
-    if (selectedElements.length > 0) {
-      selectedElements.forEach((el: Node) => {
-        (el as any).classList.remove('placeholder');
-        (el as any).classList.remove('selected');
-        (el as any).classList.add('dropped');
-        timer(500).subscribe(() => (el as any).classList.remove('dropped'));
-      });
-      this.selectionService.resetSelectedElements();
-    } else {
-      element.classList.remove('placeholder');
-      element.classList.add('dropped');
-      timer(500).subscribe(() => element.classList.remove('dropped'));
-    }
+  @HostListener('drop')
+  drop(): void {
+    this.sortService.endSort();
   }
 
   @HostListener('click', ['$event'])

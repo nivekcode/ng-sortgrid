@@ -1,11 +1,9 @@
 import {NgModule} from '@angular/core';
-import {NgSortgridComponent} from './ng-sortgrid.component';
 import {NgSortgridItemDirective} from './ng-sortgrid-item.directive';
 
 @NgModule({
-  declarations: [NgSortgridComponent, NgSortgridItemDirective],
-  imports: [],
-  exports: [NgSortgridComponent, NgSortgridItemDirective]
+  declarations: [NgSortgridItemDirective],
+  exports: [NgSortgridItemDirective]
 })
 export class NgSortgridModule {
 }

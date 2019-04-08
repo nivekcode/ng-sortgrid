@@ -58,7 +58,8 @@
               "projects/ng-sortgrid-demo/src/assets"
             ],
             "styles": [
-              "projects/ng-sortgrid-demo/src/styles.css"
+              "projects/ng-sortgrid-demo/src/styles.css",
+              "projects/ng-sortgrid/src/lib/ng-sortgrid-item.css"
             ],
             "scripts": [],
             "es5BrowserSupport": true
