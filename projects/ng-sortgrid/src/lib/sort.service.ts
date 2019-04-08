@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {SelectionService} from './selection.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,9 +9,14 @@ export class SortService {
   private dragIndex: number;
   private dragElements: Node[];
 
+  constructor(private selectionService: SelectionService) {
+  }
+
   public startDrag(dragItem: Node): void {
+    console.log('Im drag start');
     this.dragIndex = this.indexOf(dragItem.parentNode.children, dragItem);
-    this.dragElements = [dragItem];
+    const slectedElements = this.selectionService.getSelectedElements();
+    this.dragElements = slectedElements.length > 0 ? slectedElements : [dragItem];
   }
 
   public sort(dropElement: Node): void {
