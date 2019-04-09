@@ -2,6 +2,8 @@ import {Injectable} from '@angular/core';
 import {fromEvent, merge, NEVER, Observable, Subject} from 'rxjs';
 import {filter, mapTo, switchMap} from 'rxjs/operators';
 import {ClassService} from './class.service';
+import {Dragelement} from './dragelement.model';
+import {ElementsService} from './elements.service';
 
 enum ChangeAction {
   ADD,
@@ -22,9 +24,9 @@ export class SelectionService {
   private CONTROL_KEY = 'Control';
 
   private selectionChange$ = new Subject<SelectionChange>();
-  private selectedElements: Element[] = [];
+  private selectedElements: Dragelement[] = [];
 
-  constructor(private classService: ClassService) {
+  constructor(private classService: ClassService, private elementsService: ElementsService) {
     const selectionKeyPressed$ = this.selectionKeyPressed();
     selectionKeyPressed$.pipe(
       switchMap((pressed) => pressed ? this.selectionChange$ : NEVER)
@@ -34,12 +36,15 @@ export class SelectionService {
   private handleSelectionChange(selectionChange: SelectionChange): void {
     if (selectionChange.action === ChangeAction.ADD) {
       this.classService.addSelectedClass(selectionChange.item);
-      this.selectedElements.push(selectionChange.item);
+      this.selectedElements.push({
+        node: selectionChange.item,
+        originalIndex: this.elementsService.findIndex(selectionChange.item)
+      });
     }
     if (selectionChange.action === ChangeAction.REMOVE) {
       this.classService.removeSelectedClass(selectionChange.item);
       this.selectedElements = this.selectedElements.filter(
-        (element: Node) => element !== selectionChange.item
+        (dragElement: Dragelement) => dragElement.node !== selectionChange.item
       );
     }
   }
@@ -59,7 +64,7 @@ export class SelectionService {
     });
   }
 
-  public getSelectedElements(): Element[] {
+  public getSelectedElements(): Dragelement[] {
     return this.selectedElements;
   }
 

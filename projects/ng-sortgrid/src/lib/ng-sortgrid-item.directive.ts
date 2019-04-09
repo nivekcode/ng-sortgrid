@@ -13,6 +13,13 @@ export class NgSortgridItemDirective implements OnInit, AfterViewInit {
   private ngSortGridItemKey: string;
   private selected: boolean;
 
+  private internalSortGridItems: any[];
+
+  @Input('sortGridItems') set sortGridItems(sortGridItems: any[]) {
+    // How does it behave with async values?
+    this.internalSortGridItems = [...sortGridItems];
+  }
+
   constructor(public el: ElementRef, public zone: NgZone,
               private sortService: SortService, private selectionService: SelectionService,
               private classService: ClassService) {
@@ -44,9 +51,10 @@ export class NgSortgridItemDirective implements OnInit, AfterViewInit {
     return false;
   }
 
-  @HostListener('drop')
+  @HostListener('drop', ['$event'])
   drop(): void {
-    this.sortService.endSort();
+    const element = event.target as Element;
+    this.sortService.endSort(element);
   }
 
   @HostListener('click', ['$event'])

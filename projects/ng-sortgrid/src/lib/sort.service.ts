@@ -2,6 +2,8 @@ import {Injectable} from '@angular/core';
 import {SelectionService} from './selection.service';
 import {ClassService} from './class.service';
 import {timer} from 'rxjs';
+import {ElementsService} from './elements.service';
+import {Dragelement} from './dragelement.model';
 
 @Injectable({
   providedIn: 'root'
@@ -9,19 +11,22 @@ import {timer} from 'rxjs';
 export class SortService {
 
   private dragIndex: number;
-  private dragElements: Node[];
+  private dragElements: Dragelement[];
 
-  constructor(private selectionService: SelectionService, private classService: ClassService) {
+  constructor(private selectionService: SelectionService, private classService: ClassService, private elementsService: ElementsService) {
   }
 
-  public initSort(dragedElement: Node): void {
+  public initSort(dragedElement: Element): void {
     const slectedElements = this.selectionService.getSelectedElements();
-    const dragItem = slectedElements.length > 0 ? slectedElements[0] : dragedElement;
-    this.dragIndex = this.indexOf(dragItem.parentNode.children, dragItem);
+    const dragItem = slectedElements.length > 0 ? slectedElements[0] : {
+      node: dragedElement,
+      originalIndex: this.elementsService.findIndex(dragedElement)
+    };
+    this.dragIndex = dragItem.originalIndex;
     this.dragElements = slectedElements.length > 0 ? slectedElements : [dragItem];
   }
 
-  public sort(dropElement: Node): void {
+  public sort(dropElement: Element): void {
     const parent = dropElement.parentNode;
     const allElements = Array.from(parent.children);
 
@@ -31,26 +36,46 @@ export class SortService {
     }
 
     const el = this.getReferenceElement(allElements, this.dragIndex, hoverIndex);
-    if (this.dragElements.includes(el)) {
+    if (this.isDropInSelection(el)) {
       return;
     }
-    this.dragElements.forEach(dragElement => {
-      const insertedNode = parent.insertBefore(dragElement, el);
+    this.dragElements.forEach((dragElement: Dragelement) => {
+      const insertedNode = parent.insertBefore(dragElement.node, el.node);
       this.classService.addPlaceHolderClass(insertedNode as Element);
     });
-    this.dragIndex = this.indexOf(allElements, this.dragElements[0]);
+    this.dragIndex = this.indexOf(allElements, this.dragElements[0].node);
   }
 
-  public endSort(): void {
-    this.dragElements.forEach((el: Element) => {
-      this.updateDropedItem(el);
+  public endSort(dropElement: Element): void {
+    const parent = dropElement.parentNode;
+    const dropIndex = this.indexOf(parent.children, dropElement);
+
+    console.log('SelectedElements', this.selectionService.getSelectedElements());
+
+    this.dragElements.forEach((dragElement: Dragelement) => {
+      this.updateDropedItem(dragElement.node);
     });
     this.selectionService.resetSelectedElements();
   }
 
-  private getReferenceElement(collection, dragIndex: number, hoverIndex: number): Node | null {
+  private getReferenceElement(collection, dragIndex: number, hoverIndex: number): Dragelement | null {
     const dropElement = collection[hoverIndex];
-    return dragIndex < hoverIndex ? dropElement.nextSibling : dropElement;
+
+    if (dragIndex < hoverIndex) {
+      return {
+        node: dropElement.nextSibling,
+        originalIndex: hoverIndex + 1
+      };
+    } else {
+      return {
+        node: dropElement,
+        originalIndex: hoverIndex
+      };
+    }
+  }
+
+  private isDropInSelection(dropElement: Dragelement): boolean {
+    return !!this.dragElements.find((dragElment: Dragelement) => dragElment.node === dropElement.node);
   }
 
   private indexOf(collection, node: Node): number {
