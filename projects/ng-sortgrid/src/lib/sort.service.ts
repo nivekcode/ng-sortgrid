@@ -50,12 +50,13 @@ export class SortService {
     const parent = dropElement.parentNode;
     const dropIndex = this.indexOf(parent.children, dropElement);
 
+    console.log('DropIndex', dropIndex);
+
     console.log('SelectedElements', this.selectionService.getSelectedElements());
 
     this.dragElements.forEach((dragElement: Dragelement) => {
       this.updateDropedItem(dragElement.node);
     });
-    this.selectionService.resetSelectedElements();
   }
 
   private getReferenceElement(collection, dragIndex: number, hoverIndex: number): Dragelement | null {

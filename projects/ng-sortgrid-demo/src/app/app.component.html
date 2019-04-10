@@ -3,5 +3,11 @@
 </nav>
 
 <div class="example-container">
-  <div ngSortgridItem="one" class="example-box" *ngFor="let item of items">{{ item }}</div>
+  <div *ngFor="let item of items"
+       ngSortgridItem="one"
+       [ngSortGridItems]="items"
+       (sorted)="sorted($event)"
+       class="example-box">
+    {{ item }}
+  </div>
 </div>
