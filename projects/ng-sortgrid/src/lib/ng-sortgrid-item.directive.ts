@@ -69,6 +69,10 @@ export class NgSortgridItemDirective implements OnInit, AfterViewInit {
 
   @HostListener('drop', ['$event'])
   drop(): void {
+    const elementGroup = this.ngsgStore.getSelecteditems(this.ngSortGridGroup);
+    if (elementGroup.length === 0) {
+      return;
+    }
     const element = event.target as Element;
     this.sortService.endSort(element);
     const reflectedChanges = this.reflectService.reflectChanges(this.ngSortGridGroup, element);
