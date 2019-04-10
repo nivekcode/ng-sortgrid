@@ -20,7 +20,7 @@ export class NgSortgridItemDirective implements OnInit, AfterViewInit {
 
   constructor(public el: ElementRef, public zone: NgZone,
               private sortService: SortService, private selectionService: SelectionService,
-              private reflectService: NgsgReflectService,
+              private reflectService: NgsgReflectService<any>,
               private classService: ClassService) {
   }
 
