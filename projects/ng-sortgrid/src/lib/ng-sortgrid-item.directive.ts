@@ -4,14 +4,17 @@ import {SelectionService} from './selection.service';
 import {timer} from 'rxjs';
 import {ClassService} from './class.service';
 import {NgsgReflectService} from './ngsg-reflect.service';
+import {NgsgStoreService} from './ngsg-store.service';
 
 @Directive({
   selector: '[ngSortgridItem]'
 })
 export class NgSortgridItemDirective implements OnInit, AfterViewInit {
 
+  private DEFAULT_GROUP = 'defaultGroup';
+
   @Input()
-  private ngSortGridGroup: string;
+  private ngSortGridGroup: string = this.DEFAULT_GROUP;
   private selected: boolean;
 
   @Input() ngSortGridItems;
@@ -21,15 +24,15 @@ export class NgSortgridItemDirective implements OnInit, AfterViewInit {
   constructor(public el: ElementRef, public zone: NgZone,
               private sortService: SortService, private selectionService: SelectionService,
               private reflectService: NgsgReflectService<any>,
-              private classService: ClassService) {
+              private classService: ClassService,
+              private ngsgStore: NgsgStoreService) {
   }
 
   ngOnInit(): void {
+    this.ngsgStore.initState(this.ngSortGridGroup, this.ngSortGridItems, {});
     this.selected = false;
     if (!this.ngSortGridItems) {
       console.error('Ng-sortgrid: No items provided - please use [sortGridItems] to pass in an array of items');
-    } else {
-      this.reflectService.initItems(this.ngSortGridItems);
     }
   }
 
@@ -39,14 +42,15 @@ export class NgSortgridItemDirective implements OnInit, AfterViewInit {
 
   @HostListener('dragstart', ['$event'])
   dragStart(event): void {
-    this.selectionService.selectDragItem(event.target);
-    this.sortService.initSort();
+    this.selectionService.selectDragItem(this.ngSortGridGroup, event.target);
+    this.sortService.initSort(this.ngSortGridGroup);
   }
 
   @HostListener('dragenter', ['$event'])
   dragEnter(event): void {
+    // TODO think about adding a custom prop
     const prop = 'ngsortgridgroup';
-    const elementGroup = this.selectionService.getSelectedElements()[0].node.attributes[prop].nodeValue;
+    const elementGroup = this.ngsgStore.getSelecteditems(this.ngSortGridGroup)[0].node.attributes[prop].nodeValue;
     if (this.ngSortGridGroup !== elementGroup) {
       return;
     }
@@ -65,15 +69,15 @@ export class NgSortgridItemDirective implements OnInit, AfterViewInit {
   drop(): void {
     const element = event.target as Element;
     this.sortService.endSort(element);
-    const reflectedChanges = this.reflectService.reflectChanges(element);
+    const reflectedChanges = this.reflectService.reflectChanges(this.ngSortGridGroup, element);
     this.sorted.next(reflectedChanges);
-    this.selectionService.resetSelectedElements();
+    this.ngsgStore.resetSelectedItems(this.ngSortGridGroup);
   }
 
   @HostListener('click', ['$event'])
   clicked(event): void {
     const element = event.target;
     this.selected = !this.selected;
-    this.selectionService.updateSelectedDragItem(element, this.selected);
+    this.selectionService.updateSelectedDragItem(this.ngSortGridGroup, element, this.selected);
   }
 }

@@ -4,6 +4,7 @@ import {ClassService} from './class.service';
 import {timer} from 'rxjs';
 import {ElementsService} from './elements.service';
 import {Dragelement} from './dragelement.model';
+import {NgsgStoreService} from './ngsg-store.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +14,12 @@ export class SortService {
   private dragIndex: number;
   private dragElements: Dragelement[];
 
-  constructor(private selectionService: SelectionService, private classService: ClassService, private elementsService: ElementsService) {
+  constructor(private selectionService: SelectionService, private classService: ClassService,
+              private elementsService: ElementsService, private ngsgStore: NgsgStoreService) {
   }
 
-  public initSort(): void {
-    const slectedElements = this.selectionService.getSelectedElements();
+  public initSort(key: string): void {
+    const slectedElements = this.ngsgStore.getSelecteditems(key);
     console.log('Selected Elements', slectedElements);
     this.dragIndex = slectedElements[0].originalIndex;
     this.dragElements = slectedElements;

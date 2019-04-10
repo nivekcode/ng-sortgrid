@@ -7,7 +7,7 @@
        ngSortgridItem
        ngSortGridGroup="one"
        [ngSortGridItems]="items"
-       (sorted)="sorted($event)"
+       (sorted)="gridOneSorted($event)"
        class="example-box">
     {{ item }}
   </div>
@@ -18,7 +18,7 @@
        ngSortgridItem
        ngSortGridGroup="two"
        [ngSortGridItems]="items"
-       (sorted)="sorted($event)"
+       (sorted)="gridTwoSorted($event)"
        class="example-box">
     {{ item }}
   </div>
