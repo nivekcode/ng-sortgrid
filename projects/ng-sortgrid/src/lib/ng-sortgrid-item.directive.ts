@@ -49,9 +49,11 @@ export class NgSortgridItemDirective implements OnInit, AfterViewInit {
   @HostListener('dragenter', ['$event'])
   dragEnter(event): void {
     // TODO think about adding a custom prop
+    console.log('Group', this.ngSortGridGroup);
+
     const prop = 'ngsortgridgroup';
-    const elementGroup = this.ngsgStore.getSelecteditems(this.ngSortGridGroup)[0].node.attributes[prop].nodeValue;
-    if (this.ngSortGridGroup !== elementGroup) {
+    const elementGroup = this.ngsgStore.getSelecteditems(this.ngSortGridGroup);
+    if (elementGroup.length === 0) {
       return;
     }
     this.sortService.sort(event.target);
