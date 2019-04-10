@@ -10,8 +10,8 @@ import {NgsgReflectService} from './ngsg-reflect.service';
 })
 export class NgSortgridItemDirective implements OnInit, AfterViewInit {
 
-  @Input('ngSortgridItem')
-  private ngSortGridItemKey: string;
+  @Input()
+  private ngSortGridGroup: string;
   private selected: boolean;
 
   @Input() ngSortGridItems;
@@ -45,6 +45,11 @@ export class NgSortgridItemDirective implements OnInit, AfterViewInit {
 
   @HostListener('dragenter', ['$event'])
   dragEnter(event): void {
+    const prop = 'ngsortgridgroup';
+    const elementGroup = this.selectionService.getSelectedElements()[0].node.attributes[prop].nodeValue;
+    if (this.ngSortGridGroup !== elementGroup) {
+      return;
+    }
     this.sortService.sort(event.target);
   }
 

@@ -4,10 +4,23 @@
 
 <div class="example-container">
   <div *ngFor="let item of items"
-       ngSortgridItem="one"
+       ngSortgridItem
+       ngSortGridGroup="one"
        [ngSortGridItems]="items"
        (sorted)="sorted($event)"
        class="example-box">
     {{ item }}
   </div>
 </div>
+
+<div class="example-container" style="margin-top: 50px">
+  <div *ngFor="let item of items"
+       ngSortgridItem
+       ngSortGridGroup="two"
+       [ngSortGridItems]="items"
+       (sorted)="sorted($event)"
+       class="example-box">
+    {{ item }}
+  </div>
+</div>
+
