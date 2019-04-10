@@ -16,14 +16,11 @@ export class SortService {
   constructor(private selectionService: SelectionService, private classService: ClassService, private elementsService: ElementsService) {
   }
 
-  public initSort(dragedElement: Element): void {
+  public initSort(): void {
     const slectedElements = this.selectionService.getSelectedElements();
-    const dragItem = slectedElements.length > 0 ? slectedElements[0] : {
-      node: dragedElement,
-      originalIndex: this.elementsService.findIndex(dragedElement)
-    };
-    this.dragIndex = dragItem.originalIndex;
-    this.dragElements = slectedElements.length > 0 ? slectedElements : [dragItem];
+    console.log('Selected Elements', slectedElements);
+    this.dragIndex = slectedElements[0].originalIndex;
+    this.dragElements = slectedElements;
   }
 
   public sort(dropElement: Element): void {
@@ -49,11 +46,6 @@ export class SortService {
   public endSort(dropElement: Element): void {
     const parent = dropElement.parentNode;
     const dropIndex = this.indexOf(parent.children, dropElement);
-
-    console.log('DropIndex', dropIndex);
-
-    console.log('SelectedElements', this.selectionService.getSelectedElements());
-
     this.dragElements.forEach((dragElement: Dragelement) => {
       this.updateDropedItem(dragElement.node);
     });

@@ -39,7 +39,8 @@ export class NgSortgridItemDirective implements OnInit, AfterViewInit {
 
   @HostListener('dragstart', ['$event'])
   dragStart(event): void {
-    this.sortService.initSort(event.target);
+    this.selectionService.selectDragItem(event.target);
+    this.sortService.initSort();
   }
 
   @HostListener('dragenter', ['$event'])

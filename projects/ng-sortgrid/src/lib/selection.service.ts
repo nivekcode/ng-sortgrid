@@ -58,6 +58,16 @@ export class SelectionService {
     return merge(selectionKeyPressed, keyup);
   }
 
+  public selectDragItem(dragedElement: Element): void {
+    if (this.selectedElements.length > 0) {
+      return;
+    }
+    this.selectedElements.push({
+      node: dragedElement,
+      originalIndex: this.elementsService.findIndex(dragedElement)
+    });
+  }
+
   public updateSelectedDragItem(item: Element, selected: boolean): void {
     this.selectionChange$.next({
       item, action: selected ? ChangeAction.ADD : ChangeAction.REMOVE

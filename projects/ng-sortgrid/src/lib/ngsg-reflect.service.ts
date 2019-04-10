@@ -18,21 +18,56 @@ export class NgsgReflectService<T> {
   }
 
   public reflectChanges(element: Element): T[] {
-    const dropIndex = this.elmentsService.findIndex(element);
+    let dropIndex;
+
+    const selectedElements = this.selectionService.getSelectedElements();
+
+    if (this.isDropInSelection(selectedElements, element)) {
+      dropIndex = this.elmentsService.findIndex(selectedElements[0].node);
+    } else {
+      dropIndex = this.elmentsService.findIndex(element);
+    }
+
+    // TODO - check if index is included in elements
+    /*
+    if(selectedElements.includes(element)){
+      dropIndex = selectedElements[0];
+    }
+    */
+
     const selectedElementIndexes = [...this.selectionService.getSelectedElements()].map(
       (selectedElement: Dragelement) => selectedElement.originalIndex
     );
 
+    console.log('DropIndex', dropIndex);
+
     const selectedItems = [];
 
-    while (selectedElementIndexes.length > 0) {
-      const selectedItem = this.items.splice(selectedElementIndexes.pop(), 1)[0];
-      selectedItems.push(selectedItem);
-    }
-    const beforeSelection = this.items.slice(0, dropIndex - 1);
-    const afterSelection = this.items.slice(dropIndex - 1, this.items.length);
+    selectedElementIndexes.forEach(index => {
+      selectedItems.push(this.items[index]);
+    });
 
-    return [...beforeSelection, ...selectedItems.reverse(), ...afterSelection];
+    const popIndexes = selectedElementIndexes.sort();
+
+    while (popIndexes.length > 0) {
+      const i = this.items.splice(popIndexes.pop(), 1);
+      console.log('poppin', i);
+      console.log('New Items', this.items);
+    }
+
+    console.log('At the time', this.items);
+
+    const beforeSelection = this.items.slice(0, dropIndex);
+    const afterSelection = this.items.slice(dropIndex, this.items.length);
+
+    console.log('Before', beforeSelection);
+    console.log('After', afterSelection);
+    console.log('selected', selectedItems);
+
+    return [...beforeSelection, ...selectedItems, ...afterSelection];
   }
 
+  private isDropInSelection(collection: Dragelement[], dropElement: Element): boolean {
+    return !!collection.find((dragElment: Dragelement) => dragElment.node === dropElement);
+  }
 }
