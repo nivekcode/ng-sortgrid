@@ -1,8 +1,9 @@
-import {AfterViewInit, Directive, ElementRef, HostListener, Input, NgZone, OnInit} from '@angular/core';
+import {AfterViewInit, Directive, ElementRef, EventEmitter, HostListener, Input, NgZone, OnInit, Output} from '@angular/core';
 import {SortService} from './sort.service';
 import {SelectionService} from './selection.service';
 import {timer} from 'rxjs';
 import {ClassService} from './class.service';
+import {NgsgReflectService} from './ngsg-reflect.service';
 
 @Directive({
   selector: '[ngSortgridItem]'
@@ -13,13 +14,23 @@ export class NgSortgridItemDirective implements OnInit, AfterViewInit {
   private ngSortGridItemKey: string;
   private selected: boolean;
 
+  @Input() ngSortGridItems;
+
+  @Output() sorted = new EventEmitter<any>();
+
   constructor(public el: ElementRef, public zone: NgZone,
               private sortService: SortService, private selectionService: SelectionService,
+              private reflectService: NgsgReflectService<any>,
               private classService: ClassService) {
   }
 
   ngOnInit(): void {
     this.selected = false;
+    if (!this.ngSortGridItems) {
+      console.error('Ng-sortgrid: No items provided - please use [sortGridItems] to pass in an array of items');
+    } else {
+      this.reflectService.initItems(this.ngSortGridItems);
+    }
   }
 
   ngAfterViewInit(): void {
@@ -28,7 +39,8 @@ export class NgSortgridItemDirective implements OnInit, AfterViewInit {
 
   @HostListener('dragstart', ['$event'])
   dragStart(event): void {
-    this.sortService.initSort(event.target);
+    this.selectionService.selectDragItem(event.target);
+    this.sortService.initSort();
   }
 
   @HostListener('dragenter', ['$event'])
@@ -44,9 +56,13 @@ export class NgSortgridItemDirective implements OnInit, AfterViewInit {
     return false;
   }
 
-  @HostListener('drop')
+  @HostListener('drop', ['$event'])
   drop(): void {
-    this.sortService.endSort();
+    const element = event.target as Element;
+    this.sortService.endSort(element);
+    const reflectedChanges = this.reflectService.reflectChanges(element);
+    this.sorted.next(reflectedChanges);
+    this.selectionService.resetSelectedElements();
   }
 
   @HostListener('click', ['$event'])
