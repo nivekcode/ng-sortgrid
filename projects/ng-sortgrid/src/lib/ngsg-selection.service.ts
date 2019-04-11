@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {fromEvent, merge, NEVER, Observable, Subject} from 'rxjs';
 import {filter, mapTo, switchMap} from 'rxjs/operators';
-import {ClassService} from './class.service';
-import {Dragelement} from './dragelement.model';
-import {ElementsService} from './elements.service';
+
 import {NgsgStoreService} from './ngsg-store.service';
+import {NgsgClassService} from './ngsg-class.service';
+import {NgsgElementsService} from './ngsg-elements.service';
 
 enum ChangeAction {
   ADD,
@@ -20,14 +20,14 @@ interface SelectionChange {
 @Injectable({
   providedIn: 'root'
 })
-export class SelectionService {
+export class NgsgSelectionService {
 
   private COMMAND_KEY = 'Meta';
   private CONTROL_KEY = 'Control';
 
   private selectionChange$ = new Subject<SelectionChange>();
 
-  constructor(private classService: ClassService, private elementsService: ElementsService, private ngsgStore: NgsgStoreService) {
+  constructor(private classService: NgsgClassService, private elementsService: NgsgElementsService, private ngsgStore: NgsgStoreService) {
     const selectionKeyPressed$ = this.selectionKeyPressed();
     selectionKeyPressed$.pipe(
       switchMap((pressed) => pressed ? this.selectionChange$ : NEVER)

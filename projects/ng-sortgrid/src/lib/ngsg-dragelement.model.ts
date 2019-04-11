@@ -1,4 +1,4 @@
-export interface Dragelement {
+export interface NgsgDragelement {
   node: Element;
   originalIndex: number;
 }
