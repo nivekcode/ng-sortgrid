@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import {NgSortgridModule} from '../../../ng-sortgrid/src/lib/ng-sortgrid.module';
+import {NgsgModule} from '../../../ng-sortgrid/src/lib/ngsg.module';
 
 @NgModule({
   declarations: [
@@ -10,7 +10,7 @@ import {NgSortgridModule} from '../../../ng-sortgrid/src/lib/ng-sortgrid.module'
   ],
   imports: [
     BrowserModule,
-    NgSortgridModule
+    NgsgModule
   ],
   providers: [],
   bootstrap: [AppComponent]

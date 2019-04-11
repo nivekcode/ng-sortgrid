@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
-import {Dragelement} from './dragelement.model';
+import {NgsgDragelement} from './ngsg-dragelement.model';
 
 // TODO add interfaces for classes
 export interface NgsgState {
   items: any[];
   classes: any;
-  selectedItems: Dragelement[];
+  selectedItems: NgsgDragelement[];
 }
 
 @Injectable({
@@ -19,13 +19,13 @@ export class NgsgStoreService {
     this.state.set(key, {items: [...items], classes, selectedItems: []});
   }
 
-  public addSelectedItem(key: string, dragElement: Dragelement): void {
+  public addSelectedItem(key: string, dragElement: NgsgDragelement): void {
     this.state.get(key).selectedItems.push(dragElement);
   }
 
   public removeSelectedItem(key: string, item: Element): void {
     this.state.get(key).selectedItems.filter(
-      (dragElement: Dragelement) => dragElement.node !== item
+      (dragElement: NgsgDragelement) => dragElement.node !== item
     );
   }
 
@@ -37,7 +37,7 @@ export class NgsgStoreService {
     return this.state.get(key).items;
   }
 
-  public getSelecteditems(key: string): Dragelement[] {
+  public getSelecteditems(key: string): NgsgDragelement[] {
     return this.state.get(key).selectedItems;
   }
 

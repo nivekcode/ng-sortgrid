@@ -1,21 +1,22 @@
 import {Injectable} from '@angular/core';
-import {SelectionService} from './selection.service';
-import {ClassService} from './class.service';
 import {timer} from 'rxjs';
-import {ElementsService} from './elements.service';
-import {Dragelement} from './dragelement.model';
+
 import {NgsgStoreService} from './ngsg-store.service';
+import {NgsgSelectionService} from './ngsg-selection.service';
+import {NgsgClassService} from './ngsg-class.service';
+import {NgsgElementsService} from './ngsg-elements.service';
+import {NgsgDragelement} from './ngsg-dragelement.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SortService {
+export class NgsgSortService {
 
   private dragIndex: number;
-  private dragElements: Dragelement[];
+  private dragElements: NgsgDragelement[];
 
-  constructor(private selectionService: SelectionService, private classService: ClassService,
-              private elementsService: ElementsService, private ngsgStore: NgsgStoreService) {
+  constructor(private selectionService: NgsgSelectionService, private classService: NgsgClassService,
+              private elementsService: NgsgElementsService, private ngsgStore: NgsgStoreService) {
   }
 
   public initSort(key: string): void {
@@ -38,7 +39,7 @@ export class SortService {
     if (this.isDropInSelection(el)) {
       return;
     }
-    this.dragElements.forEach((dragElement: Dragelement) => {
+    this.dragElements.forEach((dragElement: NgsgDragelement) => {
       const insertedNode = parent.insertBefore(dragElement.node, el.node);
       this.classService.addPlaceHolderClass(insertedNode as Element);
     });
@@ -48,12 +49,12 @@ export class SortService {
   public endSort(dropElement: Element): void {
     const parent = dropElement.parentNode;
     const dropIndex = this.indexOf(parent.children, dropElement);
-    this.dragElements.forEach((dragElement: Dragelement) => {
+    this.dragElements.forEach((dragElement: NgsgDragelement) => {
       this.updateDropedItem(dragElement.node);
     });
   }
 
-  private getReferenceElement(collection, dragIndex: number, hoverIndex: number): Dragelement | null {
+  private getReferenceElement(collection, dragIndex: number, hoverIndex: number): NgsgDragelement | null {
     const dropElement = collection[hoverIndex];
 
     if (dragIndex < hoverIndex) {
@@ -69,8 +70,8 @@ export class SortService {
     }
   }
 
-  private isDropInSelection(dropElement: Dragelement): boolean {
-    return !!this.dragElements.find((dragElment: Dragelement) => dragElment.node === dropElement.node);
+  private isDropInSelection(dropElement: NgsgDragelement): boolean {
+    return !!this.dragElements.find((dragElment: NgsgDragelement) => dragElment.node === dropElement.node);
   }
 
   private indexOf(collection, node: Node): number {

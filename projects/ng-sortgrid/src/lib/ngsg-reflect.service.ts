@@ -1,15 +1,17 @@
 import {Injectable} from '@angular/core';
-import {SelectionService} from './selection.service';
-import {ElementsService} from './elements.service';
-import {Dragelement} from './dragelement.model';
+
 import {NgsgStoreService} from './ngsg-store.service';
+import {NgsgSelectionService} from './ngsg-selection.service';
+import {NgsgElementsService} from './ngsg-elements.service';
+import {NgsgDragelement} from './ngsg-dragelement.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NgsgReflectService<T> {
 
-  constructor(private selectionService: SelectionService, private elmentsService: ElementsService, private ngsgStore: NgsgStoreService) {
+  constructor(private selectionService: NgsgSelectionService, private elmentsService: NgsgElementsService,
+              private ngsgStore: NgsgStoreService) {
   }
 
   public reflectChanges(key: string, element: Element): T[] {
@@ -25,7 +27,7 @@ export class NgsgReflectService<T> {
     }
 
     const selectedElementIndexes = [...selectedElements].map(
-      (selectedElement: Dragelement) => selectedElement.originalIndex
+      (selectedElement: NgsgDragelement) => selectedElement.originalIndex
     );
 
     const selectedItems = [];
@@ -48,7 +50,7 @@ export class NgsgReflectService<T> {
     return result;
   }
 
-  private isDropInSelection(collection: Dragelement[], dropElement: Element): boolean {
-    return !!collection.find((dragElment: Dragelement) => dragElment.node === dropElement);
+  private isDropInSelection(collection: NgsgDragelement[], dropElement: Element): boolean {
+    return !!collection.find((dragElment: NgsgDragelement) => dragElment.node === dropElement);
   }
 }

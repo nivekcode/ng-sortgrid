@@ -1,15 +1,15 @@
 import {AfterViewInit, Directive, ElementRef, EventEmitter, HostListener, Input, NgZone, OnInit, Output} from '@angular/core';
-import {SortService} from './sort.service';
-import {SelectionService} from './selection.service';
-import {timer} from 'rxjs';
-import {ClassService} from './class.service';
+
 import {NgsgReflectService} from './ngsg-reflect.service';
 import {NgsgStoreService} from './ngsg-store.service';
+import {NgsgSortService} from './ngsg-sort.service';
+import {NgsgSelectionService} from './ngsg-selection.service';
+import {NgsgClassService} from './ngsg-class.service';
 
 @Directive({
   selector: '[ngSortgridItem]'
 })
-export class NgSortgridItemDirective implements OnInit, AfterViewInit {
+export class NgsgItemDirective implements OnInit, AfterViewInit {
 
   private DEFAULT_GROUP = 'defaultGroup';
 
@@ -22,9 +22,9 @@ export class NgSortgridItemDirective implements OnInit, AfterViewInit {
   @Output() sorted = new EventEmitter<any>();
 
   constructor(public el: ElementRef, public zone: NgZone,
-              private sortService: SortService, private selectionService: SelectionService,
+              private sortService: NgsgSortService, private selectionService: NgsgSelectionService,
               private reflectService: NgsgReflectService<any>,
-              private classService: ClassService,
+              private classService: NgsgClassService,
               private ngsgStore: NgsgStoreService) {
   }
 

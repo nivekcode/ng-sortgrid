@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class ClassService {
+export class NgsgClassService {
 
   private SELECTED_DEFAULT_CLASS = 'ng-sg-selected';
   private PLACEHOLDER_DEFAULT_CLASS = 'ng-sg-placeholder';
