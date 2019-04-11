@@ -58,11 +58,11 @@ export class NgsgSelectionService {
     return merge(selectionKeyPressed, keyup);
   }
 
-  public selectDragItem(key: string, dragedElement: Element): void {
-    if (this.ngsgStore.getSelecteditems(key).length > 0) {
+  public selectElementIfNoSelection(group: string, dragedElement: Element): void {
+    if (this.ngsgStore.hasSelectedItems(group)) {
       return;
     }
-    this.ngsgStore.addSelectedItem(key, {
+    this.ngsgStore.addSelectedItem(group, {
       node: dragedElement,
       originalIndex: this.elementsService.findIndex(dragedElement)
     });

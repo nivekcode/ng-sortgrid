@@ -15,38 +15,46 @@ export class NgsgStoreService {
 
   private state = new Map<string, NgsgState>();
 
-  public initState(key: string, items: any, classes: any): void {
-    this.state.set(key, {items: [...items], classes, selectedItems: []});
+  public initState(group: string, items: any[] = [], classes: any): void {
+    this.state.set(group, {items: [...items], classes, selectedItems: []});
   }
 
-  public addSelectedItem(key: string, dragElement: NgsgDragelement): void {
-    this.state.get(key).selectedItems.push(dragElement);
+  public addSelectedItem(group: string, dragElement: NgsgDragelement): void {
+    this.state.get(group).selectedItems.push(dragElement);
   }
 
-  public removeSelectedItem(key: string, item: Element): void {
-    this.state.get(key).selectedItems.filter(
+  public removeSelectedItem(group: string, item: Element): void {
+    this.state.get(group).selectedItems.filter(
       (dragElement: NgsgDragelement) => dragElement.node !== item
     );
   }
 
-  public setItems(key: string, items: any): void {
-    this.state.get(key).items = [...items];
+  public setItems(group: string, items: any): void {
+    this.state.get(group).items = [...items];
   }
 
-  public getItems(key: string): any[] {
-    return this.state.get(key).items;
+  public getItems(group: string): any[] {
+    return this.state.get(group).items;
   }
 
-  public getSelecteditems(key: string): NgsgDragelement[] {
-    return this.state.get(key).selectedItems;
+  public getSelecteditems(group: string): NgsgDragelement[] {
+    return this.state.get(group).selectedItems;
   }
 
-  public resetSelectedItems(key: string): void {
-    this.state.get(key).selectedItems = [];
+  public getFirstSelectItem(group: string): NgsgDragelement {
+    return this.state.get(group).selectedItems[0];
   }
 
-  public getClasses(key: string): any[] {
-    return this.state.get(key).classes;
+  public hasSelectedItems(group: string): boolean {
+    return this.getSelecteditems(group).length > 0;
+  }
+
+  public resetSelectedItems(group: string): void {
+    this.state.get(group).selectedItems = [];
+  }
+
+  public getClasses(group: string): any[] {
+    return this.state.get(group).classes;
   }
 
 }

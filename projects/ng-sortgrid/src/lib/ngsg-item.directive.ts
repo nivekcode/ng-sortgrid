@@ -15,25 +15,25 @@ export class NgsgItemDirective implements OnInit, AfterViewInit {
 
   @Input()
   private ngSortGridGroup: string = this.DEFAULT_GROUP;
-  private selected: boolean;
+  private selected = false;
 
   @Input() ngSortGridItems;
 
   @Output() sorted = new EventEmitter<any>();
 
-  constructor(public el: ElementRef, public zone: NgZone,
-              private sortService: NgsgSortService, private selectionService: NgsgSelectionService,
-              private reflectService: NgsgReflectService<any>,
-              private classService: NgsgClassService,
-              private ngsgStore: NgsgStoreService) {
+  constructor(public el: ElementRef, private sortService: NgsgSortService,
+              private selectionService: NgsgSelectionService, private reflectService: NgsgReflectService<any>,
+              private classService: NgsgClassService, private ngsgStore: NgsgStoreService) {
   }
 
   ngOnInit(): void {
-    this.ngsgStore.initState(this.ngSortGridGroup, this.ngSortGridItems, {});
-    this.selected = false;
+    // TODO handle classes
     if (!this.ngSortGridItems) {
-      console.error('Ng-sortgrid: No items provided - please use [sortGridItems] to pass in an array of items');
+      console.error(`Ng-sortgrid: No items provided - please use [sortGridItems] to pass in an array of items -
+      otherwhise the ordered items will not be emitted in the (sorted) event`);
     }
+    this.ngsgStore.initState(this.ngSortGridGroup, this.ngSortGridItems, {});
+
   }
 
   ngAfterViewInit(): void {
@@ -42,18 +42,13 @@ export class NgsgItemDirective implements OnInit, AfterViewInit {
 
   @HostListener('dragstart', ['$event'])
   dragStart(event): void {
-    this.selectionService.selectDragItem(this.ngSortGridGroup, event.target);
+    this.selectionService.selectElementIfNoSelection(this.ngSortGridGroup, event.target);
     this.sortService.initSort(this.ngSortGridGroup);
   }
 
   @HostListener('dragenter', ['$event'])
   dragEnter(event): void {
-    // TODO think about adding a custom prop
-    console.log('Group', this.ngSortGridGroup);
-
-    const prop = 'ngsortgridgroup';
-    const elementGroup = this.ngsgStore.getSelecteditems(this.ngSortGridGroup);
-    if (elementGroup.length === 0) {
+    if (!this.ngsgStore.hasSelectedItems(this.ngSortGridGroup)) {
       return;
     }
     this.sortService.sort(event.target);

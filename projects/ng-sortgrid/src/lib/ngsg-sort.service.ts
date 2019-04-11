@@ -19,11 +19,9 @@ export class NgsgSortService {
               private elementsService: NgsgElementsService, private ngsgStore: NgsgStoreService) {
   }
 
-  public initSort(key: string): void {
-    const slectedElements = this.ngsgStore.getSelecteditems(key);
-    console.log('Selected Elements', slectedElements);
-    this.dragIndex = slectedElements[0].originalIndex;
-    this.dragElements = slectedElements;
+  public initSort(group: string): void {
+    this.dragIndex = this.ngsgStore.getFirstSelectItem(group).originalIndex;
+    this.dragElements = this.ngsgStore.getSelecteditems(group);
   }
 
   public sort(dropElement: Element): void {
