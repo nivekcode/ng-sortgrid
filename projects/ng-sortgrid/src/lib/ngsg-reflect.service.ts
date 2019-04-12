@@ -14,39 +14,45 @@ export class NgsgReflectService<T> {
   }
 
   public reflectChanges(key: string, element: Element): T[] {
-    let dropIndex;
-
     const items = this.ngsgStore.getItems(key);
     const selectedElements = this.ngsgStore.getSelecteditems(key);
+    const selectedElementIndices = this.getSelectedElementsIndices(selectedElements);
+    const selectedItems = this.getSelectedItems(items, selectedElementIndices);
+    const sortedIndices = selectedElementIndices.sort();
+    const dropIndex = this.findDropIndex(selectedElements, element);
 
-    if (this.isDropInSelection(selectedElements, element)) {
-      dropIndex = NgsgElementsHelper.findIndex(selectedElements[0].node);
-    } else {
-      dropIndex = NgsgElementsHelper.findIndex(element);
+    while (sortedIndices.length > 0) {
+      items.splice(sortedIndices.pop(), 1);
     }
 
-    const selectedElementIndexes = [...selectedElements].map(
-      (selectedElement: NgsgDragelement) => selectedElement.originalIndex
-    );
+    const result = this.getReflectedItems(items, selectedItems, dropIndex);
+    this.ngsgStore.setItems(key, result);
+    return result;
+  }
 
+  private getReflectedItems(items: any, selectedItems: any, dropIndex: number): any [] {
+    const beforeSelection = items.slice(0, dropIndex);
+    const afterSelection = items.slice(dropIndex, items.length);
+    return [...beforeSelection, ...selectedItems, ...afterSelection];
+  }
+
+  private getSelectedItems(items: any[], selectedElementIndexes: number[]): any[] {
     const selectedItems = [];
-
     selectedElementIndexes.forEach(index => {
       selectedItems.push(items[index]);
     });
+    return selectedItems;
+  }
 
-    const popIndexes = selectedElementIndexes.sort();
+  private getSelectedElementsIndices(selectedElements: NgsgDragelement[]): number[] {
+    return selectedElements.map((selectedElement: NgsgDragelement) => selectedElement.originalIndex);
+  }
 
-    while (popIndexes.length > 0) {
-      items.splice(popIndexes.pop(), 1);
+  private findDropIndex(selectedElements: NgsgDragelement[], element: Element): number {
+    if (this.isDropInSelection(selectedElements, element)) {
+      return NgsgElementsHelper.findIndex(selectedElements[0].node);
     }
-
-    const beforeSelection = items.slice(0, dropIndex);
-    const afterSelection = items.slice(dropIndex, items.length);
-
-    const result = [...beforeSelection, ...selectedItems, ...afterSelection];
-    this.ngsgStore.setItems(key, result);
-    return result;
+    return NgsgElementsHelper.findIndex(element);
   }
 
   private isDropInSelection(collection: NgsgDragelement[], dropElement: Element): boolean {
