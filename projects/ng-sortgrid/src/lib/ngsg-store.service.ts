@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {NgsgDragelement} from './ngsg-dragelement.model';
+import { Injectable } from '@angular/core';
+import { NgsgDragelement } from './ngsg-dragelement.model';
 
 // TODO add interfaces for classes
 export interface NgsgState {
@@ -12,11 +12,10 @@ export interface NgsgState {
   providedIn: 'root'
 })
 export class NgsgStoreService {
-
   private state = new Map<string, NgsgState>();
 
   public initState(group: string, items: any[] = [], classes: any): void {
-    this.state.set(group, {items: [...items], classes, selectedItems: []});
+    this.state.set(group, { items: [...items], classes, selectedItems: [] });
   }
 
   public addSelectedItem(group: string, dragElement: NgsgDragelement): void {
@@ -24,9 +23,7 @@ export class NgsgStoreService {
   }
 
   public removeSelectedItem(group: string, item: Element): void {
-    this.state.get(group).selectedItems.filter(
-      (dragElement: NgsgDragelement) => dragElement.node !== item
-    );
+    this.state.get(group).selectedItems.filter((dragElement: NgsgDragelement) => dragElement.node !== item);
   }
 
   public setItems(group: string, items: any): void {
@@ -56,5 +53,4 @@ export class NgsgStoreService {
   public getClasses(group: string): any[] {
     return this.state.get(group).classes;
   }
-
 }

@@ -1,17 +1,15 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
-import {NgsgStoreService} from './ngsg-store.service';
-import {NgsgSelectionService} from './ngsg-selection.service';
-import {NgsgDragelement} from './ngsg-dragelement.model';
-import {NgsgElementsHelper} from './ngsg-elements.helper';
+import { NgsgStoreService } from './ngsg-store.service';
+import { NgsgSelectionService } from './ngsg-selection.service';
+import { NgsgDragelement } from './ngsg-dragelement.model';
+import { NgsgElementsHelper } from './ngsg-elements.helper';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NgsgReflectService<T> {
-
-  constructor(private selectionService: NgsgSelectionService, private ngsgStore: NgsgStoreService) {
-  }
+  constructor(private selectionService: NgsgSelectionService, private ngsgStore: NgsgStoreService) {}
 
   public reflectChanges(key: string, element: Element): T[] {
     const items = this.ngsgStore.getItems(key);
@@ -30,7 +28,7 @@ export class NgsgReflectService<T> {
     return result;
   }
 
-  private getReflectedItems(items: any, selectedItems: any, dropIndex: number): any [] {
+  private getReflectedItems(items: any, selectedItems: any, dropIndex: number): any[] {
     const beforeSelection = items.slice(0, dropIndex);
     const afterSelection = items.slice(dropIndex, items.length);
     return [...beforeSelection, ...selectedItems, ...afterSelection];

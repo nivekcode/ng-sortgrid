@@ -1,22 +1,24 @@
-import {Injectable} from '@angular/core';
-import {timer} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { timer } from 'rxjs';
 
-import {NgsgStoreService} from './ngsg-store.service';
-import {NgsgSelectionService} from './ngsg-selection.service';
-import {NgsgClassService} from './ngsg-class.service';
-import {NgsgDragelement} from './ngsg-dragelement.model';
-import {NgsgElementsHelper} from './ngsg-elements.helper';
+import { NgsgStoreService } from './ngsg-store.service';
+import { NgsgSelectionService } from './ngsg-selection.service';
+import { NgsgClassService } from './ngsg-class.service';
+import { NgsgDragelement } from './ngsg-dragelement.model';
+import { NgsgElementsHelper } from './ngsg-elements.helper';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NgsgSortService {
-
   private dragIndex: number;
   private dragElements: NgsgDragelement[];
 
-  constructor(private selectionService: NgsgSelectionService, private classService: NgsgClassService, private ngsgStore: NgsgStoreService) {
-  }
+  constructor(
+    private selectionService: NgsgSelectionService,
+    private classService: NgsgClassService,
+    private ngsgStore: NgsgStoreService
+  ) {}
 
   public initSort(group: string): void {
     this.dragIndex = this.ngsgStore.getFirstSelectItem(group).originalIndex;
@@ -45,9 +47,9 @@ export class NgsgSortService {
 
   private getSibling(dropElement: any, dragIndex: number, hoverIndex: number): NgsgDragelement | null {
     if (dragIndex < hoverIndex) {
-      return {node: dropElement.nextSibling, originalIndex: hoverIndex + 1};
+      return { node: dropElement.nextSibling, originalIndex: hoverIndex + 1 };
     }
-    return {node: dropElement, originalIndex: hoverIndex};
+    return { node: dropElement, originalIndex: hoverIndex };
   }
 
   private isDropInSelection(dropElement: NgsgDragelement): boolean {

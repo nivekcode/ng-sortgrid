@@ -1,16 +1,25 @@
-import {AfterViewInit, Directive, ElementRef, EventEmitter, HostListener, Input, NgZone, OnInit, Output} from '@angular/core';
+import {
+  AfterViewInit,
+  Directive,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Input,
+  NgZone,
+  OnInit,
+  Output
+} from '@angular/core';
 
-import {NgsgReflectService} from './ngsg-reflect.service';
-import {NgsgStoreService} from './ngsg-store.service';
-import {NgsgSortService} from './ngsg-sort.service';
-import {NgsgSelectionService} from './ngsg-selection.service';
-import {NgsgClassService} from './ngsg-class.service';
+import { NgsgReflectService } from './ngsg-reflect.service';
+import { NgsgStoreService } from './ngsg-store.service';
+import { NgsgSortService } from './ngsg-sort.service';
+import { NgsgSelectionService } from './ngsg-selection.service';
+import { NgsgClassService } from './ngsg-class.service';
 
 @Directive({
   selector: '[ngSortgridItem]'
 })
 export class NgsgItemDirective implements OnInit, AfterViewInit {
-
   private DEFAULT_GROUP = 'defaultGroup';
 
   @Input()
@@ -21,10 +30,14 @@ export class NgsgItemDirective implements OnInit, AfterViewInit {
 
   @Output() sorted = new EventEmitter<any>();
 
-  constructor(public el: ElementRef, private sortService: NgsgSortService,
-              private selectionService: NgsgSelectionService, private reflectService: NgsgReflectService<any>,
-              private classService: NgsgClassService, private ngsgStore: NgsgStoreService) {
-  }
+  constructor(
+    public el: ElementRef,
+    private sortService: NgsgSortService,
+    private selectionService: NgsgSelectionService,
+    private reflectService: NgsgReflectService<any>,
+    private classService: NgsgClassService,
+    private ngsgStore: NgsgStoreService
+  ) {}
 
   ngOnInit(): void {
     // TODO handle classes as input
@@ -33,7 +46,6 @@ export class NgsgItemDirective implements OnInit, AfterViewInit {
       otherwhise the ordered items will not be emitted in the (sorted) event`);
     }
     this.ngsgStore.initState(this.ngSortGridGroup, this.ngSortGridItems, {});
-
   }
 
   ngAfterViewInit(): void {

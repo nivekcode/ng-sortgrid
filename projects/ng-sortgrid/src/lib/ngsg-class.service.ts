@@ -1,10 +1,9 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NgsgClassService {
-
   private SELECTED_DEFAULT_CLASS = 'ng-sg-selected';
   private PLACEHOLDER_DEFAULT_CLASS = 'ng-sg-placeholder';
   private DROPPED_DEFAULT_CLASS = 'ng-sg-dropped';
@@ -41,5 +40,4 @@ export class NgsgClassService {
   public removeActiveClass(element: Element): void {
     element.classList.remove(this.ACTIVE_DEFAULT_CLASS);
   }
-
 }

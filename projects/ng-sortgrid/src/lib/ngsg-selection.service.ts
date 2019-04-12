@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
-import {fromEvent, merge, NEVER, Observable, Subject} from 'rxjs';
-import {filter, mapTo, switchMap} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { fromEvent, merge, NEVER, Observable, Subject } from 'rxjs';
+import { filter, mapTo, switchMap } from 'rxjs/operators';
 
-import {NgsgStoreService} from './ngsg-store.service';
-import {NgsgClassService} from './ngsg-class.service';
-import {NgsgElementsHelper} from './ngsg-elements.helper';
+import { NgsgStoreService } from './ngsg-store.service';
+import { NgsgClassService } from './ngsg-class.service';
+import { NgsgElementsHelper } from './ngsg-elements.helper';
 
 enum ChangeAction {
   ADD,
@@ -21,7 +21,6 @@ interface SelectionChange {
   providedIn: 'root'
 })
 export class NgsgSelectionService {
-
   private COMMAND_KEY = 'Meta';
   private CONTROL_KEY = 'Control';
 
@@ -29,9 +28,9 @@ export class NgsgSelectionService {
 
   constructor(private classService: NgsgClassService, private ngsgStore: NgsgStoreService) {
     const selectionKeyPressed$ = this.selectionKeyPressed();
-    selectionKeyPressed$.pipe(
-      switchMap((pressed) => pressed ? this.selectionChange$ : NEVER)
-    ).subscribe((selectionChange: SelectionChange) => this.handleSelectionChange(selectionChange));
+    selectionKeyPressed$
+      .pipe(switchMap(pressed => (pressed ? this.selectionChange$ : NEVER)))
+      .subscribe((selectionChange: SelectionChange) => this.handleSelectionChange(selectionChange));
   }
 
   private handleSelectionChange(selectionChange: SelectionChange): void {
@@ -51,7 +50,10 @@ export class NgsgSelectionService {
 
   private selectionKeyPressed(): Observable<boolean> {
     const selectionKeyPressed = fromEvent(window, 'keydown').pipe(
-      filter((keyboardEvent: KeyboardEvent) => keyboardEvent.key === this.COMMAND_KEY || keyboardEvent.key === this.CONTROL_KEY),
+      filter(
+        (keyboardEvent: KeyboardEvent) =>
+          keyboardEvent.key === this.COMMAND_KEY || keyboardEvent.key === this.CONTROL_KEY
+      ),
       mapTo(true)
     );
     const keyup = fromEvent(window, 'keyup').pipe(mapTo(false));
@@ -70,7 +72,9 @@ export class NgsgSelectionService {
 
   public updateSelectedDragItem(key: string, item: Element, selected: boolean): void {
     this.selectionChange$.next({
-      key, item, action: selected ? ChangeAction.ADD : ChangeAction.REMOVE
+      key,
+      item,
+      action: selected ? ChangeAction.ADD : ChangeAction.REMOVE
     });
   }
 }
