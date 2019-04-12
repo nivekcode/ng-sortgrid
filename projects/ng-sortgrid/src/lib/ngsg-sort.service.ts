@@ -4,8 +4,8 @@ import {timer} from 'rxjs';
 import {NgsgStoreService} from './ngsg-store.service';
 import {NgsgSelectionService} from './ngsg-selection.service';
 import {NgsgClassService} from './ngsg-class.service';
-import {NgsgElementsService} from './ngsg-elements.service';
 import {NgsgDragelement} from './ngsg-dragelement.model';
+import {NgsgElementsHelper} from './ngsg-elements.helper';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +15,7 @@ export class NgsgSortService {
   private dragIndex: number;
   private dragElements: NgsgDragelement[];
 
-  constructor(private selectionService: NgsgSelectionService, private classService: NgsgClassService,
-              private elementsService: NgsgElementsService, private ngsgStore: NgsgStoreService) {
+  constructor(private selectionService: NgsgSelectionService, private classService: NgsgClassService, private ngsgStore: NgsgStoreService) {
   }
 
   public initSort(group: string): void {
@@ -28,11 +27,10 @@ export class NgsgSortService {
     const parent = dropElement.parentNode;
     const allElements = Array.from(parent.children);
 
-    const hoverIndex = this.indexOf(allElements, dropElement);
+    const hoverIndex = NgsgElementsHelper.findIndex(dropElement);
     if (hoverIndex === this.dragIndex) {
       return;
     }
-
     const el = this.getReferenceElement(allElements, this.dragIndex, hoverIndex);
     if (this.isDropInSelection(el)) {
       return;

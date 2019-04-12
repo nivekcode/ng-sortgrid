@@ -2,16 +2,15 @@ import {Injectable} from '@angular/core';
 
 import {NgsgStoreService} from './ngsg-store.service';
 import {NgsgSelectionService} from './ngsg-selection.service';
-import {NgsgElementsService} from './ngsg-elements.service';
 import {NgsgDragelement} from './ngsg-dragelement.model';
+import {NgsgElementsHelper} from './ngsg-elements.helper';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NgsgReflectService<T> {
 
-  constructor(private selectionService: NgsgSelectionService, private elmentsService: NgsgElementsService,
-              private ngsgStore: NgsgStoreService) {
+  constructor(private selectionService: NgsgSelectionService, private ngsgStore: NgsgStoreService) {
   }
 
   public reflectChanges(key: string, element: Element): T[] {
@@ -21,9 +20,9 @@ export class NgsgReflectService<T> {
     const selectedElements = this.ngsgStore.getSelecteditems(key);
 
     if (this.isDropInSelection(selectedElements, element)) {
-      dropIndex = this.elmentsService.findIndex(selectedElements[0].node);
+      dropIndex = NgsgElementsHelper.findIndex(selectedElements[0].node);
     } else {
-      dropIndex = this.elmentsService.findIndex(element);
+      dropIndex = NgsgElementsHelper.findIndex(element);
     }
 
     const selectedElementIndexes = [...selectedElements].map(

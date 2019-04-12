@@ -4,7 +4,7 @@ import {filter, mapTo, switchMap} from 'rxjs/operators';
 
 import {NgsgStoreService} from './ngsg-store.service';
 import {NgsgClassService} from './ngsg-class.service';
-import {NgsgElementsService} from './ngsg-elements.service';
+import {NgsgElementsHelper} from './ngsg-elements.helper';
 
 enum ChangeAction {
   ADD,
@@ -27,7 +27,7 @@ export class NgsgSelectionService {
 
   private selectionChange$ = new Subject<SelectionChange>();
 
-  constructor(private classService: NgsgClassService, private elementsService: NgsgElementsService, private ngsgStore: NgsgStoreService) {
+  constructor(private classService: NgsgClassService, private ngsgStore: NgsgStoreService) {
     const selectionKeyPressed$ = this.selectionKeyPressed();
     selectionKeyPressed$.pipe(
       switchMap((pressed) => pressed ? this.selectionChange$ : NEVER)
@@ -40,7 +40,7 @@ export class NgsgSelectionService {
       // TODO pass selectionChangein
       this.ngsgStore.addSelectedItem(selectionChange.key, {
         node: selectionChange.item,
-        originalIndex: this.elementsService.findIndex(selectionChange.item)
+        originalIndex: NgsgElementsHelper.findIndex(selectionChange.item)
       });
     }
     if (selectionChange.action === ChangeAction.REMOVE) {
@@ -64,7 +64,7 @@ export class NgsgSelectionService {
     }
     this.ngsgStore.addSelectedItem(group, {
       node: dragedElement,
-      originalIndex: this.elementsService.findIndex(dragedElement)
+      originalIndex: NgsgElementsHelper.findIndex(dragedElement)
     });
   }
 
