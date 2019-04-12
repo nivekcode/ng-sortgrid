@@ -24,22 +24,17 @@ export class NgsgSortService {
   }
 
   public sort(dropElement: Element): void {
-    const parent = dropElement.parentNode;
-    const allElements = Array.from(parent.children);
-
     const hoverIndex = NgsgElementsHelper.findIndex(dropElement);
-    if (hoverIndex === this.dragIndex) {
-      return;
-    }
-    const el = this.getReferenceElement(allElements, this.dragIndex, hoverIndex);
+    const el = this.getSibling(dropElement, this.dragIndex, hoverIndex);
+
     if (this.isDropInSelection(el)) {
       return;
     }
     this.dragElements.forEach((dragElement: NgsgDragelement) => {
-      const insertedNode = parent.insertBefore(dragElement.node, el.node);
+      const insertedNode = dropElement.parentNode.insertBefore(dragElement.node, el.node);
       this.classService.addPlaceHolderClass(insertedNode as Element);
     });
-    this.dragIndex = this.indexOf(allElements, this.dragElements[0].node);
+    this.dragIndex = NgsgElementsHelper.findIndex(this.dragElements[0].node);
   }
 
   public endSort(dropElement: Element): void {
@@ -50,20 +45,11 @@ export class NgsgSortService {
     });
   }
 
-  private getReferenceElement(collection, dragIndex: number, hoverIndex: number): NgsgDragelement | null {
-    const dropElement = collection[hoverIndex];
-
+  private getSibling(dropElement: any, dragIndex: number, hoverIndex: number): NgsgDragelement | null {
     if (dragIndex < hoverIndex) {
-      return {
-        node: dropElement.nextSibling,
-        originalIndex: hoverIndex + 1
-      };
-    } else {
-      return {
-        node: dropElement,
-        originalIndex: hoverIndex
-      };
+      return {node: dropElement.nextSibling, originalIndex: hoverIndex + 1};
     }
+    return {node: dropElement, originalIndex: hoverIndex};
   }
 
   private isDropInSelection(dropElement: NgsgDragelement): boolean {
