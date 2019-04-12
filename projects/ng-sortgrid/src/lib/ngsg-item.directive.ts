@@ -27,7 +27,7 @@ export class NgsgItemDirective implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    // TODO handle classes
+    // TODO handle classes as input
     if (!this.ngSortGridItems) {
       console.error(`Ng-sortgrid: No items provided - please use [sortGridItems] to pass in an array of items -
       otherwhise the ordered items will not be emitted in the (sorted) event`);
