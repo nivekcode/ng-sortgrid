@@ -37,9 +37,7 @@ export class NgsgSortService {
     this.dragIndex = NgsgElementsHelper.findIndex(this.dragElements[0].node);
   }
 
-  public endSort(dropElement: Element): void {
-    const parent = dropElement.parentNode;
-    const dropIndex = this.indexOf(parent.children, dropElement);
+  public endSort(): void {
     this.dragElements.forEach((dragElement: NgsgDragelement) => {
       this.updateDropedItem(dragElement.node);
     });
@@ -54,10 +52,6 @@ export class NgsgSortService {
 
   private isDropInSelection(dropElement: NgsgDragelement): boolean {
     return !!this.dragElements.find((dragElment: NgsgDragelement) => dragElment.node === dropElement.node);
-  }
-
-  private indexOf(collection, node: Node): number {
-    return Array.prototype.indexOf.call(collection, node);
   }
 
   private updateDropedItem(item: Element): void {

@@ -57,28 +57,26 @@ export class NgsgItemDirective implements OnInit, AfterViewInit {
   @HostListener('dragover', ['$event'])
   dragOver(event): boolean {
     if (event.preventDefault) {
-      event.preventDefault(); // Necessary. Allows us to drop.
+      // Necessary. Allows us to drop.
+      event.preventDefault();
     }
     return false;
   }
 
   @HostListener('drop', ['$event'])
-  drop(): void {
-    const elementGroup = this.ngsgStore.getSelecteditems(this.ngSortGridGroup);
-    if (elementGroup.length === 0) {
+  drop(event): void {
+    if (!this.ngsgStore.hasSelectedItems(this.ngSortGridGroup)) {
       return;
     }
-    const element = event.target as Element;
-    this.sortService.endSort(element);
-    const reflectedChanges = this.reflectService.reflectChanges(this.ngSortGridGroup, element);
+    this.sortService.endSort();
+    const reflectedChanges = this.reflectService.reflectChanges(this.ngSortGridGroup, event.target);
     this.sorted.next(reflectedChanges);
     this.ngsgStore.resetSelectedItems(this.ngSortGridGroup);
   }
 
   @HostListener('click', ['$event'])
   clicked(event): void {
-    const element = event.target;
     this.selected = !this.selected;
-    this.selectionService.updateSelectedDragItem(this.ngSortGridGroup, element, this.selected);
+    this.selectionService.updateSelectedDragItem(this.ngSortGridGroup, event.target, this.selected);
   }
 }
