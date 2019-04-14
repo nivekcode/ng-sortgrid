@@ -59,7 +59,8 @@
             ],
             "styles": [
               "projects/ng-sortgrid-demo/src/styles.css",
-              "projects/ng-sortgrid/src/lib/ngsg.css"
+              "projects/ng-sortgrid/src/lib/ngsg.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.css"
             ],
             "scripts": [],
             "es5BrowserSupport": true

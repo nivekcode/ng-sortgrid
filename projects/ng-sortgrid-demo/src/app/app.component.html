@@ -29,7 +29,18 @@
 <ngsg-demo-header></ngsg-demo-header>
 
 <div class="container">
+  <h1>1. Getting started</h1>
+  <ngsg-demo-step title="Loop over your elements with *ngFor. 🛎️ the items needs to be an array." image="gs1.png"></ngsg-demo-step>
+  <ngsg-demo-step title="Apply the ngSortgridItem directive" image="gs2.png"></ngsg-demo-step>
   <ngsg-demo-memory></ngsg-demo-memory>
+
+  <hr class="chaptor-separator"/>
+
+  <h1>2. React on changes</h1>
+  <p>In most cases you are interested in the new sort order. Often you want to store them in local storage or even send them
+  to the backend. To do so the following two steps are needed in addition to the "Getting started" step.</p>
+  <ngsg-demo-step title="Pass your items to the directive via the ngSortGridItems input." image="gs3.png"></ngsg-demo-step>
+  <ngsg-demo-step title="React on the 'sorted' output eventgs4.png" image="gs4.png"></ngsg-demo-step>
 </div>
 
 <footer class="py-5 bg-dark">

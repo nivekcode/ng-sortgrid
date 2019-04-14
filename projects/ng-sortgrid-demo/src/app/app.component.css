@@ -1,3 +1,13 @@
 .container {
   padding-bottom: 20px;
 }
+
+.chaptor-separator {
+  margin-top: 50px;
+  margin-bottom: 30px;
+  border: none;
+  height: 2px;
+  /* Set the hr color */
+  color: #333; /* old IE */
+  background-color: #333; /* Modern Browsers */
+}
