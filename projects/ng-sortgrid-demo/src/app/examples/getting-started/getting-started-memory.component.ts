@@ -3,7 +3,7 @@ import {Component} from '@angular/core';
 @Component({
   selector: 'ngsg-demo-memory',
   templateUrl: 'getting-started-memory.component.html',
-  styleUrls: ['getting-started-memory.component.css']
+  styleUrls: ['../memory-demo.css']
 })
 export class GettingStartedMemoryComponent {
 
