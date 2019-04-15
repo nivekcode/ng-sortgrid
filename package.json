@@ -6,7 +6,10 @@
     "start": "ng serve",
     "format:check": "prettier --list-different 'projects/**/*.ts'",
     "format:write": "prettier --write 'projects/**/*.ts'",
-    "build": "ng build",
+    "build": "npm run build:lib && npm run build:demo",
+    "build:lib": "ng build ng-sortgrid",
+    "build:demo": "ng build ng-sortgrid-demo --base-href='https://kreuzerk.github.io/ng-sortgrid/'",
+    "deploy:demo": "npm run build:demo -- --base-href='https://kreuzerk.github.io/ng-sortgrid/' && npx angular-cli-ghpages --dir=dist/ng-sortgrid-demo",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
