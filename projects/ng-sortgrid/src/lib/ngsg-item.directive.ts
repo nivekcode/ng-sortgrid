@@ -34,7 +34,7 @@ export class NgsgItemDirective implements OnInit, AfterViewInit {
     public el: ElementRef,
     private sortService: NgsgSortService,
     private selectionService: NgsgSelectionService,
-    private reflectService: NgsgReflectService<any>,
+    private reflectService: NgsgReflectService,
     private classService: NgsgClassService,
     private ngsgStore: NgsgStoreService
   ) {}

@@ -34,7 +34,7 @@ export class NgsgStoreService {
     return this.state.get(group).items;
   }
 
-  public getSelecteditems(group: string): NgsgDragelement[] {
+  public getSelectedItems(group: string): NgsgDragelement[] {
     return this.state.get(group).selectedItems;
   }
 
@@ -43,7 +43,7 @@ export class NgsgStoreService {
   }
 
   public hasSelectedItems(group: string): boolean {
-    return this.getSelecteditems(group).length > 0;
+    return this.getSelectedItems(group).length > 0;
   }
 
   public resetSelectedItems(group: string): void {

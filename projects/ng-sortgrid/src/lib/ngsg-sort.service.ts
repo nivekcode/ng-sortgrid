@@ -22,7 +22,7 @@ export class NgsgSortService {
 
   public initSort(group: string): void {
     this.dragIndex = this.ngsgStore.getFirstSelectItem(group).originalIndex;
-    this.dragElements = this.ngsgStore.getSelecteditems(group);
+    this.dragElements = this.ngsgStore.getSelectedItems(group);
   }
 
   public sort(dropElement: Element): void {

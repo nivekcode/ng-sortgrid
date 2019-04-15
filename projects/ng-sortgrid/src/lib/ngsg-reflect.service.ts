@@ -8,12 +8,12 @@ import { NgsgElementsHelper } from './ngsg-elements.helper';
 @Injectable({
   providedIn: 'root'
 })
-export class NgsgReflectService<T> {
-  constructor(private selectionService: NgsgSelectionService, private ngsgStore: NgsgStoreService) {}
+export class NgsgReflectService {
+  constructor(private ngsgStore: NgsgStoreService) {}
 
-  public reflectChanges(key: string, element: Element): T[] {
+  public reflectChanges(key: string, element: Element): any[] {
     const items = this.ngsgStore.getItems(key);
-    const selectedElements = this.ngsgStore.getSelecteditems(key);
+    const selectedElements = this.ngsgStore.getSelectedItems(key);
     const selectedElementIndices = this.getSelectedElementsIndices(selectedElements);
     const selectedItems = this.getSelectedItems(items, selectedElementIndices);
     const sortedIndices = selectedElementIndices.sort();
