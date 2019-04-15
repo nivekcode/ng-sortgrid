@@ -8,6 +8,7 @@ import {HeaderComponent} from './header/header.component';
 import {GettingStartedMemoryComponent} from './examples/getting-started/getting-started-memory.component';
 import {StepComponent} from './examples/step/step.component';
 import {ReactOnChangesMemoryComponent} from './examples/react-on-changes/react-on-changes-memory.component';
+import {GroupsMemoryComponent} from './examples/groups/groups-memory.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import {ReactOnChangesMemoryComponent} from './examples/react-on-changes/react-o
     HeaderComponent,
     GettingStartedMemoryComponent,
     StepComponent,
-    ReactOnChangesMemoryComponent
+    ReactOnChangesMemoryComponent,
+    GroupsMemoryComponent
   ],
   imports: [BrowserModule, NgsgModule],
   providers: [],

@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col">
+    <div class="example-container">
+      <div *ngFor="let item of items"
+           ngSortgridItem
+           ngSortGridGroup="one"
+           [ngSortGridItems]="items"
+           (sorted)="applyOrder($event)"
+           class="example-box">
+        {{ item }}
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="example-container">
+      <div *ngFor="let item of items"
+           ngSortgridItem
+           ngSortGridGroup="two"
+           [ngSortGridItems]="items"
+           (sorted)="applyOrder($event)"
+           class="example-box">
+        {{ item }}
+      </div>
+    </div>
+  </div>
+</div>

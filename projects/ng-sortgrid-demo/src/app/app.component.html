@@ -1,30 +1,3 @@
-<!--
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <a class="navbar-brand" href="#">ng-sortgrid</a>
-</nav>
-
-<div class="example-container">
-  <div *ngFor="let item of items"
-       ngSortgridItem
-       ngSortGridGroup="one"
-       [ngSortGridItems]="items"
-       (sorted)="gridOneSorted($event)"
-       class="example-box">
-    {{ item }}
-  </div>
-</div>
-
-<div class="example-container" style="margin-top: 50px">
-  <div *ngFor="let item of items"
-       ngSortgridItem
-       ngSortGridGroup="two"
-       [ngSortGridItems]="items"
-       (sorted)="gridTwoSorted($event)"
-       class="example-box">
-    {{ item }}
-  </div>
-</div>
--->
 <ngsg-demo-nav></ngsg-demo-nav>
 <ngsg-demo-header></ngsg-demo-header>
 
@@ -42,10 +15,17 @@
   <ngsg-demo-step title="Pass your items to the directive via the ngSortGridItems input." image="gs3.png"></ngsg-demo-step>
   <ngsg-demo-step title="React on the 'sorted' output events" image="gs4.png"></ngsg-demo-step>
   <ngsg-demo-react-on-changes-memory></ngsg-demo-react-on-changes-memory>
+
+  <hr class="chaptor-separator"/>
+  <h1>3. Group sortgrids</h1>
+  <p>In case you have more than one sortgriditem on the page you need to group the sortgriditems to avoid dropping drags from
+  one group in another group.</p>
+  <ngsg-demo-step title="Pass in a unique name to the ngSortGridGroup input" image="gs5.png"></ngsg-demo-step>
+  <ngsg-demo-groups-memory></ngsg-demo-groups-memory>
 </div>
 
 <footer class="py-5 bg-dark">
   <div class="container">
-    <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
+    <p class="m-0 text-center text-white">Made with ♥️ by <a href="https://twitter.com/KevinKreuzer90" target="_blank">Kevin Kreuzer</a></p>
   </div>
 </footer>
