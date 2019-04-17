@@ -15,7 +15,7 @@ jobs:
   - stage: test
     script:
     - npm run test:lib:coverage
-    - npm run report:coverage:lib
+    - npm run report-coverage:lib
     skip_cleanup: true
   - stage: build
     script:
@@ -27,7 +27,5 @@ jobs:
       provider: script
       skip_cleanup: true
       script:
-      - npm run deploy:demo
-      - cd dist/ng-sortgrid
-      - npm run publish:lib
+      - npm run publish
     if: branch = master
