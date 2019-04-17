@@ -1,0 +1,33 @@
+dist: trusty
+sudo: required
+language: node_js
+node_js:
+- "8"
+
+os:
+- linux
+
+jobs:
+  include:
+  - stage: install
+    script: npm install
+    skip_cleanup: true
+  - stage: test
+    script:
+    - npm run test:lib:coverage
+    - npm run report:coverage:lib
+    skip_cleanup: true
+  - stage: build
+    script:
+    - npm run build:lib
+    - npm run build:demo
+  - stage: release
+    node_js: lts/*
+    deploy:
+      provider: script
+      skip_cleanup: true
+      script:
+      - npm run deploy:demo
+      - cd dist/ng-sortgrid
+      - npm run publish:lib
+    if: branch = master
