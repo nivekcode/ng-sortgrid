@@ -36,7 +36,6 @@ export class NgsgSelectionService {
   private handleSelectionChange(selectionChange: SelectionChange): void {
     if (selectionChange.action === ChangeAction.ADD) {
       this.classService.addSelectedClass(selectionChange.item);
-      // TODO pass selectionChangein
       this.ngsgStore.addSelectedItem(selectionChange.key, {
         node: selectionChange.item,
         originalIndex: NgsgElementsHelper.findIndex(selectionChange.item)
