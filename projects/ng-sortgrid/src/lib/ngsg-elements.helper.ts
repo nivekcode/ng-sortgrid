@@ -3,4 +3,12 @@ export class NgsgElementsHelper {
     const allElements = element.parentNode.children;
     return Array.prototype.indexOf.call(allElements, element);
   }
+
+  public static findHost(element: Element, selector: string): Element {
+    const parentElement = element.parentElement;
+    if (parentElement.matches(selector)) {
+      return parentElement;
+    }
+    this.findHost(parentElement, selector);
+  }
 }

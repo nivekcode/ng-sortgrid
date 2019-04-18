@@ -10,15 +10,16 @@ import {
   Output
 } from '@angular/core';
 
-import { NgsgReflectService } from './ngsg-reflect.service';
-import { NgsgStoreService } from './ngsg-store.service';
-import { NgsgSortService } from './ngsg-sort.service';
-import { NgsgSelectionService } from './ngsg-selection.service';
-import { NgsgClassService } from './ngsg-class.service';
+import {NgsgReflectService} from './ngsg-reflect.service';
+import {NgsgStoreService} from './ngsg-store.service';
+import {NgsgSortService} from './ngsg-sort.service';
+import {NgsgSelectionService} from './ngsg-selection.service';
+import {NgsgClassService} from './ngsg-class.service';
+import {NgsgElementsHelper} from './ngsg-elements.helper';
 
-@Directive({
-  selector: '[ngSortgridItem]'
-})
+const selector = '[ngSortgridItem]';
+
+@Directive({selector})
 export class NgsgItemDirective implements OnInit, AfterViewInit {
   private DEFAULT_GROUP = 'defaultGroup';
 
@@ -37,7 +38,8 @@ export class NgsgItemDirective implements OnInit, AfterViewInit {
     private reflectService: NgsgReflectService,
     private classService: NgsgClassService,
     private ngsgStore: NgsgStoreService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     // TODO handle classes as input
@@ -54,13 +56,16 @@ export class NgsgItemDirective implements OnInit, AfterViewInit {
 
   @HostListener('dragstart', ['$event'])
   dragStart(event): void {
+    if (!this.occuredOnHost(event)) {
+      return;
+    }
     this.selectionService.selectElementIfNoSelection(this.ngSortGridGroup, event.target);
     this.sortService.initSort(this.ngSortGridGroup);
   }
 
   @HostListener('dragenter', ['$event'])
   dragEnter(event): void {
-    if (!this.ngsgStore.hasSelectedItems(this.ngSortGridGroup)) {
+    if (!this.ngsgStore.hasSelectedItems(this.ngSortGridGroup) || !this.occuredOnHost(event)) {
       return;
     }
     this.sortService.sort(event.target);
@@ -88,7 +93,12 @@ export class NgsgItemDirective implements OnInit, AfterViewInit {
 
   @HostListener('click', ['$event'])
   clicked(event): void {
+    const element = !this.occuredOnHost(event) ? NgsgElementsHelper.findHost(event.target, selector) : event.target;
     this.selected = !this.selected;
-    this.selectionService.updateSelectedDragItem(this.ngSortGridGroup, event.target, this.selected);
+    this.selectionService.updateSelectedDragItem(this.ngSortGridGroup, element, this.selected);
+  }
+
+  private occuredOnHost(event): boolean {
+    return event.target.matches(selector);
   }
 }
