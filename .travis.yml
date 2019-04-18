@@ -32,7 +32,6 @@ jobs:
     - npm run build:lib
     - npm run build:demo
   - stage: release
-    node_js: lts/*
     deploy:
       provider: script
       skip_cleanup: true
