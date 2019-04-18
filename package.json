@@ -10,7 +10,7 @@
     "test:coverage": "ng test --code-coverage --watch=false",
     "test:lib": "",
     "test:lib:coverage": "ng test ng-sortgrid --code-coverage --watch=false",
-    "report-coverage:lib": "cd dist/ng-sortgrid ",
+    "report-coverage:lib": "cat ./coverage/ng-sortgrid/lcov.info | codecov",
     "build": "npm run build:lib && npm run build:demo",
     "build:lib": "ng build ng-sortgrid",
     "build:demo": "ng build ng-sortgrid-demo --base-href='https://kreuzerk.github.io/ng-sortgrid/'",
