@@ -35,4 +35,5 @@ jobs:
   - stage: release
     script:
     - npm run publish
+    skip_cleanup: true
     if: branch = master
