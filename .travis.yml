@@ -31,10 +31,8 @@ jobs:
     script:
     - npm run build:lib
     - npm run build:demo
+    skip_cleanup: true
   - stage: release
-    deploy:
-      provider: script
-      skip_cleanup: true
-      script:
-      - npm run publish
+    script:
+    - npm run publish
     if: branch = master
