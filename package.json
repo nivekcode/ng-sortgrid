@@ -15,7 +15,7 @@
     "build:lib": "ng build ng-sortgrid",
     "build:demo": "ng build ng-sortgrid-demo --base-href='https://kreuzerk.github.io/ng-sortgrid/'",
     "publish": "npm run publish:demo && npm run publish:lib",
-    "publish:demo": "npm run angular-cli-ghpages --dir=dist/ng-sortgrid-demo",
+    "publish:demo": "npx angular-cli-ghpages --dir=dist/ng-sortgrid-demo",
     "publish:lib": "cd dist/ng-sortgrid && npm run semantic-release",
     "lint": "ng lint",
     "e2e": "ng e2e",
