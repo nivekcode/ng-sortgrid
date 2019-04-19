@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { NgsgDragelement } from './ngsg-dragelement.model';
+import {Injectable} from '@angular/core';
+import {NgsgDragelement} from './ngsg-dragelement.model';
 
 // TODO add interfaces for classes
 export interface NgsgState {
@@ -15,7 +15,7 @@ export class NgsgStoreService {
   private state = new Map<string, NgsgState>();
 
   public initState(group: string, items: any[] = [], classes: any): void {
-    this.state.set(group, { items: [...items], classes, selectedItems: [] });
+    this.state.set(group, {items: [...items], classes, selectedItems: []});
   }
 
   public addSelectedItem(group: string, dragElement: NgsgDragelement): void {
@@ -23,7 +23,9 @@ export class NgsgStoreService {
   }
 
   public removeSelectedItem(group: string, item: Element): void {
-    this.state.get(group).selectedItems.filter((dragElement: NgsgDragelement) => dragElement.node !== item);
+    const updatedItems = this.state.get(group).selectedItems
+      .filter((dragElement: NgsgDragelement) => dragElement.node !== item);
+    this.setSelectedItems(group, updatedItems);
   }
 
   public setItems(group: string, items: any): void {
@@ -38,6 +40,10 @@ export class NgsgStoreService {
     return this.state.get(group).selectedItems;
   }
 
+  public setSelectedItems(group: string, selectedItems: any[]): void {
+    this.state.get(group).selectedItems = [...selectedItems];
+  }
+
   public getFirstSelectItem(group: string): NgsgDragelement {
     return this.state.get(group).selectedItems[0];
   }
@@ -47,7 +53,7 @@ export class NgsgStoreService {
   }
 
   public resetSelectedItems(group: string): void {
-    this.state.get(group).selectedItems = [];
+    this.setSelectedItems(group, []);
   }
 
   public getClasses(group: string): any[] {

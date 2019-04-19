@@ -9,6 +9,6 @@ export class NgsgElementsHelper {
     if (parentElement.matches(selector)) {
       return parentElement;
     }
-    this.findHost(parentElement, selector);
+    return this.findHost(parentElement, selector);
   }
 }

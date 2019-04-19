@@ -24,12 +24,11 @@ const selector = '[ngSortgridItem]';
 
 @Directive({selector})
 export class NgsgItemDirective implements OnInit, AfterViewInit, OnDestroy {
-  @Input() private ngSortGridGroup: string = this.DEFAULT_GROUP;
+  @Input() private ngSortGridGroup = 'defaultGroup';
   @Input() ngSortGridItems;
 
   @Output() sorted = new EventEmitter<any>();
 
-  private DEFAULT_GROUP = 'defaultGroup';
   private selected = false;
   private destroy$ = new Subject();
 
