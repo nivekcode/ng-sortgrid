@@ -26,11 +26,12 @@ jobs:
     script:
     - npm run test:lib:coverage
     - npm run report-coverage:lib
-    skip_cleanup: true
-  - stage: build & deploy
+  - stage: build & publish showcase
+    script:
+    - npm run build:demo
+    - npm run publish:demo
+  - stage: build & publish lib
     script:
     - npm run build:lib
-    - npm run build:demo
-    - npm run publish
-    skip_cleanup: true
+    - npm run publish:lib
     if: branch = master
