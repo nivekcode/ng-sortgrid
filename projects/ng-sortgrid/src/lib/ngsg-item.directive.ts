@@ -5,7 +5,7 @@ import {
   EventEmitter,
   HostListener,
   Input,
-  NgZone,
+  NgZone, OnDestroy,
   OnInit,
   Output
 } from '@angular/core';
@@ -16,20 +16,22 @@ import {NgsgSortService} from './ngsg-sort.service';
 import {NgsgSelectionService} from './ngsg-selection.service';
 import {NgsgClassService} from './ngsg-class.service';
 import {NgsgElementsHelper} from './ngsg-elements.helper';
+import {NgsgEventsService} from './ngsg-events.service';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 
 const selector = '[ngSortgridItem]';
 
 @Directive({selector})
-export class NgsgItemDirective implements OnInit, AfterViewInit {
-  private DEFAULT_GROUP = 'defaultGroup';
-
-  @Input()
-  private ngSortGridGroup: string = this.DEFAULT_GROUP;
-  private selected = false;
-
+export class NgsgItemDirective implements OnInit, AfterViewInit, OnDestroy {
+  @Input() private ngSortGridGroup: string = this.DEFAULT_GROUP;
   @Input() ngSortGridItems;
 
   @Output() sorted = new EventEmitter<any>();
+
+  private DEFAULT_GROUP = 'defaultGroup';
+  private selected = false;
+  private destroy$ = new Subject();
 
   constructor(
     public el: ElementRef,
@@ -37,21 +39,29 @@ export class NgsgItemDirective implements OnInit, AfterViewInit {
     private selectionService: NgsgSelectionService,
     private reflectService: NgsgReflectService,
     private classService: NgsgClassService,
-    private ngsgStore: NgsgStoreService
+    private ngsgStore: NgsgStoreService,
+    private ngsgEventService: NgsgEventsService
   ) {
   }
 
   ngOnInit(): void {
-    // TODO handle classes as input
     if (!this.ngSortGridItems) {
       console.error(`Ng-sortgrid: No items provided - please use [sortGridItems] to pass in an array of items -
       otherwhise the ordered items will not be emitted in the (sorted) event`);
     }
     this.ngsgStore.initState(this.ngSortGridGroup, this.ngSortGridItems, {});
+    this.ngsgEventService.dropped$.pipe(
+      takeUntil(this.destroy$)
+    ).subscribe(() => this.selected = false);
   }
 
   ngAfterViewInit(): void {
     this.el.nativeElement.draggable = true;
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   @HostListener('dragstart', ['$event'])
@@ -89,6 +99,7 @@ export class NgsgItemDirective implements OnInit, AfterViewInit {
     const reflectedChanges = this.reflectService.reflectChanges(this.ngSortGridGroup, event.target);
     this.sorted.next(reflectedChanges);
     this.ngsgStore.resetSelectedItems(this.ngSortGridGroup);
+    this.ngsgEventService.dropped$.next();
   }
 
   @HostListener('click', ['$event'])
