@@ -1,6 +1,10 @@
-<h5 style="margin-bottom: 20px">3. Drag the items around - hold CMD or Control and click on an item to select multiple files</h5>
+<h5 style="margin-bottom: 20px">3. Drag the items around - hold CMD or Control and click on an item to select multiple
+  files</h5>
 <div class="example-container">
-  <div *ngFor="let item of items" ngSortgridItem [ngSortGridItems]="items" class="example-box">
-    {{ item }}
-  </div>
+  <ngsg-card *ngFor="let item of items"
+             ngSortgridItem
+             [ngSortGridItems]="items"
+             [item]="item"
+             class="example-box">
+  </ngsg-card>
 </div>

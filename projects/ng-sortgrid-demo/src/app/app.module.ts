@@ -9,6 +9,7 @@ import {GettingStartedMemoryComponent} from './examples/getting-started/getting-
 import {StepComponent} from './examples/step/step.component';
 import {ReactOnChangesMemoryComponent} from './examples/react-on-changes/react-on-changes-memory.component';
 import {GroupsMemoryComponent} from './examples/groups/groups-memory.component';
+import {CardComponent} from './examples/card/card.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import {GroupsMemoryComponent} from './examples/groups/groups-memory.component';
     GettingStartedMemoryComponent,
     StepComponent,
     ReactOnChangesMemoryComponent,
-    GroupsMemoryComponent
+    GroupsMemoryComponent,
+    CardComponent
   ],
   imports: [BrowserModule, NgsgModule],
   providers: [],

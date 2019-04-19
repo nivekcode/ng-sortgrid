@@ -5,11 +5,12 @@
   </div>
 </div>
 <div class="example-container">
-  <div *ngFor="let item of items"
+  <ngsg-card *ngFor="let item of items"
        ngSortgridItem
+       [item]="item"
        [ngSortGridItems]="items"
        (sorted)="applyOrder($event)"
        class="example-box">
     {{ item }}
-  </div>
+  </ngsg-card>
 </div>
