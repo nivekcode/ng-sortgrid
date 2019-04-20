@@ -19,6 +19,7 @@
     "publish:lib": "cd dist/ng-sortgrid && npm run semantic-release",
     "lint": "ng lint",
     "e2e": "ng e2e",
+    "angular-cli-ghpages": "angular-cli-ghpages",
     "semantic-release": "semantic-release"
   },
   "private": true,
