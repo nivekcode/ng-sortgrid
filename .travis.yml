@@ -34,8 +34,7 @@ jobs:
       skip_cleanup: true
       github_token: $GH_TOKEN
       local_dir: dist/ng-sortgrid-demo
-     on:
-      branch: master
+    if: branch = master
   - stage: build & publish lib
     script:
     - npm run build:lib
