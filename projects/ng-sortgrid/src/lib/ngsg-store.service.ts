@@ -14,7 +14,7 @@ export interface NgsgState {
 export class NgsgStoreService {
   private state = new Map<string, NgsgState>();
 
-  public initState(group: string, items: any[] = [], classes: any): void {
+  public initState(group: string, items: any[] = [], classes: any[] = []): void {
     this.state.set(group, {items: [...items], classes, selectedItems: []});
   }
 
