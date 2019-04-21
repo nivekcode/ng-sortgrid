@@ -8,8 +8,10 @@ import {NgsgElementsHelper} from './ngsg-elements.helper';
 
 describe('NgsgSelectionService', () => {
 
-  const ngsgClassService = createSpyObj<NgsgClassService>('classService', ['addSelectedClass', 'addSelectedClass']);
-  const ngsgStore = createSpyObj<NgsgStoreService>('ngsgStore', ['addSelectedItem', 'hasSelectedItems']);
+  const ngsgClassService = createSpyObj<NgsgClassService>('classService',
+    ['addSelectedClass', 'addSelectedClass', 'removeSelectedClass']);
+  const ngsgStore = createSpyObj<NgsgStoreService>('ngsgStore',
+    ['addSelectedItem', 'hasSelectedItems', 'removeSelectedItem']);
   let sut: NgsgSelectionService;
 
   beforeEach(() => {
@@ -76,6 +78,41 @@ describe('NgsgSelectionService', () => {
         sut.updateSelectedDragItem(group, item, selected);
 
         expect(ngsgStore.addSelectedItem).toHaveBeenCalledWith(group, {node: item, originalIndex: index});
+      });
+
+      it('should remove the selectedItem if the Meta key is pressed and the selected item is clicked', () => {
+
+        const event = new KeyboardEvent('keydown', {
+          key: 'Meta'
+        });
+        const group = 'groupOne';
+        const item = 'Some element' as any;
+        const selected = false;
+        const index = 2;
+        NgsgElementsHelper.findIndex = () => index;
+
+        window.dispatchEvent(event);
+        sut.updateSelectedDragItem(group, item, selected);
+
+        expect(ngsgStore.removeSelectedItem).toHaveBeenCalledWith(group, item);
+      });
+
+      it(`should remove the selected class from the selected item if the Meta key is pressed
+      and the selected item is clicked`, () => {
+
+        const event = new KeyboardEvent('keydown', {
+          key: 'Meta'
+        });
+        const group = 'groupOne';
+        const item = 'Some element' as any;
+        const selected = false;
+        const index = 2;
+        NgsgElementsHelper.findIndex = () => index;
+
+        window.dispatchEvent(event);
+        sut.updateSelectedDragItem(group, item, selected);
+
+        expect(ngsgClassService.removeSelectedClass).toHaveBeenCalledWith(item);
       });
     });
 

@@ -67,4 +67,27 @@ describe('NgsgStoreService', () => {
     expect(sut.getFirstSelectItem(group)).toEqual(firstItem);
   });
 
+  it('should add selected items', () => {
+    const group = 'test-group';
+    const selectedItem = 'Item one' as any;
+    sut.initState(group);
+    sut.addSelectedItem(group, selectedItem);
+
+    expect(sut.getSelectedItems(group) as any).toEqual([selectedItem]);
+  });
+
+  it('should remove the selected item', () => {
+    const group = 'test-group';
+    const itemOne = {node: 'item one'};
+    const itemTwo = {node: 'item two'};
+    const itemThree = {node: 'item three'};
+
+    const selectedItems = [itemOne, itemTwo, itemThree];
+    sut.initState(group);
+    sut.setSelectedItems(group, selectedItems);
+    sut.removeSelectedItem(group, 'item two' as any);
+
+    expect(sut.getSelectedItems(group) as any).toEqual([itemOne, itemThree]);
+  });
+
 });
