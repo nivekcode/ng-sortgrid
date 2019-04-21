@@ -1,4 +1,4 @@
-![Logo](./projects/ng-sortgrid-demo/src/assets/logo.png)
+![Logo](./projects/ng-sortgrid-demo/src/assets/logo-new.png)
 
 ![Grid demo](./projects/ng-sortgrid-demo/src/assets/grid-demo.gif)
 
