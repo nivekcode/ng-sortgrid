@@ -1,27 +1,42 @@
-# NgSortgrid
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.8.
+![Grid demo](./projects/ng-sortgrid-demo/src/assets/grid-demo.gif)
 
-## Development server
+# Getting started
+## Download the module
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+```
+npm i -s ng-sortgrid
+```
 
-## Code scaffolding
+Import the ```NgsgModule``` in your ```AppModule```.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+```
+  ...
+  imports: [BrowserModule, NgsgModule],
+  ...
+```
 
-## Build
+## 1. Apply the directive
+Loop over your elements with *ngFor. 🛎️ the items needs to be an array.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+![Grid demo](./projects/ng-sortgrid-demo/src/assets/gs1.png)
 
-## Running unit tests
+Apply the ngSortgridItem directive
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+![Grid demo](./projects/ng-sortgrid-demo/src/assets/gs2.png)
 
-## Running end-to-end tests
+## 2. React on changes
+In most cases you are interested in the new sort order. Often you want to store them in local storage or even send them to the backend. To do so the following two steps are needed in addition to the "Getting started" step.
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Pass your items to the directive via the ngSortGridItems input.
 
-## Further help
+![Grid demo](./projects/ng-sortgrid-demo/src/assets/gs3.png)
+React on the 'sorted' output events
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+![Grid demo](./projects/ng-sortgrid-demo/src/assets/gs4.png)
+
+## 3. Group sortgrids
+In case you have more than one sortgriditem on the page you need to group the sortgriditems to avoid dropping drags from one group in another group.
+Pass in a unique name to the ngSortGridGroup input
+
+![Grid demo](./projects/ng-sortgrid-demo/src/assets/gs5.png)
