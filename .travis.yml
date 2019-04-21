@@ -29,7 +29,10 @@ jobs:
   - stage: build & publish showcase
     script:
     - npm run build:demo
-    - npm run publish:demo
+    provider: pages
+      skip_cleanup: true
+      github_token: $GH_TOKEN
+      local_dir: dist/ng-sortgrid-demo
   - stage: build & publish lib
     script:
     - npm run build:lib
