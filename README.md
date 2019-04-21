@@ -1,6 +1,6 @@
 [![Travis build badge](https://img.shields.io/travis/kreuzerk/ng-sortgrid.svg)](https://travis-ci.org/kreuzerk/ng-sortgrid)
 [![codecov](https://codecov.io/gh/kreuzerk/ng-sortgrid/branch/master/graph/badge.svg)](https://codecov.io/gh/kreuzerk/ng-sortgrid)
-[![angular7](https://img.shields.io/badge/angular%206%20ready-true-green.svg)]()
+[![angular7](https://img.shields.io/badge/angular%207%20ready-true-green.svg)]()
 
 ![Logo](./projects/ng-sortgrid-demo/src/assets/logo-new.png)
 
