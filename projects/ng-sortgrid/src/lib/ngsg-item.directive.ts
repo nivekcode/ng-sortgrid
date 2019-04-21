@@ -24,7 +24,7 @@ const selector = '[ngSortgridItem]';
 
 @Directive({selector})
 export class NgsgItemDirective implements OnInit, AfterViewInit, OnDestroy {
-  @Input() private ngSortGridGroup = 'defaultGroup';
+  @Input() ngSortGridGroup = 'defaultGroup';
   @Input() ngSortGridItems;
 
   @Output() sorted = new EventEmitter<any>();
@@ -37,7 +37,6 @@ export class NgsgItemDirective implements OnInit, AfterViewInit, OnDestroy {
     private sortService: NgsgSortService,
     private selectionService: NgsgSelectionService,
     private reflectService: NgsgReflectService,
-    private classService: NgsgClassService,
     private ngsgStore: NgsgStoreService,
     private ngsgEventService: NgsgEventsService
   ) {
@@ -45,7 +44,7 @@ export class NgsgItemDirective implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit(): void {
     if (!this.ngSortGridItems) {
-      console.error(`Ng-sortgrid: No items provided - please use [sortGridItems] to pass in an array of items -
+      console.warn(`Ng-sortgrid: No items provided - please use [sortGridItems] to pass in an array of items -
       otherwhise the ordered items will not be emitted in the (sorted) event`);
     }
     this.ngsgStore.initState(this.ngSortGridGroup, this.ngSortGridItems, {});
