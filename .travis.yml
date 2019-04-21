@@ -29,11 +29,12 @@ jobs:
   - stage: build & publish showcase
     script:
     - npm run build:demo
-    provider: pages
+    deploy:
+      provider: pages
       skip_cleanup: true
       github_token: $GH_TOKEN
       local_dir: dist/ng-sortgrid-demo
-    on:
+     on:
       branch: master
   - stage: build & publish lib
     script:
