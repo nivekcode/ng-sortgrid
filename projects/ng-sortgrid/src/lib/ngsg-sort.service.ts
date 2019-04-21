@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { timer } from 'rxjs';
 
 import { NgsgStoreService } from './ngsg-store.service';
-import { NgsgSelectionService } from './ngsg-selection.service';
 import { NgsgClassService } from './ngsg-class.service';
 import { NgsgDragelement } from './ngsg-dragelement.model';
 import { NgsgElementsHelper } from './ngsg-elements.helper';
@@ -15,7 +14,6 @@ export class NgsgSortService {
   private dragElements: NgsgDragelement[];
 
   constructor(
-    private selectionService: NgsgSelectionService,
     private classService: NgsgClassService,
     private ngsgStore: NgsgStoreService
   ) {}
