@@ -2,9 +2,9 @@
 [![codecov](https://codecov.io/gh/kreuzerk/ng-sortgrid/branch/master/graph/badge.svg)](https://codecov.io/gh/kreuzerk/ng-sortgrid)
 [![angular7](https://img.shields.io/badge/angular%207%20ready-true-green.svg)]()
 
-![Logo](./projects/ng-sortgrid-demo/src/assets/logo-new.png)
+![Logo](https://raw.githubusercontent.com/kreuzerk/ng-sortgrid/master/projects/ng-sortgrid-demo/src/assets/logo-new.png)
 
-![Grid demo](./projects/ng-sortgrid-demo/src/assets/grid-demo.gif)
+![Grid demo](https://raw.githubusercontent.com/kreuzerk/ng-sortgrid/master/projects/ng-sortgrid-demo/src/assets/grid-demo.gif)
 
 Read the README or just simply check out our demo at: https://kreuzerk.github.io/ng-sortgrid/ 
 
@@ -31,24 +31,24 @@ Import the ```NgsgModule``` in your ```AppModule```.
 ## Apply the directive
 Loop over your elements with *ngFor. 🛎️ the items needs to be an array.
 
-![Grid demo](./projects/ng-sortgrid-demo/src/assets/gs1.png)
+![Grid demo](https://raw.githubusercontent.com/kreuzerk/ng-sortgrid/master/projects/ng-sortgrid-demo/src/assets/gs1.png)
 
 Apply the ngSortgridItem directive
 
-![Grid demo](./projects/ng-sortgrid-demo/src/assets/gs2.png)
+![Grid demo](https://raw.githubusercontent.com/kreuzerk/ng-sortgrid/master/projects/ng-sortgrid-demo/src/assets/gs2.png)
 
 ## React on changes
 In most cases you are interested in the new sort order. Often you want to store them in local storage or even send them to the backend. To do so the following two steps are needed in addition to the "Getting started" step.
 
 Pass your items to the directive via the ngSortGridItems input.
 
-![Grid demo](./projects/ng-sortgrid-demo/src/assets/gs3.png)
+![Grid demo](https://raw.githubusercontent.com/kreuzerk/ng-sortgrid/master/projects/ng-sortgrid-demo/src/assets/gs3.png)
 React on the 'sorted' output events
 
-![Grid demo](./projects/ng-sortgrid-demo/src/assets/gs4.png)
+![Grid demo](https://raw.githubusercontent.com/kreuzerk/ng-sortgrid/master/projects/ng-sortgrid-demo/src/assets/gs4.png)
 
 ## Group sortgrids
 In case you have more than one sortgriditem on the page you need to group the sortgriditems to avoid dropping drags from one group in another group.
 Pass in a unique name to the ngSortGridGroup input
 
-![Grid demo](./projects/ng-sortgrid-demo/src/assets/gs5.png)
+![Grid demo](https://raw.githubusercontent.com/kreuzerk/ng-sortgrid/master/projects/ng-sortgrid-demo/src/assets/gs5.png)
