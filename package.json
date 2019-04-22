@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "copy:readme": "ncp README.md ./projects/ng-sortgrid",
     "format:check": "prettier --list-different 'projects/**/*.ts'",
     "format:write": "prettier --write 'projects/**/*.ts'",
     "test": "ng test",
@@ -12,7 +13,7 @@
     "test:lib:coverage": "ng test ng-sortgrid --code-coverage --watch=false",
     "report-coverage:lib": "cat ./coverage/ng-sortgrid/lcov.info | codecov",
     "build": "npm run build:lib && npm run build:demo",
-    "build:lib": "ng build ng-sortgrid",
+    "build:lib": "npm run copy:readme && ng build ng-sortgrid",
     "build:demo": "ng build ng-sortgrid-demo --base-href='https://kreuzerk.github.io/ng-sortgrid/'",
     "publish": "npm run publish:lib",
     "publish:demo": "npx angular-cli-ghpages --dir=./dist/ng-sortgrid-demo",
@@ -31,6 +32,7 @@
     "@angular/platform-browser-dynamic": "~7.2.0",
     "@angular/router": "~7.2.0",
     "core-js": "^2.5.4",
+    "ncp": "^2.0.0",
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.26"
