@@ -1,0 +1,21 @@
+{
+  "name": "ng-sortgrid",
+  "version": "1.0.3",
+  "peerDependencies": {
+    "@angular/common": "^7.2.0",
+    "@angular/core": "^7.2.0"
+  },
+  "main": "bundles/ng-sortgrid.umd.js",
+  "module": "fesm5/ng-sortgrid.js",
+  "es2015": "fesm2015/ng-sortgrid.js",
+  "esm5": "esm5/ng-sortgrid.js",
+  "esm2015": "esm2015/ng-sortgrid.js",
+  "fesm5": "fesm5/ng-sortgrid.js",
+  "fesm2015": "fesm2015/ng-sortgrid.js",
+  "typings": "ng-sortgrid.d.ts",
+  "metadata": "ng-sortgrid.metadata.json",
+  "sideEffects": false,
+  "dependencies": {
+    "tslib": "^1.9.0"
+  }
+}
