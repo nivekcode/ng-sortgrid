@@ -95,7 +95,8 @@ export class NgsgItemDirective implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
     this.sortService.endSort();
-    const reflectedChanges = this.reflectService.reflectChanges(this.ngSortGridGroup, event.target);
+    const element = !this.occuredOnHost(event) ? NgsgElementsHelper.findHost(event.target, selector) : event.target;
+    const reflectedChanges = this.reflectService.reflectChanges(this.ngSortGridGroup, element);
     this.sorted.next(reflectedChanges);
     this.ngsgStore.resetSelectedItems(this.ngSortGridGroup);
     this.ngsgEventService.dropped$.next();
