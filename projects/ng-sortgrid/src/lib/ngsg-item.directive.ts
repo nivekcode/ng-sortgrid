@@ -73,10 +73,11 @@ export class NgsgItemDirective implements OnInit, AfterViewInit, OnDestroy {
 
   @HostListener('dragenter', ['$event'])
   dragEnter(event): void {
-    if (!this.ngsgStore.hasSelectedItems(this.ngSortGridGroup) || !this.occuredOnHost(event)) {
+    if (!this.ngsgStore.hasSelectedItems(this.ngSortGridGroup)) {
       return;
     }
-    this.sortService.sort(event.target);
+    const element = !this.occuredOnHost(event) ? NgsgElementsHelper.findHost(event.target, selector) : event.target;
+    this.sortService.sort(element);
   }
 
   @HostListener('dragover', ['$event'])
