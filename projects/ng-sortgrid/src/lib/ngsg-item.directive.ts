@@ -5,9 +5,9 @@ import {
   EventEmitter,
   HostListener,
   Input,
-  NgZone, OnDestroy,
+  NgZone, OnChanges, OnDestroy,
   OnInit,
-  Output
+  Output, SimpleChanges
 } from '@angular/core';
 
 import {NgsgReflectService} from './ngsg-reflect.service';
@@ -19,11 +19,12 @@ import {NgsgElementsHelper} from './ngsg-elements.helper';
 import {NgsgEventsService} from './ngsg-events.service';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
+import {group} from '@angular/animations';
 
 const selector = '[ngSortgridItem]';
 
 @Directive({selector})
-export class NgsgItemDirective implements OnInit, AfterViewInit, OnDestroy {
+export class NgsgItemDirective implements OnInit, OnChanges, AfterViewInit, OnDestroy {
   @Input() ngSortGridGroup = 'defaultGroup';
   @Input() ngSortGridItems;
 
@@ -43,14 +44,20 @@ export class NgsgItemDirective implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    if (!this.ngSortGridItems) {
-      console.warn(`Ng-sortgrid: No items provided - please use [sortGridItems] to pass in an array of items -
-      otherwhise the ordered items will not be emitted in the (sorted) event`);
-    }
-    this.ngsgStore.initState(this.ngSortGridGroup, this.ngSortGridItems, {});
     this.ngsgEventService.dropped$.pipe(
       takeUntil(this.destroy$)
     ).subscribe(() => this.selected = false);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    const sortGridItemChanges = changes.ngSortGridItems;
+    const sortGridItems = sortGridItemChanges.currentValue ? sortGridItemChanges.currentValue : [];
+
+    if (!this.ngsgStore.hasGroup(this.ngSortGridGroup)) {
+      this.ngsgStore.initState(this.ngSortGridGroup, sortGridItems);
+      return;
+    }
+    this.ngsgStore.setItems(this.ngSortGridGroup, sortGridItems);
   }
 
   ngAfterViewInit(): void {
@@ -94,6 +101,13 @@ export class NgsgItemDirective implements OnInit, AfterViewInit, OnDestroy {
     if (!this.ngsgStore.hasSelectedItems(this.ngSortGridGroup)) {
       return;
     }
+
+    if (!this.ngsgStore.hasItems(this.ngSortGridGroup)) {
+      console.warn(`Ng-sortgrid: No items provided - please use [sortGridItems] to pass in an array of items -
+      otherwhise the ordered items can not be emitted in the (sorted) event`);
+      return;
+    }
+
     this.sortService.endSort();
     const element = !this.occuredOnHost(event) ? NgsgElementsHelper.findHost(event.target, selector) : event.target;
     const reflectedChanges = this.reflectService.reflectChanges(this.ngSortGridGroup, element);

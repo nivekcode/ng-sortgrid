@@ -29,11 +29,20 @@ export class NgsgStoreService {
   }
 
   public setItems(group: string, items: any): void {
+    console.log('Items', items);
     this.state.get(group).items = [...items];
   }
 
   public getItems(group: string): any[] {
     return this.state.get(group).items;
+  }
+
+  public hasItems(group: string): boolean {
+    return this.getItems(group).length > 0;
+  }
+
+  public hasGroup(group: string): boolean {
+    return this.state.has(group);
   }
 
   public getSelectedItems(group: string): NgsgDragelement[] {
