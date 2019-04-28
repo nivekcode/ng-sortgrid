@@ -1,0 +1,21 @@
+<h5 style="margin-bottom: 20px">4. Load items and use them with the async pipe</h5>
+<button style="margin-bottom: 20px" class="btn btn-primary" (click)="loadItems()">Load items</button>
+<div class="card border-primary mb-3">
+  <div class="card-body">
+    <h1 class="card-title">Sort order</h1>
+    <h2 class="card-text">{{ sortOrder }}</h2>
+  </div>
+</div>
+<div class="example-container">
+  <div *ngIf="loading" class="spinner">
+    <div class="double-bounce1"></div>
+    <div class="double-bounce2"></div>
+  </div>
+  <ngsg-card *ngFor="let item of item$ | async"
+             ngSortgridItem
+             [ngSortGridItems]="item$ | async"
+             [item]="item"
+             (sorted)="applyOrder($event)"
+             class="example-box">
+  </ngsg-card>
+</div>
