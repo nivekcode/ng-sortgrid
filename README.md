@@ -72,6 +72,7 @@ To integrate the built in Stylesheet just import in in your angular.json.
 ```
 
 Alternative you can provide custom styles for the different classes listed bellow
+
 | Class             | Description                                                                                                                                    |
 |-------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
 | ng-sg-placeholder | This class is added to the placeholder item which previews where the item is inserted                                                          |
