@@ -10,21 +10,34 @@ import createSpy = jasmine.createSpy;
 import {NgsgElementsHelper} from './ngsg-elements.helper';
 
 describe('NgsgItemDirective', () => {
-
   let sut: NgsgItemDirective;
 
   const elementRef = {nativeElement: {}};
   const ngsgSortService = createSpyObj<NgsgSortService>('ngsgSortService', ['initSort', 'sort', 'endSort']);
-  const ngsgSelectionService = createSpyObj<NgsgSelectionService>('ngsgSelectionService',
-    ['selectElementIfNoSelection', 'updateSelectedDragItem']);
+  const ngsgSelectionService = createSpyObj<NgsgSelectionService>('ngsgSelectionService', [
+    'selectElementIfNoSelection',
+    'updateSelectedDragItem'
+  ]);
   const ngsgReflectService = createSpyObj<NgsgReflectService>('ngsgReflectService', ['reflectChanges']);
-  const ngsgStore = createSpyObj<NgsgStoreService>('ngsgStore',
-    ['initState', 'hasSelectedItems', 'resetSelectedItems', 'hasGroup', 'hasItems', 'setItems']);
+  const ngsgStore = createSpyObj<NgsgStoreService>('ngsgStore', [
+    'initState',
+    'hasSelectedItems',
+    'resetSelectedItems',
+    'hasGroup',
+    'hasItems',
+    'setItems'
+  ]);
   const ngsgEventService = new NgsgEventsService();
 
   beforeEach(() => {
-    sut = new NgsgItemDirective(elementRef, ngsgSortService, ngsgSelectionService,
-      ngsgReflectService, ngsgStore, ngsgEventService);
+    sut = new NgsgItemDirective(
+      elementRef,
+      ngsgSortService,
+      ngsgSelectionService,
+      ngsgReflectService,
+      ngsgStore,
+      ngsgEventService
+    );
   });
 
   it('should set the draggable attribute on the elment', () => {
@@ -241,7 +254,8 @@ describe('NgsgItemDirective', () => {
   });
 
   it('should log a warning message if you drop and you did not provide any items', () => {
-    const expectedWarniningMessage = `Ng-sortgrid: No items provided - please use [sortGridItems] to pass in an array of items -
+    const expectedWarniningMessage =
+      `Ng-sortgrid: No items provided - please use [sortGridItems] to pass in an array of items -
       otherwhise the ordered items can not be emitted in the (sorted) event`;
     const consoleWarnSpy = spyOn(console, 'warn');
     ngsgStore.hasItems.and.returnValue(false);
@@ -249,5 +263,4 @@ describe('NgsgItemDirective', () => {
     sut.drop(event);
     expect(consoleWarnSpy).toHaveBeenCalledWith(expectedWarniningMessage);
   });
-
 });

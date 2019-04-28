@@ -13,6 +13,7 @@
   </div>
   <ngsg-card *ngFor="let item of item$ | async"
              ngSortgridItem
+             ngSortGridGroup="async-items"
              [ngSortGridItems]="item$ | async"
              [item]="item"
              (sorted)="applyOrder($event)"
