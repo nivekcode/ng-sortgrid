@@ -29,7 +29,6 @@ export class NgsgStoreService {
   }
 
   public setItems(group: string, items: any): void {
-    console.log('Items', items);
     this.state.get(group).items = [...items];
   }
 

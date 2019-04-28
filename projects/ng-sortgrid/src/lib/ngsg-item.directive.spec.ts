@@ -19,30 +19,12 @@ describe('NgsgItemDirective', () => {
     ['selectElementIfNoSelection', 'updateSelectedDragItem']);
   const ngsgReflectService = createSpyObj<NgsgReflectService>('ngsgReflectService', ['reflectChanges']);
   const ngsgStore = createSpyObj<NgsgStoreService>('ngsgStore',
-    ['initState', 'hasSelectedItems', 'resetSelectedItems']);
+    ['initState', 'hasSelectedItems', 'resetSelectedItems', 'hasGroup', 'hasItems', 'setItems']);
   const ngsgEventService = new NgsgEventsService();
 
   beforeEach(() => {
     sut = new NgsgItemDirective(elementRef, ngsgSortService, ngsgSelectionService,
       ngsgReflectService, ngsgStore, ngsgEventService);
-  });
-
-  it('should log a warning if we do not pass in sort grid items', () => {
-    const consoleWarnSpy = spyOn(global.console, 'warn');
-    sut.ngOnInit();
-    expect(consoleWarnSpy).toHaveBeenCalledWith(
-      `Ng-sortgrid: No items provided - please use [sortGridItems] to pass in an array of items -
-      otherwhise the ordered items will not be emitted in the (sorted) event`);
-  });
-
-  it('should init the store with the sortGridGroup, the ngSortGridItems and the classes', () => {
-    const sortGridGroup = 'sortgridgroup';
-    const sortGridItems = ['item one', 'item two', 'item three'] as any;
-    sut.ngSortGridItems = sortGridItems;
-    sut.ngSortGridGroup = sortGridGroup;
-
-    sut.ngOnInit();
-    expect(ngsgStore.initState).toHaveBeenCalledWith(sortGridGroup, sortGridItems, {});
   });
 
   it('should set the draggable attribute on the elment', () => {
@@ -133,6 +115,7 @@ describe('NgsgItemDirective', () => {
 
   it('should sort if the group contains selectedItems', () => {
     ngsgStore.hasSelectedItems.and.returnValue(true);
+    ngsgStore.hasItems.and.returnValue(true);
     sut.drop({target: {matches: () => true}});
     expect(ngsgSortService.endSort).toHaveBeenCalled();
   });
@@ -169,6 +152,7 @@ describe('NgsgItemDirective', () => {
     const reflectedChanges = ['item two', 'item one', 'item three'];
 
     ngsgStore.hasSelectedItems.and.returnValue(true);
+    ngsgStore.hasItems.and.returnValue(true);
     ngsgReflectService.reflectChanges.and.returnValue(reflectedChanges);
     sut.ngSortGridGroup = group;
 
@@ -210,6 +194,60 @@ describe('NgsgItemDirective', () => {
 
     sut.clicked(event);
     expect(ngsgSelectionService.updateSelectedDragItem).toHaveBeenCalledWith(group, host, true);
+  });
+
+  it(`should init the state with empty items if group has yet not been
+  initialized and the currentValue is null`, () => {
+    const group = 'test-group';
+    const changes = {
+      ngSortGridItems: {
+        currentValue: null
+      }
+    } as any;
+    sut.ngSortGridGroup = group;
+    ngsgStore.hasGroup.and.returnValue(false);
+
+    sut.ngOnChanges(changes);
+    expect(ngsgStore.initState).toHaveBeenCalledWith(group, []);
+  });
+
+  it('should init the state with items from the currentValue if group has yet not been initialized', () => {
+    const group = 'test-group';
+    const changes = {
+      ngSortGridItems: {
+        currentValue: null
+      }
+    } as any;
+    sut.ngSortGridGroup = group;
+    ngsgStore.hasGroup.and.returnValue(false);
+
+    sut.ngOnChanges(changes);
+    expect(ngsgStore.initState).toHaveBeenCalledWith(group, []);
+  });
+
+  it('should set the items if the group has allready been initialized', () => {
+    const group = 'test-group';
+    const items = ['Item one', 'item two'];
+    const changes = {
+      ngSortGridItems: {
+        currentValue: items
+      }
+    } as any;
+    sut.ngSortGridGroup = group;
+    ngsgStore.hasGroup.and.returnValue(true);
+
+    sut.ngOnChanges(changes);
+    expect(ngsgStore.setItems).toHaveBeenCalledWith(group, items);
+  });
+
+  it('should log a warning message if you drop and you did not provide any items', () => {
+    const expectedWarniningMessage = `Ng-sortgrid: No items provided - please use [sortGridItems] to pass in an array of items -
+      otherwhise the ordered items can not be emitted in the (sorted) event`;
+    const consoleWarnSpy = spyOn(console, 'warn');
+    ngsgStore.hasItems.and.returnValue(false);
+
+    sut.drop(event);
+    expect(consoleWarnSpy).toHaveBeenCalledWith(expectedWarniningMessage);
   });
 
 });

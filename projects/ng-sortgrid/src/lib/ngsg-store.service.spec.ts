@@ -29,6 +29,37 @@ describe('NgsgStoreService', () => {
       expect(sut.getItems(group)).toEqual([]);
     });
 
+    it('should return false if the group does not contain items', () => {
+      const group = 'testgroup';
+      sut.initState(group);
+
+      const hasItems = sut.hasItems(group);
+      expect(hasItems).toBeFalsy();
+    });
+
+    it('should return true if the group contains items', () => {
+      const group = 'testgroup';
+      sut.initState(group, ['item one', 'item two']);
+
+      const hasItems = sut.hasItems(group);
+      expect(hasItems).toBeTruthy();
+    });
+
+    it('should return false if the current group has yet not been initialized', () => {
+      const group = 'testgroup';
+
+      const hasGroup = sut.hasGroup(group);
+      expect(hasGroup).toBeFalsy();
+    });
+
+    it('should return true if the current group has been initialized', () => {
+      const group = 'testgroup';
+      sut.initState(group);
+
+      const hasGroup = sut.hasGroup(group);
+      expect(hasGroup).toBeTruthy();
+    });
+
     it('should add the classes to the group', () => {
       const group = 'testgroup';
       const items = ['Item1', 'Item2'];
