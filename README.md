@@ -29,7 +29,7 @@ Import the ```NgsgModule``` in your ```AppModule```.
 ```
 
 ## Apply the directive
-Loop over your elements with *ngFor. 🛎️ the items needs to be an array.
+Loop over your elements with *ngFor. 🛎️ the items needs to be an array. Alternate you can also use the async pipe to pass in your items.
 
 ![Grid demo](https://raw.githubusercontent.com/kreuzerk/ng-sortgrid/master/projects/ng-sortgrid-demo/src/assets/gs1.png)
 
