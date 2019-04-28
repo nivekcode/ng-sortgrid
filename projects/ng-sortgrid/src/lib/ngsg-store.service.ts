@@ -36,6 +36,14 @@ export class NgsgStoreService {
     return this.state.get(group).items;
   }
 
+  public hasItems(group: string): boolean {
+    return this.getItems(group).length > 0;
+  }
+
+  public hasGroup(group: string): boolean {
+    return this.state.has(group);
+  }
+
   public getSelectedItems(group: string): NgsgDragelement[] {
     return this.state.get(group).selectedItems;
   }

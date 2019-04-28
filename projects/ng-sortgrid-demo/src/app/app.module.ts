@@ -10,6 +10,7 @@ import {StepComponent} from './examples/step/step.component';
 import {ReactOnChangesMemoryComponent} from './examples/react-on-changes/react-on-changes-memory.component';
 import {GroupsMemoryComponent} from './examples/groups/groups-memory.component';
 import {CardComponent} from './examples/card/card.component';
+import {AsyncPipeMemoryComponent} from './examples/async-pipe/async-pipe-memory.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {CardComponent} from './examples/card/card.component';
     StepComponent,
     ReactOnChangesMemoryComponent,
     GroupsMemoryComponent,
-    CardComponent
+    CardComponent,
+    AsyncPipeMemoryComponent
   ],
   imports: [BrowserModule, NgsgModule],
   providers: [],
