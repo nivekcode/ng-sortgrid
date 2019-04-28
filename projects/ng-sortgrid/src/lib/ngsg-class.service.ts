@@ -33,11 +33,4 @@ export class NgsgClassService {
     element.classList.remove(this.SELECTED_DEFAULT_CLASS);
   }
 
-  public addActiveClass(element: Element): void {
-    element.classList.add(this.ACTIVE_DEFAULT_CLASS);
-  }
-
-  public removeActiveClass(element: Element): void {
-    element.classList.remove(this.ACTIVE_DEFAULT_CLASS);
-  }
 }

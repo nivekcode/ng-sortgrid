@@ -57,3 +57,23 @@ Pass in a unique name to the ngSortGridGroup input
 You can also use the async pipe to display items
 
 ![Grid demo](https://raw.githubusercontent.com/kreuzerk/ng-sortgrid/master/projects/ng-sortgrid-demo/src/assets/gs6.png)
+
+# Style your items on different events
+The ng-sortgrid adds different classes on different events to your items. You can either use those classes to style the appereance
+of your items on certain events or you can include the build in CSS from the ng-sortgrid library.
+
+## Integrate the build in CSS
+To integrate the built in Stylesheet just import in in your angular.json.
+
+```
+    "styles": [
+              "node_modules/ng-sortgrid/dist/lib/ngsg.css",
+            ],
+```
+
+Alternative you can provide custom styles for the different classes listed bellow
+| Class             | Description                                                                                                                                    |
+|-------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
+| ng-sg-placeholder | This class is added to the placeholder item which previews where the item is inserted                                                          |
+| ng-sg-dropped     | This class is added as soon after you drop an item. The class will be on the item for 500 milliseconds before it gets removed                  |
+| ng-sg-selected    | This class is added when you press the CMD or the Ctrl Key and Click on an item. It indicates which items are selected for the multi drag&drop |
