@@ -52,3 +52,8 @@ In case you have more than one sortgriditem on the page you need to group the so
 Pass in a unique name to the ngSortGridGroup input
 
 ![Grid demo](https://raw.githubusercontent.com/kreuzerk/ng-sortgrid/master/projects/ng-sortgrid-demo/src/assets/gs5.png)
+
+## Use the async pipe
+You can also use the async pipe to display items
+
+![Grid demo](https://raw.githubusercontent.com/kreuzerk/ng-sortgrid/master/projects/ng-sortgrid-demo/src/assets/gs6.png)
