@@ -78,13 +78,12 @@ export class NgsgItemDirective implements OnInit, OnChanges, AfterViewInit, OnDe
     this.sortService.initSort(this.ngSortGridGroup);
   }
 
-  @HostListener('dragenter', ['$event'])
-  dragEnter(event): void {
+  @HostListener('dragenter')
+  dragEnter(): void {
     if (!this.ngsgStore.hasSelectedItems(this.ngSortGridGroup)) {
       return;
     }
-    const element = !this.occuredOnHost(event) ? NgsgElementsHelper.findHost(event.target, selector) : event.target;
-    this.sortService.sort(element);
+    this.sortService.sort(this.el.nativeElement);
   }
 
   @HostListener('dragover', ['$event'])
@@ -97,7 +96,7 @@ export class NgsgItemDirective implements OnInit, OnChanges, AfterViewInit, OnDe
   }
 
   @HostListener('drop', ['$event'])
-  drop(event): void {
+  drop(): void {
     if (!this.ngsgStore.hasSelectedItems(this.ngSortGridGroup)) {
       return;
     }
@@ -109,18 +108,16 @@ export class NgsgItemDirective implements OnInit, OnChanges, AfterViewInit, OnDe
     }
 
     this.sortService.endSort();
-    const element = !this.occuredOnHost(event) ? NgsgElementsHelper.findHost(event.target, selector) : event.target;
-    const reflectedChanges = this.reflectService.reflectChanges(this.ngSortGridGroup, element);
+    const reflectedChanges = this.reflectService.reflectChanges(this.ngSortGridGroup, this.el.nativeElement);
     this.sorted.next(reflectedChanges);
     this.ngsgStore.resetSelectedItems(this.ngSortGridGroup);
     this.ngsgEventService.dropped$.next();
   }
 
   @HostListener('click', ['$event'])
-  clicked(event): void {
-    const element = !this.occuredOnHost(event) ? NgsgElementsHelper.findHost(event.target, selector) : event.target;
+  clicked(): void {
     this.selected = !this.selected;
-    this.selectionService.updateSelectedDragItem(this.ngSortGridGroup, element, this.selected);
+    this.selectionService.updateSelectedDragItem(this.ngSortGridGroup, this.el.nativeElement, this.selected);
   }
 
   private occuredOnHost(event): boolean {
