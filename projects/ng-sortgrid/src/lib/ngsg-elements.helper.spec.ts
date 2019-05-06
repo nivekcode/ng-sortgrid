@@ -18,42 +18,4 @@ describe('NgsgElementsHelper', () => {
     expect(index).toBe(2);
   });
 
-  it('must find the element that matches the selector', () => {
-    const selector = 'sample-selector';
-    const result = {
-      matches: (s) => s === selector,
-      name: 'parentElement'
-    };
-    const element = {
-      parentElement: {
-        matches: () => false,
-        parentElement: result
-      }
-    } as any;
-    const findHostSpy = spyOn(NgsgElementsHelper, 'findHost');
-    findHostSpy.and.callThrough();
-
-    NgsgElementsHelper.findHost(element, selector);
-    expect(findHostSpy).toHaveBeenCalledTimes(2);
-  });
-
-  it('must retunr the element that matches the selector', () => {
-    const selector = 'sample-selector';
-    const result = {
-      matches: (s) => s === selector,
-      name: 'parentElement'
-    };
-    const element = {
-      parentElement: {
-        matches: () => false,
-        parentElement: result
-      }
-    } as any;
-    const findHostSpy = spyOn(NgsgElementsHelper, 'findHost');
-    findHostSpy.and.callThrough();
-
-    const actual = NgsgElementsHelper.findHost(element, selector);
-    expect((actual as any)).toEqual(result);
-  });
-
 });

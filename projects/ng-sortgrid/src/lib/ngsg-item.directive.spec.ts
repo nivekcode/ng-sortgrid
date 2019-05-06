@@ -80,32 +80,16 @@ describe('NgsgItemDirective', () => {
   });
 
   it('should call sort with the host if the event occured on the host', () => {
-    const event = {target: {matches: () => true}};
     ngsgStore.hasSelectedItems.and.returnValue(true);
 
-    sut.dragEnter(event);
-    expect(ngsgSortService.sort).toHaveBeenCalledWith(event.target);
-  });
-
-  it('should call sort with the host, even if the event did not occure on it', () => {
-    const event = {target: {matches: () => false}};
-    const host = 'Some element' as any;
-    ngsgStore.hasSelectedItems.and.returnValue(true);
-    NgsgElementsHelper.findHost = () => host;
-
-    sut.dragEnter(event);
-    expect(ngsgSortService.sort).toHaveBeenCalledWith(host);
+    sut.dragEnter();
+    expect(ngsgSortService.sort).toHaveBeenCalledWith(elementRef.nativeElement);
   });
 
   it('should sort the items if the event occured on the host and on the correct group', () => {
     ngsgStore.hasSelectedItems.and.returnValue(true);
-    const event = {
-      target: {
-        matches: () => true
-      }
-    };
-    sut.dragEnter(event);
-    expect(ngsgSortService.sort).toHaveBeenCalledWith(event.target);
+    sut.dragEnter();
+    expect(ngsgSortService.sort).toHaveBeenCalledWith(elementRef.nativeElement);
   });
 
   it('must call event preventDefault', () => {
@@ -122,46 +106,28 @@ describe('NgsgItemDirective', () => {
 
   it('should not call endSort if the group does not contain selectedItems', () => {
     ngsgStore.hasSelectedItems.and.returnValue(false);
-    sut.drop({});
+    sut.drop();
     expect(ngsgSortService.endSort).not.toHaveBeenCalled();
   });
 
   it('should sort if the group contains selectedItems', () => {
     ngsgStore.hasSelectedItems.and.returnValue(true);
     ngsgStore.hasItems.and.returnValue(true);
-    sut.drop({target: {matches: () => true}});
+    sut.drop();
     expect(ngsgSortService.endSort).toHaveBeenCalled();
   });
 
   it('should call the reflection service with the host if the event occured on it', () => {
     const group = 'test-group';
-    const event = {target: {matches: () => true}};
     sut.ngSortGridGroup = group;
     ngsgStore.hasSelectedItems.and.returnValue(true);
 
-    sut.drop(event);
-    expect(ngsgReflectService.reflectChanges).toHaveBeenCalledWith(group, event.target);
-  });
-
-  it('should call the reflection service with the host even if the event did not occured on it', () => {
-    const group = 'test-group';
-    const event = {target: {matches: () => false}};
-    const host = 'Some element' as any;
-    NgsgElementsHelper.findHost = () => host;
-    sut.ngSortGridGroup = group;
-    ngsgStore.hasSelectedItems.and.returnValue(true);
-
-    sut.drop(event);
-    expect(ngsgReflectService.reflectChanges).toHaveBeenCalledWith(group, host);
+    sut.drop();
+    expect(ngsgReflectService.reflectChanges).toHaveBeenCalledWith(group, elementRef.nativeElement);
   });
 
   it('should get the reflected changes from the reflection service and emit them', done => {
     const group = 'test-group';
-    const event = {
-      target: {
-        matches: () => true
-      }
-    };
     const reflectedChanges = ['item two', 'item one', 'item three'];
 
     ngsgStore.hasSelectedItems.and.returnValue(true);
@@ -173,40 +139,26 @@ describe('NgsgItemDirective', () => {
       expect(reflectedChanges).toEqual(changes);
       done();
     });
-    sut.drop(event);
-    expect(ngsgReflectService.reflectChanges).toHaveBeenCalledWith(group, event.target);
+    sut.drop();
+    expect(ngsgReflectService.reflectChanges).toHaveBeenCalledWith(group, elementRef.nativeElement);
   });
 
   it('should reset the selected items on drop', () => {
-    const event = {target: {matches: () => true}};
-    sut.drop(event);
+    sut.drop();
     expect(ngsgStore.resetSelectedItems).toHaveBeenCalled();
   });
 
   it('should stream the dropped event on the eventservice', done => {
-    const event = {target: {matches: () => true}};
     ngsgEventService.dropped$.subscribe(() => done());
-    sut.drop(event);
+    sut.drop();
   });
 
   it('should call the selctionservice with the host if the event occured on the host', () => {
     const group = 'test-group';
-    const event = {target: {matches: () => true}};
     sut.ngSortGridGroup = group;
 
-    sut.clicked(event);
-    expect(ngsgSelectionService.updateSelectedDragItem).toHaveBeenCalledWith(group, event.target, true);
-  });
-
-  it('should call the selctionservice with the host, even if the event did not occure on it', () => {
-    const group = 'test-group';
-    const event = {target: {matches: () => false}};
-    const host = 'Some element' as any;
-    NgsgElementsHelper.findHost = () => host;
-    sut.ngSortGridGroup = group;
-
-    sut.clicked(event);
-    expect(ngsgSelectionService.updateSelectedDragItem).toHaveBeenCalledWith(group, host, true);
+    sut.clicked();
+    expect(ngsgSelectionService.updateSelectedDragItem).toHaveBeenCalledWith(group, elementRef.nativeElement, true);
   });
 
   it(`should init the state with empty items if group has yet not been
@@ -260,7 +212,7 @@ describe('NgsgItemDirective', () => {
     const consoleWarnSpy = spyOn(console, 'warn');
     ngsgStore.hasItems.and.returnValue(false);
 
-    sut.drop(event);
+    sut.drop();
     expect(consoleWarnSpy).toHaveBeenCalledWith(expectedWarniningMessage);
   });
 });
