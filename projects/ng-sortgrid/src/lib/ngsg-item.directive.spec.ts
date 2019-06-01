@@ -7,7 +7,6 @@ import {NgsgReflectService} from './ngsg-reflect.service';
 import {NgsgStoreService} from './ngsg-store.service';
 import {NgsgEventsService} from './ngsg-events.service';
 import createSpy = jasmine.createSpy;
-import {NgsgElementsHelper} from './ngsg-elements.helper';
 
 describe('NgsgItemDirective', () => {
   let sut: NgsgItemDirective;

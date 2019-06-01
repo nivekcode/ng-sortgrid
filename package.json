@@ -75,7 +75,7 @@
     }
   },
   "lint-staged": {
-    "{src,__mocks__,bin}/**/*.js": [
+    "{src,__mocks__,bin}/**/*.ts": [
       "prettier --write",
       "git add"
     ]
