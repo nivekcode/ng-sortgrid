@@ -95,7 +95,7 @@ export class NgsgItemDirective implements OnInit, OnChanges, AfterViewInit, OnDe
     return false;
   }
 
-  @HostListener('drop', ['$event'])
+  @HostListener('dragend')
   drop(): void {
     if (!this.ngsgStore.hasSelectedItems(this.ngSortGridGroup)) {
       return;
