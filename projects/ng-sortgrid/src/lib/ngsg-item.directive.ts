@@ -5,21 +5,21 @@ import {
   EventEmitter,
   HostListener,
   Input,
-  NgZone, OnChanges, OnDestroy,
+  OnChanges,
+  OnDestroy,
   OnInit,
-  Output, SimpleChanges
+  Output,
+  SimpleChanges
 } from '@angular/core';
 
 import {NgsgReflectService} from './ngsg-reflect.service';
 import {NgsgStoreService} from './ngsg-store.service';
 import {NgsgSortService} from './ngsg-sort.service';
 import {NgsgSelectionService} from './ngsg-selection.service';
-import {NgsgClassService} from './ngsg-class.service';
-import {NgsgElementsHelper} from './ngsg-elements.helper';
 import {NgsgEventsService} from './ngsg-events.service';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {group} from '@angular/animations';
+import {ViewPortService} from './helpers/view-port.service';
 
 const selector = '[ngSortgridItem]';
 
@@ -31,6 +31,7 @@ export class NgsgItemDirective implements OnInit, OnChanges, AfterViewInit, OnDe
   @Output() sorted = new EventEmitter<any>();
 
   private selected = false;
+  private SCROLLSPEED = 100;
   private destroy$ = new Subject();
 
   constructor(
@@ -39,7 +40,8 @@ export class NgsgItemDirective implements OnInit, OnChanges, AfterViewInit, OnDe
     private selectionService: NgsgSelectionService,
     private reflectService: NgsgReflectService,
     private ngsgStore: NgsgStoreService,
-    private ngsgEventService: NgsgEventsService
+    private ngsgEventService: NgsgEventsService,
+    private viewPortService: ViewPortService
   ) {
   }
 
@@ -88,6 +90,15 @@ export class NgsgItemDirective implements OnInit, OnChanges, AfterViewInit, OnDe
 
   @HostListener('dragover', ['$event'])
   dragOver(event): boolean {
+
+    if (this.viewPortService.isOutOfViewport(event.target).top) {
+      window.scrollBy({top: -this.SCROLLSPEED, behavior: 'smooth'});
+    }
+
+    if (this.viewPortService.isOutOfViewport(event.target).bottom) {
+      window.scrollBy({top: this.SCROLLSPEED, behavior: 'smooth'});
+    }
+
     if (event.preventDefault) {
       // Necessary. Allows us to drop.
       event.preventDefault();

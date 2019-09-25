@@ -27,6 +27,12 @@ describe('NgsgItemDirective', () => {
     'setItems'
   ]);
   const ngsgEventService = new NgsgEventsService();
+  const viewPortService = {
+    isOutOfViewport: () => ({
+      top: false,
+      bottom: false
+    })
+  } as any;
 
   beforeEach(() => {
     sut = new NgsgItemDirective(
@@ -35,7 +41,8 @@ describe('NgsgItemDirective', () => {
       ngsgSelectionService,
       ngsgReflectService,
       ngsgStore,
-      ngsgEventService
+      ngsgEventService,
+      viewPortService
     );
   });
 
