@@ -17,9 +17,9 @@ import {NgsgStoreService} from './ngsg-store.service';
 import {NgsgSortService} from './ngsg-sort.service';
 import {NgsgSelectionService} from './ngsg-selection.service';
 import {NgsgEventsService} from './ngsg-events.service';
+import {ScrollHelperService} from './helpers/scroll-helper.service';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {ViewPortService} from './helpers/view-port.service';
 
 const selector = '[ngSortgridItem]';
 
@@ -27,11 +27,12 @@ const selector = '[ngSortgridItem]';
 export class NgsgItemDirective implements OnInit, OnChanges, AfterViewInit, OnDestroy {
   @Input() ngSortGridGroup = 'defaultGroup';
   @Input() ngSortGridItems;
+  @Input() scrollPointTop;
+  @Input() scrollSpeed;
 
   @Output() sorted = new EventEmitter<any>();
 
   private selected = false;
-  private SCROLLSPEED = 100;
   private destroy$ = new Subject();
 
   constructor(
@@ -41,7 +42,7 @@ export class NgsgItemDirective implements OnInit, OnChanges, AfterViewInit, OnDe
     private reflectService: NgsgReflectService,
     private ngsgStore: NgsgStoreService,
     private ngsgEventService: NgsgEventsService,
-    private viewPortService: ViewPortService
+    private scrollHelperService: ScrollHelperService
   ) {
   }
 
@@ -90,14 +91,7 @@ export class NgsgItemDirective implements OnInit, OnChanges, AfterViewInit, OnDe
 
   @HostListener('dragover', ['$event'])
   dragOver(event): boolean {
-
-    if (this.viewPortService.isOutOfViewport(event.target).top) {
-      window.scrollBy({top: -this.SCROLLSPEED, behavior: 'smooth'});
-    }
-
-    if (this.viewPortService.isOutOfViewport(event.target).bottom) {
-      window.scrollBy({top: this.SCROLLSPEED, behavior: 'smooth'});
-    }
+    this.scrollHelperService.scrollIfNecessary(event.target, {top: this.scrollPointTop}, this.scrollSpeed);
 
     if (event.preventDefault) {
       // Necessary. Allows us to drop.
