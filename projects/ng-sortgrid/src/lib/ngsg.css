@@ -1,6 +1,7 @@
 .ng-sg-placeholder {
   background-color: #f4f4f4 !important;
   color: darkgrey !important;
+  border-left: 5px solid blue !important;
 }
 
 .ng-sg-dropped {
@@ -18,4 +19,6 @@
   opacity: .6;
 }
 
-
+.ng-sg-test {
+  background: lightgray !important;
+}

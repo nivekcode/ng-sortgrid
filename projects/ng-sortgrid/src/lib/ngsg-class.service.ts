@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -8,9 +8,16 @@ export class NgsgClassService {
   private PLACEHOLDER_DEFAULT_CLASS = 'ng-sg-placeholder';
   private DROPPED_DEFAULT_CLASS = 'ng-sg-dropped';
   private ACTIVE_DEFAULT_CLASS = 'ng-sg-active';
+  private TEST_CLASS = 'ng-sg-test';
+
+  public addTestClass(element: Element): void {
+    element.classList.add(this.TEST_CLASS);
+  }
 
   public addPlaceHolderClass(element: Element): void {
-    element.classList.add(this.PLACEHOLDER_DEFAULT_CLASS);
+    if (element && element.classList) {
+      element.classList.add(this.PLACEHOLDER_DEFAULT_CLASS);
+    }
   }
 
   public removePlaceHolderClass(element: Element): void {

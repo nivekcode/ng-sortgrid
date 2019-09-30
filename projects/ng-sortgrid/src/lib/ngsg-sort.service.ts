@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
-import { timer } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {timer} from 'rxjs';
 
-import { NgsgStoreService } from './ngsg-store.service';
-import { NgsgClassService } from './ngsg-class.service';
-import { NgsgDragelement } from './ngsg-dragelement.model';
-import { NgsgElementsHelper } from './ngsg-elements.helper';
+import {NgsgStoreService} from './ngsg-store.service';
+import {NgsgClassService} from './ngsg-class.service';
+import {NgsgDragelement} from './ngsg-dragelement.model';
+import {NgsgElementsHelper} from './ngsg-elements.helper';
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +16,16 @@ export class NgsgSortService {
   constructor(
     private classService: NgsgClassService,
     private ngsgStore: NgsgStoreService
-  ) {}
+  ) {
+  }
 
   public initSort(group: string): void {
     this.dragIndex = this.ngsgStore.getFirstSelectItem(group).originalIndex;
     this.dragElements = this.ngsgStore.getSelectedItems(group);
+
+    this.dragElements.forEach((ngsgDragelement: NgsgDragelement) => {
+      this.classService.addTestClass(ngsgDragelement.node);
+    });
   }
 
   public sort(dropElement: Element): void {
@@ -30,14 +35,23 @@ export class NgsgSortService {
     if (this.isDropInSelection(el)) {
       return;
     }
+
     this.dragElements.forEach((dragElement: NgsgDragelement) => {
-      const insertedNode = dropElement.parentNode.insertBefore(dragElement.node, el.node);
-      this.classService.addPlaceHolderClass(insertedNode as Element);
+      // const insertedNode = dropElement.parentNode.insertBefore(dragElement.node, el.node);
+      this.classService.addPlaceHolderClass(el.node as Element);
     });
     this.dragIndex = NgsgElementsHelper.findIndex(this.dragElements[0].node);
   }
 
-  public endSort(): void {
+  public endSort(dropElement ?: any): void {
+    const hoverIndex = NgsgElementsHelper.findIndex(dropElement);
+    const el = this.getSibling(dropElement, this.dragIndex, hoverIndex);
+    console.log('Element', el);
+    this.dragElements.forEach((dragElement: NgsgDragelement) => {
+      const v = dropElement.parentNode.insertBefore(dragElement.node, el.node);
+      console.log('inserted', v);
+    });
+
     this.dragElements.forEach((dragElement: NgsgDragelement) => {
       this.updateDropedItem(dragElement.node);
     });
@@ -45,9 +59,9 @@ export class NgsgSortService {
 
   private getSibling(dropElement: any, dragIndex: number, hoverIndex: number): NgsgDragelement | null {
     if (dragIndex < hoverIndex) {
-      return { node: dropElement.nextSibling, originalIndex: hoverIndex + 1 };
+      return {node: dropElement.nextSibling, originalIndex: hoverIndex + 1};
     }
-    return { node: dropElement, originalIndex: hoverIndex };
+    return {node: dropElement, originalIndex: hoverIndex};
   }
 
   private isDropInSelection(dropElement: NgsgDragelement): boolean {

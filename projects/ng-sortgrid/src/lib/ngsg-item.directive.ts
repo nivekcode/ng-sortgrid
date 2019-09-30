@@ -20,6 +20,8 @@ import {NgsgEventsService} from './ngsg-events.service';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {ViewPortService} from './helpers/view-port.service';
+import {NgsgClassService} from './ngsg-class.service';
+import {element} from 'protractor';
 
 const selector = '[ngSortgridItem]';
 
@@ -41,7 +43,8 @@ export class NgsgItemDirective implements OnInit, OnChanges, AfterViewInit, OnDe
     private reflectService: NgsgReflectService,
     private ngsgStore: NgsgStoreService,
     private ngsgEventService: NgsgEventsService,
-    private viewPortService: ViewPortService
+    private viewPortService: ViewPortService,
+    private classService: NgsgClassService
   ) {
   }
 
@@ -80,8 +83,15 @@ export class NgsgItemDirective implements OnInit, OnChanges, AfterViewInit, OnDe
     this.sortService.initSort(this.ngSortGridGroup);
   }
 
-  @HostListener('dragenter')
-  dragEnter(): void {
+  @HostListener('dragenter', ['$event'])
+  dragEnter(event): void {
+
+    console.log('Parent', event.target.parentNode.children);
+
+    for (const node of event.target.parentNode.children) {
+      this.classService.removePlaceHolderClass(node);
+    }
+
     if (!this.ngsgStore.hasSelectedItems(this.ngSortGridGroup)) {
       return;
     }
@@ -106,8 +116,8 @@ export class NgsgItemDirective implements OnInit, OnChanges, AfterViewInit, OnDe
     return false;
   }
 
-  @HostListener('dragend')
-  drop(): void {
+  @HostListener('dragend', ['$event'])
+  drop(event): void {
     if (!this.ngsgStore.hasSelectedItems(this.ngSortGridGroup)) {
       return;
     }
@@ -118,7 +128,7 @@ export class NgsgItemDirective implements OnInit, OnChanges, AfterViewInit, OnDe
       return;
     }
 
-    this.sortService.endSort();
+    this.sortService.endSort(event.target);
     const reflectedChanges = this.reflectService.reflectChanges(this.ngSortGridGroup, this.el.nativeElement);
     this.sorted.next(reflectedChanges);
     this.ngsgStore.resetSelectedItems(this.ngSortGridGroup);
