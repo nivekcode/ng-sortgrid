@@ -88,17 +88,13 @@ export class NgsgItemDirective implements OnInit, OnChanges, AfterViewInit, OnDe
     this.sortService.sort(this.el.nativeElement);
   }
 
+  @HostListener('drag', ['$event'])
+  drag(event): void {
+    this.scrollHelperService.scrollIfNecessary(event.target, {top: this.scrollPointTop}, this.scrollSpeed);
+  }
+
   @HostListener('dragover', ['$event'])
   dragOver(event): boolean {
-
-    if (this.viewPortService.isOutOfViewport(event.target).top) {
-      window.scrollBy({top: -this.SCROLLSPEED, behavior: 'smooth'});
-    }
-
-    if (this.viewPortService.isOutOfViewport(event.target).bottom) {
-      window.scrollBy({top: this.SCROLLSPEED, behavior: 'smooth'});
-    }
-
     if (event.preventDefault) {
       // Necessary. Allows us to drop.
       event.preventDefault();
