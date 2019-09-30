@@ -2,6 +2,8 @@
 [![codecov](https://codecov.io/gh/kreuzerk/ng-sortgrid/branch/master/graph/badge.svg)](https://codecov.io/gh/kreuzerk/ng-sortgrid)
 [![angular7](https://img.shields.io/badge/angular%207%20ready-true-green.svg)]()
 
+# Ng-sortgrid
+
 ![Logo](https://raw.githubusercontent.com/kreuzerk/ng-sortgrid/master/projects/ng-sortgrid-demo/src/assets/logo-new.png)
 
 ![Grid demo](https://raw.githubusercontent.com/kreuzerk/ng-sortgrid/master/projects/ng-sortgrid-demo/src/assets/grid-demo.gif)
