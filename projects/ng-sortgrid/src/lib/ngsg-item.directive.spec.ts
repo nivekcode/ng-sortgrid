@@ -27,11 +27,9 @@ describe('NgsgItemDirective', () => {
     'setItems'
   ]);
   const ngsgEventService = new NgsgEventsService();
-  const viewPortService = {
-    isOutOfViewport: () => ({
-      top: false,
-      bottom: false
-    })
+  const scrollHelperService = {
+    scrollIfNecessary: () => {
+    }
   } as any;
 
   beforeEach(() => {
@@ -42,7 +40,7 @@ describe('NgsgItemDirective', () => {
       ngsgReflectService,
       ngsgStore,
       ngsgEventService,
-      viewPortService
+      scrollHelperService
     );
   });
 
