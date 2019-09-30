@@ -231,6 +231,7 @@ describe('NgsgItemDirective', () => {
     spyOn(scrollHelperService, 'scrollIfNecessary');
 
     sut.drag(event);
-    expect(scrollHelperService.scrollIfNecessary).toHaveBeenCalledWith(event.target, {top: scrollPointTop}, scrollSpeed);
+    expect(scrollHelperService.scrollIfNecessary)
+      .toHaveBeenCalledWith(event.target, {top: scrollPointTop}, scrollSpeed);
   });
 });
