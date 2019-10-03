@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {NgsgDragelement} from './ngsg-dragelement.model';
+import {NgsgDragelement} from '../shared/ngsg-dragelement.model';
 
 // TODO add interfaces for classes
 export interface NgsgState {

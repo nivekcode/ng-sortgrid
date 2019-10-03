@@ -7,7 +7,6 @@ export class NgsgClassService {
   private SELECTED_DEFAULT_CLASS = 'ng-sg-selected';
   private PLACEHOLDER_DEFAULT_CLASS = 'ng-sg-placeholder';
   private DROPPED_DEFAULT_CLASS = 'ng-sg-dropped';
-  private ACTIVE_DEFAULT_CLASS = 'ng-sg-active';
 
   public addPlaceHolderClass(element: Element): void {
     element.classList.add(this.PLACEHOLDER_DEFAULT_CLASS);

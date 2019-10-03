@@ -1,9 +1,9 @@
 import createSpyObj = jasmine.createSpyObj;
 
-import {NgsgStoreService} from './ngsg-store.service';
 import {NgsgReflectService} from './ngsg-reflect.service';
-import {NgsgDragelement} from './ngsg-dragelement.model';
-import {NgsgElementsHelper} from './ngsg-elements.helper';
+import {NgsgStoreService} from '../../store/ngsg-store.service';
+import {NgsgDragelement} from '../../shared/ngsg-dragelement.model';
+import {NgsgElementsHelper} from '../../helpers/element/ngsg-elements.helper';
 
 describe('NgsgReflectService', () => {
 

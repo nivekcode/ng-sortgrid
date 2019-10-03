@@ -1,5 +1,4 @@
 import {NgsgStoreService} from './ngsg-store.service';
-import {NgsgDragelement} from './ngsg-dragelement.model';
 
 describe('NgsgStoreService', () => {
 

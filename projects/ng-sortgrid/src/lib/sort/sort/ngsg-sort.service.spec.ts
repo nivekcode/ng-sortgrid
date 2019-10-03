@@ -1,8 +1,8 @@
 import {NgsgSortService} from './ngsg-sort.service';
 import createSpyObj = jasmine.createSpyObj;
-import {NgsgClassService} from './ngsg-class.service';
-import {NgsgStoreService} from './ngsg-store.service';
-import {NgsgElementsHelper} from './ngsg-elements.helper';
+import {NgsgClassService} from '../../helpers/class/ngsg-class.service';
+import {NgsgStoreService} from '../../store/ngsg-store.service';
+import {NgsgElementsHelper} from '../../helpers/element/ngsg-elements.helper';
 
 describe('NgsgSortService', () => {
 

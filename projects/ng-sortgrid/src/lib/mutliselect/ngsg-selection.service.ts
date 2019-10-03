@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { fromEvent, merge, NEVER, Observable, Subject } from 'rxjs';
 import { filter, mapTo, switchMap } from 'rxjs/operators';
-
-import { NgsgStoreService } from './ngsg-store.service';
-import { NgsgClassService } from './ngsg-class.service';
-import { NgsgElementsHelper } from './ngsg-elements.helper';
+import {NgsgClassService} from '../helpers/class/ngsg-class.service';
+import {NgsgStoreService} from '../store/ngsg-store.service';
+import {NgsgElementsHelper} from '../helpers/element/ngsg-elements.helper';
 
 enum ChangeAction {
   ADD,

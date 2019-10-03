@@ -12,14 +12,14 @@ import {
   SimpleChanges
 } from '@angular/core';
 
-import {NgsgReflectService} from './ngsg-reflect.service';
-import {NgsgStoreService} from './ngsg-store.service';
-import {NgsgSortService} from './ngsg-sort.service';
-import {NgsgSelectionService} from './ngsg-selection.service';
-import {NgsgEventsService} from './ngsg-events.service';
-import {ScrollHelperService} from './helpers/scroll-helper.service';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
+import {NgsgSortService} from './sort/sort/ngsg-sort.service';
+import {NgsgSelectionService} from './mutliselect/ngsg-selection.service';
+import {NgsgReflectService} from './sort/reflection/ngsg-reflect.service';
+import {NgsgStoreService} from './store/ngsg-store.service';
+import {NgsgEventsService} from './shared/ngsg-events.service';
+import {ScrollHelperService} from './helpers/scroll/scroll-helper.service';
 
 const selector = '[ngSortgridItem]';
 
