@@ -2,8 +2,7 @@ import {Component} from '@angular/core';
 
 @Component({
   selector: 'ngsg-demo-groups-memory',
-  templateUrl: 'groups-memory.component.html',
-  styleUrls: ['../memory-demo.css']
+  templateUrl: 'groups-memory.component.html'
 })
 export class GroupsMemoryComponent {
 

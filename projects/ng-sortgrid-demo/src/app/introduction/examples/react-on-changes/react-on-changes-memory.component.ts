@@ -2,8 +2,7 @@ import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'ngsg-demo-react-on-changes-memory',
-  templateUrl: 'react-on-changes-memory.component.html',
-  styleUrls: ['../memory-demo.css']
+  templateUrl: 'react-on-changes-memory.component.html'
 })
 export class ReactOnChangesMemoryComponent implements OnInit {
 

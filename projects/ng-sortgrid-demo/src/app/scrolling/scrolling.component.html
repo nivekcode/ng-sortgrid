@@ -1,0 +1,14 @@
+<ngsg-demo-nav [fixed]="true" [height]="height + 'px'" subtitle="Scrolling demo"></ngsg-demo-nav>
+<div class="container">
+  <div class="example-container" style="margin-top: 400px">
+    <ngsg-card *ngFor="let item of items"
+               ngSortgridItem
+               ngSortGridGroup="getting-started"
+               [autoScroll]="true"
+               [scrollPointTop]="height"
+               [ngSortGridItems]="items"
+               [item]="item"
+               class="example-box">
+    </ngsg-card>
+  </div>
+</div>

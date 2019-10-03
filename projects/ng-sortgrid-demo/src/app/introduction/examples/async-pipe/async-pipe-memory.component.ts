@@ -5,7 +5,7 @@ import {delay, tap} from 'rxjs/operators';
 @Component({
   selector: 'ngsg-demo-async',
   templateUrl: './async-pipe-memory.component.html',
-  styleUrls: ['./async-pipe-memory.component.css', '../memory-demo.css']
+  styleUrls: ['./async-pipe-memory.component.css']
 })
 export class AsyncPipeMemoryComponent {
 

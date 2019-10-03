@@ -20,14 +20,14 @@ export class ScrollHelperService {
   }
 
   public scrollIfNecessary(event: any, scrollPoints: ScrollPoints = {}, scrollSpeed?: number): void {
-    const position = event.pageY - this.window.scrollY;
+    const currentPosition = event.pageY - this.window.scrollY;
 
-    if (this.isTopScrollNeeded(position, scrollPoints.top)) {
+    if (this.isTopScrollNeeded(currentPosition, scrollPoints.top)) {
       this.window.scrollBy({top: -scrollSpeed || -this.DEFAULT_SCROLLSPEED, behavior: 'smooth'});
       return;
     }
 
-    if (this.isBottomScrollNeeded(position, scrollPoints.bottom)) {
+    if (this.isBottomScrollNeeded(currentPosition, scrollPoints.bottom)) {
       this.window.scrollBy({top: scrollSpeed || this.DEFAULT_SCROLLSPEED, behavior: 'smooth'});
     }
   }
