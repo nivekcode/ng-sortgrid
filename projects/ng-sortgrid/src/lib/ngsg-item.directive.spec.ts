@@ -1,11 +1,11 @@
 import {NgsgItemDirective} from './ngsg-item.directive';
-import createSpyObj = jasmine.createSpyObj;
 
 import {NgsgSortService} from './ngsg-sort.service';
 import {NgsgSelectionService} from './ngsg-selection.service';
 import {NgsgReflectService} from './ngsg-reflect.service';
 import {NgsgStoreService} from './ngsg-store.service';
 import {NgsgEventsService} from './ngsg-events.service';
+import createSpyObj = jasmine.createSpyObj;
 import createSpy = jasmine.createSpy;
 
 describe('NgsgItemDirective', () => {
@@ -220,18 +220,32 @@ describe('NgsgItemDirective', () => {
     expect(consoleWarnSpy).toHaveBeenCalledWith(expectedWarniningMessage);
   });
 
-  it('should call the scrollHelper once we drag', () => {
-    const event = {
-      target: 'Some target'
-    };
-    const scrollPointTop = 20;
-    const scrollSpeed = 50;
-    sut.scrollPointTop = scrollPointTop;
-    sut.scrollSpeed = scrollSpeed;
-    spyOn(scrollHelperService, 'scrollIfNecessary');
+  describe('Drag', () => {
 
-    sut.drag(event);
-    expect(scrollHelperService.scrollIfNecessary)
-      .toHaveBeenCalledWith(event.target, {top: scrollPointTop}, scrollSpeed);
+    it('should not call the scrollHelper if autoScroll is set to false', () => {
+      spyOn(scrollHelperService, 'scrollIfNecessary');
+      sut.drag({});
+      expect(scrollHelperService.scrollIfNecessary).not.toHaveBeenCalled();
+    });
+
+    it('should call the scrollHelper with the event, the scrollpoints and the scrollspeed', () => {
+      spyOn(scrollHelperService, 'scrollIfNecessary');
+      const event = 'A very cool event';
+      const scrollPointTop = 10;
+      const scrollPointBottom = 80;
+      const scrollSpeed = 100;
+
+      sut.scrollPointTop = scrollPointTop;
+      sut.scrollPointBottom = scrollPointBottom;
+      sut.scrollSpeed = scrollSpeed;
+      sut.autoScroll = true;
+
+      sut.drag(event);
+      expect(scrollHelperService.scrollIfNecessary).toHaveBeenCalledWith(event, {
+        top: scrollPointTop,
+        bottom: scrollPointBottom
+      }, scrollSpeed);
+    });
+
   });
 });

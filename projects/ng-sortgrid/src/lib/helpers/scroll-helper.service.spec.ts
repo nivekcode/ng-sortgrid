@@ -10,7 +10,7 @@ describe('Scroll helper', () => {
       innerWidth: 0,
       scrollBy: () => {
       }
-    }
+    } as any
   };
   let scrollSpy: SpyObj<any>;
 
@@ -21,28 +21,32 @@ describe('Scroll helper', () => {
 
   describe('Top scroll', () => {
 
-    it('should scroll to the top with the default scroll speed when we drag over the top viewport', () => {
-      const element = {
-        getBoundingClientRect: () => ({top: -100, left: 0, bottom: 0, right: 0})
-      } as any;
-      sut.scrollIfNecessary(element);
+    it(`should scroll to the top with the default scroll speed when we drag over
+    the top viewport + scroll buffer`, () => {
+      documentMock.defaultView.scrollY = 0;
+      const event = {
+        pageY: 40
+      };
+      sut.scrollIfNecessary(event);
       expect(scrollSpy).toHaveBeenCalledWith({top: -50, behavior: 'smooth'});
     });
 
     it('should scroll to the top with the default scroll speed when we drag over the top scroll position', () => {
-      const element = {
-        getBoundingClientRect: () => ({top: 120, left: 0, bottom: 0, right: 0})
-      } as any;
-      sut.scrollIfNecessary(element, {top: 140});
+      documentMock.defaultView.scrollY = 0;
+      const event = {
+        pageY: 110
+      };
+      sut.scrollIfNecessary(event, {top: 140});
       expect(scrollSpy).toHaveBeenCalledWith({top: -50, behavior: 'smooth'});
     });
 
     it('should scroll to the top with the custom scroll speed when we drag over the top viewport', () => {
-      const element = {
-        getBoundingClientRect: () => ({top: -100, left: 0, bottom: 0, right: 0})
-      } as any;
+      documentMock.defaultView.scrollY = 0;
+      const event = {
+        pageY: 40
+      };
       const scrollSpeed = 100;
-      sut.scrollIfNecessary(element, {}, scrollSpeed);
+      sut.scrollIfNecessary(event, {}, scrollSpeed);
       expect(scrollSpy).toHaveBeenCalledWith({top: -scrollSpeed, behavior: 'smooth'});
     });
 
@@ -50,28 +54,32 @@ describe('Scroll helper', () => {
 
   describe('Bottom scroll', () => {
 
-    it('should scroll to the bottom with the default scroll speed when we drag over the bottom viewport', () => {
-      const element = {
-        getBoundingClientRect: () => ({top: 100, left: 0, bottom: 20, right: 0})
-      } as any;
-      sut.scrollIfNecessary(element);
+    it('should scroll to the bottom with the default scroll speed when we drag over the bottom viewport - scroll buffer', () => {
+      documentMock.defaultView.scrollY = 0;
+      documentMock.defaultView.innerHeight = 100;
+      const event = {
+        pageY: 80
+      };
+      sut.scrollIfNecessary(event);
       expect(scrollSpy).toHaveBeenCalledWith({top: 50, behavior: 'smooth'});
     });
 
     it('should scroll to the bottom with the default scroll speed when we drag over the bottom scroll position', () => {
-      const element = {
-        getBoundingClientRect: () => ({top: 120, left: 0, bottom: 200, right: 0})
-      } as any;
-      sut.scrollIfNecessary(element, {bottom: 140});
+      documentMock.defaultView.scrollY = 0;
+      const event = {
+        pageY: 141
+      };
+      sut.scrollIfNecessary(event, {bottom: 140});
       expect(scrollSpy).toHaveBeenCalledWith({top: 50, behavior: 'smooth'});
     });
 
     it('should scroll to the top with the custom scroll speed when we drag over the top viewport', () => {
-      const element = {
-        getBoundingClientRect: () => ({top: 20, left: 0, bottom: 20, right: 0})
-      } as any;
+      documentMock.defaultView.scrollY = 0;
+      const event = {
+        pageY: 110
+      };
       const scrollSpeed = 100;
-      sut.scrollIfNecessary(element, {}, scrollSpeed);
+      sut.scrollIfNecessary(event, {}, scrollSpeed);
       expect(scrollSpy).toHaveBeenCalledWith({top: scrollSpeed, behavior: 'smooth'});
     });
 

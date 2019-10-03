@@ -33,11 +33,12 @@ export class ScrollHelperService {
   }
 
   private isTopScrollNeeded(currentPosition: number, scrollPointTop: number): boolean {
-    return scrollPointTop ? currentPosition < scrollPointTop + this.SCROLL_BUFFER : currentPosition < 20;
+    return scrollPointTop ? currentPosition < scrollPointTop :
+      currentPosition < this.SCROLL_BUFFER;
   }
 
   private isBottomScrollNeeded(currentPosition: number, scrollPointBottom: number): boolean {
-    return scrollPointBottom ?
-      currentPosition < scrollPointBottom : currentPosition > this.window.innerHeight - this.SCROLL_BUFFER;
+    return scrollPointBottom ? currentPosition > scrollPointBottom :
+      currentPosition > this.window.innerHeight - this.SCROLL_BUFFER;
   }
 }
