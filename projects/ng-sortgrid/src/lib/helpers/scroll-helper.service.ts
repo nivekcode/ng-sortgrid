@@ -13,28 +13,31 @@ export class ScrollHelperService {
 
   private window: WindowProxy;
   private DEFAULT_SCROLLSPEED = 50;
+  private SCROLL_BUFFER = 50;
 
   constructor(@Inject(DOCUMENT) private document) {
     this.window = document.defaultView;
   }
 
-  public scrollIfNecessary(element: HTMLElement, scrollPoints: ScrollPoints = {}, scrollSpeed?: number): void {
-    const bounding = element.getBoundingClientRect();
-    if (this.isTopScrollNeeded(bounding.top, scrollPoints.top)) {
+  public scrollIfNecessary(event: any, scrollPoints: ScrollPoints = {}, scrollSpeed?: number): void {
+    const position = event.pageY - this.window.scrollY;
+
+    if (this.isTopScrollNeeded(position, scrollPoints.top)) {
       this.window.scrollBy({top: -scrollSpeed || -this.DEFAULT_SCROLLSPEED, behavior: 'smooth'});
       return;
     }
 
-    if (this.isBottomScrollNeeded(bounding.top, scrollPoints.bottom)) {
+    if (this.isBottomScrollNeeded(position, scrollPoints.bottom)) {
       this.window.scrollBy({top: scrollSpeed || this.DEFAULT_SCROLLSPEED, behavior: 'smooth'});
     }
   }
 
-  private isTopScrollNeeded(topBounding: number, scrollPointTop: number): boolean {
-    return scrollPointTop ? topBounding < scrollPointTop : topBounding < 0;
+  private isTopScrollNeeded(currentPosition: number, scrollPointTop: number): boolean {
+    return scrollPointTop ? currentPosition < scrollPointTop + this.SCROLL_BUFFER : currentPosition < 20;
   }
 
-  private isBottomScrollNeeded(bottomBounding: number, scrollPointBottom: number): boolean {
-    return scrollPointBottom ? bottomBounding < scrollPointBottom : bottomBounding > this.window.innerHeight;
+  private isBottomScrollNeeded(currentPosition: number, scrollPointBottom: number): boolean {
+    return scrollPointBottom ?
+      currentPosition < scrollPointBottom : currentPosition > this.window.innerHeight - this.SCROLL_BUFFER;
   }
 }

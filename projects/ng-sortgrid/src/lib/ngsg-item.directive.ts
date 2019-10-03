@@ -28,7 +28,9 @@ export class NgsgItemDirective implements OnInit, OnChanges, AfterViewInit, OnDe
   @Input() ngSortGridGroup = 'defaultGroup';
   @Input() ngSortGridItems;
   @Input() scrollPointTop;
+  @Input() scrollPointBottom;
   @Input() scrollSpeed;
+  @Input() autoScroll = false;
 
   @Output() sorted = new EventEmitter<any>();
 
@@ -91,7 +93,12 @@ export class NgsgItemDirective implements OnInit, OnChanges, AfterViewInit, OnDe
 
   @HostListener('drag', ['$event'])
   drag(event): void {
-    this.scrollHelperService.scrollIfNecessary(event.target, {top: this.scrollPointTop}, this.scrollSpeed);
+    if (this.autoScroll) {
+      this.scrollHelperService.scrollIfNecessary(event, {
+        top: this.scrollPointTop,
+        bottom: this.scrollPointBottom
+      }, this.scrollSpeed);
+    }
   }
 
   @HostListener('dragover', ['$event'])
