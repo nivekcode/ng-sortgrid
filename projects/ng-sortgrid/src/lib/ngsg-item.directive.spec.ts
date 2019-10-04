@@ -219,33 +219,4 @@ describe('NgsgItemDirective', () => {
     sut.drop();
     expect(consoleWarnSpy).toHaveBeenCalledWith(expectedWarniningMessage);
   });
-
-  describe('Drag', () => {
-
-    it('should not call the scrollHelper if autoScroll is set to false', () => {
-      spyOn(scrollHelperService, 'scrollIfNecessary');
-      sut.drag({});
-      expect(scrollHelperService.scrollIfNecessary).not.toHaveBeenCalled();
-    });
-
-    it('should call the scrollHelper with the event, the scrollpoints and the scrollspeed', () => {
-      spyOn(scrollHelperService, 'scrollIfNecessary');
-      const event = 'A very cool event';
-      const scrollPointTop = 10;
-      const scrollPointBottom = 80;
-      const scrollSpeed = 100;
-
-      sut.scrollPointTop = scrollPointTop;
-      sut.scrollPointBottom = scrollPointBottom;
-      sut.scrollSpeed = scrollSpeed;
-      sut.autoScroll = true;
-
-      sut.drag(event);
-      expect(scrollHelperService.scrollIfNecessary).toHaveBeenCalledWith(event, {
-        top: scrollPointTop,
-        bottom: scrollPointBottom
-      }, scrollSpeed);
-    });
-
-  });
 });

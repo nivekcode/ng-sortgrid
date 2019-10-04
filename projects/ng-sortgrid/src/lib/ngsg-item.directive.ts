@@ -12,8 +12,8 @@ import {
   SimpleChanges
 } from '@angular/core';
 
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {fromEvent, Observable, Subject} from 'rxjs';
+import {takeUntil, takeWhile, throttleTime} from 'rxjs/operators';
 import {NgsgSortService} from './sort/sort/ngsg-sort.service';
 import {NgsgSelectionService} from './mutliselect/ngsg-selection.service';
 import {NgsgReflectService} from './sort/reflection/ngsg-reflect.service';
@@ -36,6 +36,7 @@ export class NgsgItemDirective implements OnInit, OnChanges, AfterViewInit, OnDe
 
   private selected = false;
   private destroy$ = new Subject();
+  private drag$: Observable<Event>;
 
   constructor(
     public el: ElementRef,
@@ -52,6 +53,18 @@ export class NgsgItemDirective implements OnInit, OnChanges, AfterViewInit, OnDe
     this.ngsgEventService.dropped$.pipe(
       takeUntil(this.destroy$)
     ).subscribe(() => this.selected = false);
+
+    fromEvent<DragEvent>(this.el.nativeElement, 'drag').pipe(
+      throttleTime(20),
+      takeUntil(this.destroy$),
+      takeWhile(() => this.autoScroll)
+    ).subscribe(() => {
+        this.scrollHelperService.scrollIfNecessary(event, {
+          top: this.scrollPointTop,
+          bottom: this.scrollPointBottom
+        }, this.scrollSpeed);
+      }
+    );
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -89,16 +102,6 @@ export class NgsgItemDirective implements OnInit, OnChanges, AfterViewInit, OnDe
       return;
     }
     this.sortService.sort(this.el.nativeElement);
-  }
-
-  @HostListener('drag', ['$event'])
-  drag(event): void {
-    if (this.autoScroll) {
-      this.scrollHelperService.scrollIfNecessary(event, {
-        top: this.scrollPointTop,
-        bottom: this.scrollPointBottom
-      }, this.scrollSpeed);
-    }
   }
 
   @HostListener('dragover', ['$event'])
