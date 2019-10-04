@@ -54,7 +54,8 @@ describe('Scroll helper', () => {
 
   describe('Bottom scroll', () => {
 
-    it('should scroll to the bottom with the default scroll speed when we drag over the bottom viewport - scroll buffer', () => {
+    it(`should scroll to the bottom with the default scroll speed when we drag
+    over the bottom viewport - scroll buffer`, () => {
       documentMock.defaultView.scrollY = 0;
       documentMock.defaultView.innerHeight = 100;
       const event = {
