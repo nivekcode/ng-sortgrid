@@ -8,7 +8,7 @@
 
 ![Grid demo](https://raw.githubusercontent.com/kreuzerk/ng-sortgrid/master/projects/ng-sortgrid-demo/src/assets/grid-demo.gif)
 
-Read the README or just simply check out our demo at: https://kreuzerk.github.io/ng-sortgrid/ 
+[Demo](https://kreuzerk.github.io/ng-sortgrid/)
 
 - [Getting started](#getting-started)
   - [Download the module](#download-the-module)
