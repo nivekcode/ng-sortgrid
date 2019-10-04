@@ -11,3 +11,28 @@
   color: #333; /* old IE */
   background-color: #333; /* Modern Browsers */
 }
+
+/*
+  Custom styles
+ */
+.container-fluid {
+  padding: 20px;
+}
+
+.example-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.example-list li {
+  display: table-cell;
+  padding: 4px;
+}
+
+.example-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+}
+

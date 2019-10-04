@@ -1,0 +1,39 @@
+<ngsg-demo-nav></ngsg-demo-nav>
+<ngsg-demo-header></ngsg-demo-header>
+
+<div class="container">
+  <h1>1. Getting started</h1>
+  <ngsg-demo-step title="Loop over your elements with *ngFor. 🛎️ the items needs to be an array. Alternate you can also use the async pipe - see below" image="gs1.png"></ngsg-demo-step>
+  <ngsg-demo-step title="Apply the ngSortgridItem directive" image="gs2.png"></ngsg-demo-step>
+  <ngsg-demo-memory></ngsg-demo-memory>
+
+  <hr class="chaptor-separator"/>
+
+  <h1>2. React on changes</h1>
+  <p>In most cases you are interested in the new sort order. Often you want to store them in local storage or even send them
+    to the backend. To do so the following two steps are needed in addition to the "Getting started" step.</p>
+  <ngsg-demo-step title="Pass your items to the directive via the ngSortGridItems input." image="gs3.png"></ngsg-demo-step>
+  <ngsg-demo-step title="React on the 'sorted' output events" image="gs4.png"></ngsg-demo-step>
+  <ngsg-demo-react-on-changes-memory></ngsg-demo-react-on-changes-memory>
+
+  <hr class="chaptor-separator"/>
+  <h1>3. Group sortgrids</h1>
+  <p>In case you have more than one sortgriditem on the page you need to group the sortgriditems to avoid dropping drags from
+    one group in another group.</p>
+  <ngsg-demo-step title="Pass in a unique name to the ngSortGridGroup input" image="gs5.png"></ngsg-demo-step>
+  <ngsg-demo-groups-memory></ngsg-demo-groups-memory>
+
+  <hr class="chaptor-separator"/>
+  <h1>4. Use the async pipe</h1>
+  <ngsg-demo-step title="Use the async pipe to loop over the items and to pass in the ngSortGridItems" image="gs6.png"></ngsg-demo-step>
+  <ngsg-demo-async></ngsg-demo-async>
+
+  <hr class="chaptor-separator"/>
+  <h1>5. Scrolling</h1>
+  <p>
+    The scrolling demo is in a separate page because we need more items and a sticky navheader.
+  </p>
+
+  <button routerLink="scrolling" class="btn btn-primary" style="margin-bottom: 50px">Check out the demo...</button>
+
+</div>

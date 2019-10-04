@@ -1,0 +1,17 @@
+<ngsg-demo-nav [fixed]="true" [height]="height + 'px'" subtitle="Scrolling demo"></ngsg-demo-nav>
+<div class="container" style="margin-top: 400px">
+  <h1>Scrolling</h1>
+  <ngsg-demo-step title="Sample code to enable scrolling with a custom top scroll point." image="scrolling-code.png"></ngsg-demo-step>
+  <ngsg-demo-step title="Scroll down to the bottom of the page, drag an item over the blue header (which is the top scroll point) and watch it scroll 😊"></ngsg-demo-step>
+  <div class="example-container">
+    <ngsg-card *ngFor="let item of items"
+               ngSortgridItem
+               ngSortGridGroup="getting-started"
+               [autoScroll]="true"
+               [scrollPointTop]="height"
+               [ngSortGridItems]="items"
+               [item]="item"
+               class="example-box">
+    </ngsg-card>
+  </div>
+</div>

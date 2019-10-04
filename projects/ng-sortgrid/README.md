@@ -2,11 +2,13 @@
 [![codecov](https://codecov.io/gh/kreuzerk/ng-sortgrid/branch/master/graph/badge.svg)](https://codecov.io/gh/kreuzerk/ng-sortgrid)
 [![angular7](https://img.shields.io/badge/angular%207%20ready-true-green.svg)]()
 
+# Ng-sortgrid
+
 ![Logo](https://raw.githubusercontent.com/kreuzerk/ng-sortgrid/master/projects/ng-sortgrid-demo/src/assets/logo-new.png)
 
 ![Grid demo](https://raw.githubusercontent.com/kreuzerk/ng-sortgrid/master/projects/ng-sortgrid-demo/src/assets/grid-demo.gif)
 
-Read the README or just simply check out our demo at: https://kreuzerk.github.io/ng-sortgrid/ 
+[Demo](https://kreuzerk.github.io/ng-sortgrid/)
 
 - [Getting started](#getting-started)
   - [Download the module](#download-the-module)
@@ -78,3 +80,21 @@ Alternative you can provide custom styles for the different classes listed bello
 | ng-sg-placeholder | This class is added to the placeholder item which previews where the item is inserted                                                          |
 | ng-sg-dropped     | This class is added as soon after you drop an item. The class will be on the item for 500 milliseconds before it gets removed                  |
 | ng-sg-selected    | This class is added when you press the CMD or the Ctrl Key and Click on an item. It indicates which items are selected for the multi drag&drop |
+
+# Scrolling
+The ng-sortgrid has a *autoScroll* flag which you can use to enable autoScroll. If you enable autoScroll the screen will start to scroll 
+in the following scenario. 
+
+![Grid demo](https://raw.githubusercontent.com/kreuzerk/ng-sortgrid/master/projects/ng-sortgrid-demo/src/assets/scrolling.png)
+
+- If you drag an element in the top 50px of the screen
+- If you drag an element in the bottom 50px of the screen
+
+## Custom scroll points
+Sometimes its not enough to onyl scroll once you drag over the top view port border. Imagine that you have a fixed navbar 
+at the top of your page. In this case you need to scroll once you drag an element over the navbar.
+
+## Scroll speed (*default 50*)
+The *scrollSpeed* property accepts a number and allows you to specify the scrolling speed.
+
+

@@ -1,12 +1,12 @@
 import {NgsgItemDirective} from './ngsg-item.directive';
-import createSpyObj = jasmine.createSpyObj;
 
-import {NgsgSortService} from './ngsg-sort.service';
-import {NgsgSelectionService} from './ngsg-selection.service';
-import {NgsgReflectService} from './ngsg-reflect.service';
-import {NgsgStoreService} from './ngsg-store.service';
-import {NgsgEventsService} from './ngsg-events.service';
+import createSpyObj = jasmine.createSpyObj;
 import createSpy = jasmine.createSpy;
+import {NgsgSortService} from './sort/sort/ngsg-sort.service';
+import {NgsgSelectionService} from './mutliselect/ngsg-selection.service';
+import {NgsgReflectService} from './sort/reflection/ngsg-reflect.service';
+import {NgsgStoreService} from './store/ngsg-store.service';
+import {NgsgEventsService} from './shared/ngsg-events.service';
 
 describe('NgsgItemDirective', () => {
   let sut: NgsgItemDirective;
@@ -218,20 +218,5 @@ describe('NgsgItemDirective', () => {
 
     sut.drop();
     expect(consoleWarnSpy).toHaveBeenCalledWith(expectedWarniningMessage);
-  });
-
-  it('should call the scrollHelper once we drag', () => {
-    const event = {
-      target: 'Some target'
-    };
-    const scrollPointTop = 20;
-    const scrollSpeed = 50;
-    sut.scrollPointTop = scrollPointTop;
-    sut.scrollSpeed = scrollSpeed;
-    spyOn(scrollHelperService, 'scrollIfNecessary');
-
-    sut.drag(event);
-    expect(scrollHelperService.scrollIfNecessary)
-      .toHaveBeenCalledWith(event.target, {top: scrollPointTop}, scrollSpeed);
   });
 });
