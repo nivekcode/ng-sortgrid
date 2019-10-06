@@ -4,7 +4,7 @@
 
 # Ng-sortgrid
 
-![Logo](https://raw.githubusercontent.com/kreuzerk/ng-sortgrid/master/projects/ng-sortgrid-demo/src/assets/logo-new.png)
+![Logo](https://raw.githubusercontent.com/kreuzerk/ng-sortgrid/master/projects/ng-sortgrid-demo/src/assets/ng-sortgrid-logo.png)
 
 ![Grid demo](https://raw.githubusercontent.com/kreuzerk/ng-sortgrid/master/projects/ng-sortgrid-demo/src/assets/grid-demo.gif)
 
@@ -97,4 +97,4 @@ at the top of your page. In this case you need to scroll once you drag an elemen
 ## Scroll speed (*default 50*)
 The *scrollSpeed* property accepts a number and allows you to specify the scrolling speed.
 
-
+[Check out the scroll demo](https://kreuzerk.github.io/ng-sortgrid/scrolling)

@@ -36,3 +36,18 @@
   justify-content: center;
 }
 
+.btn {
+  background: #c30230;
+  font-size: 20px;
+  border: 1px solid white;
+}
+
+.btn:hover {
+  color: #c30230;
+  background: white;
+  border: 1px solid #c30230;
+}
+
+.border-primary {
+  border-color: #c30230 !important;
+}
