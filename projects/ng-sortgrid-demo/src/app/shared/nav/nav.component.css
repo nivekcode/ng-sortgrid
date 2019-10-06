@@ -1,0 +1,15 @@
+.navbar {
+  background: white;
+  border-bottom: 1px solid #c30230;
+}
+
+.logo {
+  margin-top: 30px;
+  width: 250px;
+  height: 80px;
+}
+
+.icon {
+  color: #c30230;
+  font-size: 40px;
+}
