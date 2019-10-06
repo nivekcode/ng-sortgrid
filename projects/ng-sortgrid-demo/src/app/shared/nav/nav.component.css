@@ -13,3 +13,10 @@
   color: #c30230;
   font-size: 40px;
 }
+
+.subtitle {
+  color: darkgray;
+  display: block;
+  margin-left: 50px;
+  font-style: italic;
+}
