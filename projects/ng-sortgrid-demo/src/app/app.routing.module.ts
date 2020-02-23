@@ -4,8 +4,8 @@ import {RouterModule} from '@angular/router';
 
 @NgModule({
   imports: [RouterModule.forRoot([
-    {path: '', loadChildren: './introduction/introduction.module#IntroductionModule'},
-    {path: 'scrolling', loadChildren: './scrolling/scrolling.module#ScrollingModule'}
+    {path: '', loadChildren: () => import('./introduction/introduction.module').then(m => m.IntroductionModule)},
+    {path: 'scrolling', loadChildren: () => import('./scrolling/scrolling.module').then(m => m.ScrollingModule)}
   ])],
   exports: [RouterModule]
 })
