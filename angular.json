@@ -14,6 +14,11 @@
           "options": {
             "tsConfig": "projects/ng-sortgrid/tsconfig.lib.json",
             "project": "projects/ng-sortgrid/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ng-sortgrid/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {
@@ -48,6 +53,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist/ng-sortgrid-demo",
             "index": "projects/ng-sortgrid-demo/src/index.html",
             "main": "projects/ng-sortgrid-demo/src/main.ts",
@@ -87,6 +93,10 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
               ]
             }
