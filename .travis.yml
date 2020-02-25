@@ -8,15 +8,8 @@ sudo: required
 addons:
   chrome: stable
 
-before_script:
-  - "sudo chown root /opt/google/chrome/chrome-sandbox"
-  - "sudo chmod 4755 /opt/google/chrome/chrome-sandbox"
-
 jobs:
   include:
-  - stage: lint
-    script:
-    - ng lint
   - stage: test
     script:
     - npm run test:lib:coverage
