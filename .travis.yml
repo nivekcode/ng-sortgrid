@@ -7,10 +7,11 @@ sudo: required
 
 addons:
   chrome: stable
-cache:
-  npm: true
-  directories:
-    - node_modules
+
+before_script:
+  - "sudo chown root /opt/google/chrome/chrome-sandbox"
+  - "sudo chmod 4755 /opt/google/chrome/chrome-sandbox"
+
 jobs:
   include:
   - stage: lint
