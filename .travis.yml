@@ -1,14 +1,16 @@
-dist: trusty
-sudo: required
 language: node_js
 node_js:
-- "8"
+- "12"
 
-os:
-- linux
+dist: trusty
+sudo: required
+
 addons:
   chrome: stable
-
+cache:
+  npm: true
+  directories:
+    - node_modules
 jobs:
   include:
   - stage: lint
