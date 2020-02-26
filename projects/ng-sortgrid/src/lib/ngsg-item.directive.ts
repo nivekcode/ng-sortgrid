@@ -28,10 +28,10 @@ const selector = '[ngSortgridItem]';
 @Directive({selector})
 export class NgsgItemDirective implements OnInit, OnChanges, AfterViewInit, OnDestroy {
   @Input() ngSortGridGroup = 'defaultGroup';
-  @Input() ngSortGridItems;
-  @Input() scrollPointTop;
-  @Input() scrollPointBottom;
-  @Input() scrollSpeed;
+  @Input() ngSortGridItems: any[];
+  @Input() scrollPointTop: number;
+  @Input() scrollPointBottom: number;
+  @Input() scrollSpeed: number;
   @Input() autoScroll = false;
 
   @Output() sorted = new EventEmitter<NgsgOrderChange<any>>();
