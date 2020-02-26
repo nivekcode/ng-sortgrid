@@ -18,8 +18,7 @@
     "publish": "npm run publish:lib",
     "publish:demo": "npx angular-cli-ghpages --dir=./dist/ng-sortgrid-demo",
     "publish:lib": "cd dist/ng-sortgrid && npx semantic-release",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "lint": "ng lint"
   },
   "private": true,
   "dependencies": {

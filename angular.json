@@ -149,34 +149,6 @@
           }
         }
       }
-    },
-    "ng-sortgrid-demo-e2e": {
-      "root": "projects/ng-sortgrid-demo-e2e/",
-      "projectType": "application",
-      "prefix": "",
-      "architect": {
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "projects/ng-sortgrid-demo-e2e/protractor.conf.js",
-            "devServerTarget": "ng-sortgrid-demo:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "ng-sortgrid-demo:serve:production"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": "projects/ng-sortgrid-demo-e2e/tsconfig.e2e.json",
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
     }
   },
   "defaultProject": "ng-sortgrid"
