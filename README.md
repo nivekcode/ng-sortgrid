@@ -45,7 +45,7 @@ In most cases you are interested in the new sort order. Often you want to store 
 Pass your items to the directive via the ngSortGridItems input.
 
 ![Grid demo](https://raw.githubusercontent.com/kreuzerk/ng-sortgrid/master/projects/ng-sortgrid-demo/src/assets/gs3.png)
-React on the 'sorted' output events
+React on the 'sorted' output event. The `sorted` output event emits a `NgsgOrderChange` which contains the `previousOrder` and the `currentOrder`
 
 ![Grid demo](https://raw.githubusercontent.com/kreuzerk/ng-sortgrid/master/projects/ng-sortgrid-demo/src/assets/gs4.png)
 
