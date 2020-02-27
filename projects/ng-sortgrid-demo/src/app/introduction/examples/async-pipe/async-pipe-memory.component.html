@@ -1,9 +1,13 @@
 <h5 style="margin-bottom: 20px">4. Load items and use them with the async pipe</h5>
 <button style="margin-bottom: 20px" class="btn btn-primary" (click)="loadItems()">Load items</button>
 <div class="card border-primary mb-3">
+  <div class="card-body" *ngIf="previousSortOrder.length > 0">
+    <h1 class="card-title">Previous sort order</h1>
+    <h2 class="card-text">{{ previousSortOrder }}</h2>
+  </div>
   <div class="card-body">
-    <h1 class="card-title">Sort order</h1>
-    <h2 class="card-text">{{ sortOrder }}</h2>
+    <h1 class="card-title">Current sort order</h1>
+    <h2 class="card-text">{{ currentSortOrder }}</h2>
   </div>
 </div>
 <div class="example-container">

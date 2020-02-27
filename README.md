@@ -14,6 +14,9 @@
   - [Download the module](#download-the-module)
   - [Apply the directive](#apply-the-directive)
   - [React on changes](#react-on-changes)
+- [API](#api)
+  - [Inputs](#inputs)
+  - [Outputs](#outputs)
 
 # Getting started
 ## Download the module
@@ -45,7 +48,7 @@ In most cases you are interested in the new sort order. Often you want to store 
 Pass your items to the directive via the ngSortGridItems input.
 
 ![Grid demo](https://raw.githubusercontent.com/kreuzerk/ng-sortgrid/master/projects/ng-sortgrid-demo/src/assets/gs3.png)
-React on the 'sorted' output events
+React on the 'sorted' output event. The `sorted` output event emits a `NgsgOrderChange` which contains the `previousOrder` and the `currentOrder`
 
 ![Grid demo](https://raw.githubusercontent.com/kreuzerk/ng-sortgrid/master/projects/ng-sortgrid-demo/src/assets/gs4.png)
 
@@ -98,3 +101,20 @@ at the top of your page. In this case you need to scroll once you drag an elemen
 The *scrollSpeed* property accepts a number and allows you to specify the scrolling speed.
 
 [Check out the scroll demo](https://kreuzerk.github.io/ng-sortgrid/scrolling)
+
+# API
+
+## Inputs
+| Value             | Description                                                                                                                                    | Default|
+|-------------------|------------------------------------------------------------------------------------------------------------------------------------------------|--------|
+| ngSortGridGroup: string | Groups a grid - avoids that items from one grid can be dragged to another grid                                                         |undefined|
+| ngSortGridItems: any[] | Sort grid items. Pass down a list of all your items. This list is needed to enable the sorting feature.|undefined|
+| autoScroll: boolean | Flag to enable autoscrolling|false|
+| scrollPointTop: number | Custom top scrollpoint in pixels|if autoscroll is applied we start scrolling if we pass the top border|
+| scrollPointBottom: number | Custom bottom scrollpoint in pixels|if autoscroll is applied we start scrolling if we pass the bottom border|
+| scrollSpeed: number | Scrollspeed, the higher the value, the higher we scroll.|50 - only applies if autoscrolling is on|
+
+## Outputs
+| Value             | Description                                                                                                                                    | Default|
+|-------------------|------------------------------------------------------------------------------------------------------------------------------------------------|--------|
+| sorted: EventEmitter<NgsgOrderChange<T> | Emits an event after we sorted the items, each event is of type NgsgOrderChange. The NgsgOrderChange contains the previousOrder and the currentOrder                                                         |undefined|

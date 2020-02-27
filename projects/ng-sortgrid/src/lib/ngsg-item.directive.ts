@@ -12,31 +12,32 @@ import {
   SimpleChanges
 } from '@angular/core';
 
-import {fromEvent, Observable, Subject} from 'rxjs';
+import {fromEvent, Subject} from 'rxjs';
 import {takeUntil, takeWhile, throttleTime} from 'rxjs/operators';
+
 import {NgsgSortService} from './sort/sort/ngsg-sort.service';
 import {NgsgSelectionService} from './mutliselect/ngsg-selection.service';
 import {NgsgReflectService} from './sort/reflection/ngsg-reflect.service';
 import {NgsgStoreService} from './store/ngsg-store.service';
 import {NgsgEventsService} from './shared/ngsg-events.service';
 import {ScrollHelperService} from './helpers/scroll/scroll-helper.service';
+import {NgsgOrderChange} from './shared/ngsg-order-change.model';
 
 const selector = '[ngSortgridItem]';
 
 @Directive({selector})
 export class NgsgItemDirective implements OnInit, OnChanges, AfterViewInit, OnDestroy {
   @Input() ngSortGridGroup = 'defaultGroup';
-  @Input() ngSortGridItems;
-  @Input() scrollPointTop;
-  @Input() scrollPointBottom;
-  @Input() scrollSpeed;
+  @Input() ngSortGridItems: any[];
+  @Input() scrollPointTop: number;
+  @Input() scrollPointBottom: number;
+  @Input() scrollSpeed: number;
   @Input() autoScroll = false;
 
-  @Output() sorted = new EventEmitter<any>();
+  @Output() sorted = new EventEmitter<NgsgOrderChange<any>>();
 
   private selected = false;
   private destroy$ = new Subject();
-  private drag$: Observable<Event>;
 
   constructor(
     public el: ElementRef,
@@ -124,10 +125,10 @@ export class NgsgItemDirective implements OnInit, OnChanges, AfterViewInit, OnDe
       otherwhise the ordered items can not be emitted in the (sorted) event`);
       return;
     }
-
+    const previousOrder = [...this.ngsgStore.getItems(this.ngSortGridGroup)];
     this.sortService.endSort();
-    const reflectedChanges = this.reflectService.reflectChanges(this.ngSortGridGroup, this.el.nativeElement);
-    this.sorted.next(reflectedChanges);
+    const currentOrder = this.reflectService.reflectChanges(this.ngSortGridGroup, this.el.nativeElement);
+    this.sorted.next({previousOrder, currentOrder});
     this.ngsgStore.resetSelectedItems(this.ngSortGridGroup);
     this.ngsgEventService.dropped$.next();
   }

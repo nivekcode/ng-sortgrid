@@ -1,17 +1,25 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {delay, tap} from 'rxjs/operators';
+
+import {NgsgOrderChange} from '../../../../../../ng-sortgrid/src/lib/shared/ngsg-order-change.model';
 
 @Component({
   selector: 'ngsg-demo-async',
   templateUrl: './async-pipe-memory.component.html',
   styleUrls: ['./async-pipe-memory.component.css']
 })
-export class AsyncPipeMemoryComponent {
+export class AsyncPipeMemoryComponent implements OnInit {
 
   item$: Observable<number[]>;
   loading = false;
-  public sortOrder: number[];
+  public currentSortOrder: number[];
+  public previousSortOrder: number[];
+
+  ngOnInit(): void {
+    this.previousSortOrder = [];
+    this.currentSortOrder = [];
+  }
 
   public loadItems(): void {
     this.loading = true;
@@ -21,8 +29,8 @@ export class AsyncPipeMemoryComponent {
     );
   }
 
-  public applyOrder(newOrder: number[]): void {
-    this.sortOrder = newOrder;
+  public applyOrder(orderChange: NgsgOrderChange<number>): void {
+    this.currentSortOrder = orderChange.currentOrder;
+    this.previousSortOrder = orderChange.previousOrder;
   }
-
 }

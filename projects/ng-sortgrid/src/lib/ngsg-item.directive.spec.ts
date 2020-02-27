@@ -7,6 +7,7 @@ import {NgsgSelectionService} from './mutliselect/ngsg-selection.service';
 import {NgsgReflectService} from './sort/reflection/ngsg-reflect.service';
 import {NgsgStoreService} from './store/ngsg-store.service';
 import {NgsgEventsService} from './shared/ngsg-events.service';
+import {NgsgOrderChange} from './shared/ngsg-order-change.model';
 
 describe('NgsgItemDirective', () => {
   let sut: NgsgItemDirective;
@@ -24,7 +25,8 @@ describe('NgsgItemDirective', () => {
     'resetSelectedItems',
     'hasGroup',
     'hasItems',
-    'setItems'
+    'setItems',
+    'getItems'
   ]);
   const ngsgEventService = new NgsgEventsService();
   const scrollHelperService = {
@@ -116,6 +118,7 @@ describe('NgsgItemDirective', () => {
 
   it('should sort if the group contains selectedItems', () => {
     ngsgStore.hasSelectedItems.and.returnValue(true);
+    ngsgStore.getItems.and.returnValue([]);
     ngsgStore.hasItems.and.returnValue(true);
     sut.drop();
     expect(ngsgSortService.endSort).toHaveBeenCalled();
@@ -125,34 +128,41 @@ describe('NgsgItemDirective', () => {
     const group = 'test-group';
     sut.ngSortGridGroup = group;
     ngsgStore.hasSelectedItems.and.returnValue(true);
+    ngsgStore.getItems.and.returnValue([]);
 
     sut.drop();
     expect(ngsgReflectService.reflectChanges).toHaveBeenCalledWith(group, elementRef.nativeElement);
   });
 
-  it('should get the reflected changes from the reflection service and emit them', done => {
+  it('should emit a OrderChange containing the previous item order and the new itemorder', done => {
     const group = 'test-group';
-    const reflectedChanges = ['item two', 'item one', 'item three'];
+    const currentItemOrder = ['item one', 'item two', 'item three'];
+    const newItemOrder = ['item two', 'item one', 'item three'];
+    const expectedOrderChange: NgsgOrderChange<string> = {previousOrder: currentItemOrder, currentOrder: newItemOrder};
 
     ngsgStore.hasSelectedItems.and.returnValue(true);
     ngsgStore.hasItems.and.returnValue(true);
-    ngsgReflectService.reflectChanges.and.returnValue(reflectedChanges);
+    ngsgStore.getItems.and.returnValue(currentItemOrder);
+    ngsgReflectService.reflectChanges.and.returnValue(newItemOrder);
     sut.ngSortGridGroup = group;
 
-    sut.sorted.subscribe(changes => {
-      expect(reflectedChanges).toEqual(changes);
+    sut.sorted.subscribe((orderChange: NgsgOrderChange<string>) => {
+      expect(orderChange).toEqual(expectedOrderChange);
       done();
     });
     sut.drop();
-    expect(ngsgReflectService.reflectChanges).toHaveBeenCalledWith(group, elementRef.nativeElement);
   });
 
   it('should reset the selected items on drop', () => {
+    ngsgStore.hasSelectedItems.and.returnValue(true);
+    ngsgStore.hasItems.and.returnValue(true);
     sut.drop();
     expect(ngsgStore.resetSelectedItems).toHaveBeenCalled();
   });
 
   it('should stream the dropped event on the eventservice', done => {
+    ngsgStore.hasSelectedItems.and.returnValue(true);
+    ngsgStore.hasItems.and.returnValue(true);
     ngsgEventService.dropped$.subscribe(() => done());
     sut.drop();
   });
