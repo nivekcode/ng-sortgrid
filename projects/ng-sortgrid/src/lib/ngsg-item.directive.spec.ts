@@ -8,6 +8,7 @@ import {NgsgReflectService} from './sort/reflection/ngsg-reflect.service';
 import {NgsgStoreService} from './store/ngsg-store.service';
 import {NgsgEventsService} from './shared/ngsg-events.service';
 import {NgsgOrderChange} from './shared/ngsg-order-change.model';
+import {NgsgElementsHelper} from './helpers/element/ngsg-elements.helper';
 
 describe('NgsgItemDirective', () => {
   let sut: NgsgItemDirective;
@@ -22,6 +23,7 @@ describe('NgsgItemDirective', () => {
   const ngsgStore = createSpyObj<NgsgStoreService>('ngsgStore', [
     'initState',
     'hasSelectedItems',
+    'getSelectedItems',
     'resetSelectedItems',
     'hasGroup',
     'hasItems',
@@ -169,10 +171,24 @@ describe('NgsgItemDirective', () => {
 
   it('should call the selctionservice with the host if the event occured on the host', () => {
     const group = 'test-group';
+    NgsgElementsHelper.findIndex = () => 0;
+    ngsgStore.getSelectedItems.and.returnValue([]);
     sut.ngSortGridGroup = group;
 
     sut.clicked();
     expect(ngsgSelectionService.updateSelectedDragItem).toHaveBeenCalledWith(group, elementRef.nativeElement, true);
+  });
+
+  it('should call the selection service with false if the item is selected', () => {
+    const originalIndex = 0;
+    const group = 'test-group';
+    const element = {originalIndex};
+    NgsgElementsHelper.findIndex = () => originalIndex;
+    ngsgStore.getSelectedItems.and.returnValue([element]);
+    sut.ngSortGridGroup = group;
+
+    sut.clicked();
+    expect(ngsgSelectionService.updateSelectedDragItem).toHaveBeenCalledWith(group, elementRef.nativeElement, false);
   });
 
   it(`should init the state with empty items if group has yet not been

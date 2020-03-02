@@ -22,6 +22,7 @@ import {NgsgStoreService} from './store/ngsg-store.service';
 import {NgsgEventsService} from './shared/ngsg-events.service';
 import {ScrollHelperService} from './helpers/scroll/scroll-helper.service';
 import {NgsgOrderChange} from './shared/ngsg-order-change.model';
+import {NgsgElementsHelper} from './helpers/element/ngsg-elements.helper';
 
 const selector = '[ngSortgridItem]';
 
@@ -135,8 +136,14 @@ export class NgsgItemDirective implements OnInit, OnChanges, AfterViewInit, OnDe
 
   @HostListener('click', ['$event'])
   clicked(): void {
-    this.selected = !this.selected;
+    this.selected = !this.isItemCurrentlySelected();
     this.selectionService.updateSelectedDragItem(this.ngSortGridGroup, this.el.nativeElement, this.selected);
+  }
+
+  private isItemCurrentlySelected(): boolean {
+    const index = NgsgElementsHelper.findIndex(this.el.nativeElement);
+    return !!this.ngsgStore.getSelectedItems(this.ngSortGridGroup)
+      .find(element => element.originalIndex === index);
   }
 
   private occuredOnHost(event): boolean {

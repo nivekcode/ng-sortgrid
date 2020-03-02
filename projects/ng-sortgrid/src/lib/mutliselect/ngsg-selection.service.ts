@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { fromEvent, merge, NEVER, Observable, Subject } from 'rxjs';
-import { filter, mapTo, switchMap } from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {fromEvent, merge, NEVER, Observable, Subject} from 'rxjs';
+import {filter, mapTo, switchMap, withLatestFrom} from 'rxjs/operators';
 import {NgsgClassService} from '../helpers/class/ngsg-class.service';
 import {NgsgStoreService} from '../store/ngsg-store.service';
 import {NgsgElementsHelper} from '../helpers/element/ngsg-elements.helper';
@@ -27,9 +27,18 @@ export class NgsgSelectionService {
 
   constructor(private classService: NgsgClassService, private ngsgStore: NgsgStoreService) {
     const selectionKeyPressed$ = this.selectionKeyPressed();
-    selectionKeyPressed$
-      .pipe(switchMap(pressed => (pressed ? this.selectionChange$ : NEVER)))
-      .subscribe((selectionChange: SelectionChange) => this.handleSelectionChange(selectionChange));
+    this.selectionChange$
+      .pipe(withLatestFrom(selectionKeyPressed$))
+      .subscribe(([selectionChange, selectionKeyPressed]) => {
+        selectionKeyPressed
+          ? this.handleSelectionChange(selectionChange)
+          : this.resetSelectedItems(selectionChange.key);
+      });
+  }
+
+  private resetSelectedItems(group: string): void {
+    this.ngsgStore.getSelectedItems(group).forEach(item => this.classService.removeSelectedClass(item.node));
+    this.ngsgStore.resetSelectedItems(group);
   }
 
   private handleSelectionChange(selectionChange: SelectionChange): void {
