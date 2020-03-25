@@ -28,6 +28,7 @@ npm i -s ng-sortgrid
 Import the ```NgsgModule``` in your ```AppModule```.
 
 ```
+  import {NgsgModule} from 'ng-sortgrid'
   ...
   imports: [BrowserModule, NgsgModule],
   ...
