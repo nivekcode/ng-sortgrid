@@ -72,7 +72,7 @@ To integrate the built in Stylesheet just import in in your angular.json.
 
 ```
     "styles": [
-              "node_modules/ng-sortgrid/dist/lib/ngsg.css",
+              "node_modules/ng-sortgrid/styles/ngsg.css",
             ],
 ```
 
