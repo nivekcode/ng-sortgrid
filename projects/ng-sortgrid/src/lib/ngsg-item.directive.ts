@@ -134,7 +134,7 @@ export class NgsgItemDirective implements OnInit, OnChanges, AfterViewInit, OnDe
     this.ngsgEventService.dropped$.next();
   }
 
-  @HostListener('click', ['$event'])
+  @HostListener('click')
   clicked(): void {
     this.selected = !this.isItemCurrentlySelected();
     this.selectionService.updateSelectedDragItem(this.ngSortGridGroup, this.el.nativeElement, this.selected);
