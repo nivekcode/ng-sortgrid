@@ -1,39 +1,42 @@
-import {NgsgItemDirective} from './ngsg-item.directive';
+import { NgsgItemDirective } from './ngsg-item.directive';
 
 import createSpyObj = jasmine.createSpyObj;
 import createSpy = jasmine.createSpy;
-import {NgsgSortService} from './sort/sort/ngsg-sort.service';
-import {NgsgSelectionService} from './mutliselect/ngsg-selection.service';
-import {NgsgReflectService} from './sort/reflection/ngsg-reflect.service';
-import {NgsgStoreService} from './store/ngsg-store.service';
-import {NgsgEventsService} from './shared/ngsg-events.service';
-import {NgsgOrderChange} from './shared/ngsg-order-change.model';
-import {NgsgElementsHelper} from './helpers/element/ngsg-elements.helper';
+import { NgsgSortService } from './sort/sort/ngsg-sort.service';
+import { NgsgSelectionService } from './mutliselect/ngsg-selection.service';
+import { NgsgReflectService } from './sort/reflection/ngsg-reflect.service';
+import { NgsgStoreService } from './store/ngsg-store.service';
+import { NgsgEventsService } from './shared/ngsg-events.service';
+import { NgsgOrderChange } from './shared/ngsg-order-change.model';
+import { NgsgElementsHelper } from './helpers/element/ngsg-elements.helper';
 
 describe('NgsgItemDirective', () => {
   let sut: NgsgItemDirective;
 
-  const elementRef = {nativeElement: {}} as any;
-  const ngsgSortService = createSpyObj<NgsgSortService>('ngsgSortService', ['initSort', 'sort', 'endSort']);
-  const ngsgSelectionService = createSpyObj<NgsgSelectionService>('ngsgSelectionService', [
-    'selectElementIfNoSelection',
-    'updateSelectedDragItem'
-  ]);
-  const ngsgReflectService = createSpyObj<NgsgReflectService>('ngsgReflectService', ['reflectChanges']);
-  const ngsgStore = createSpyObj<NgsgStoreService>('ngsgStore', [
-    'initState',
-    'hasSelectedItems',
-    'getSelectedItems',
-    'resetSelectedItems',
-    'hasGroup',
-    'hasItems',
-    'setItems',
-    'getItems'
-  ]);
+  const elementRef = { nativeElement: {} } as any;
+  const ngsgSortService = {
+    initSort: jest.fn(),
+    sort: jest.fn(),
+    endSort: jest.fn(),
+  } as any;
+  const ngsgSelectionService = {
+    selectElementIfNoSelection: jest.fn(),
+    updateSelectedDragItem: jest.fn(),
+  } as any;
+  const ngsgReflectService = { reflectChanges: jest.fn() } as any;
+  const ngsgStore = {
+    initState: jest.fn(),
+    hasSelectedItems: jest.fn(),
+    getSelectedItems: jest.fn(),
+    resetSelectedItems: jest.fn(),
+    hasGroup: jest.fn(),
+    hasItems: jest.fn(),
+    setItems: jest.fn(),
+    getItems: jest.fn(),
+  } as any;
   const ngsgEventService = new NgsgEventsService();
   const scrollHelperService = {
-    scrollIfNecessary: () => {
-    }
+    scrollIfNecessary: () => {},
   } as any;
 
   beforeEach(() => {
@@ -56,8 +59,8 @@ describe('NgsgItemDirective', () => {
   it('should not set selectedElements if the event did not occur on the host', () => {
     const event = {
       target: {
-        matches: () => false
-      }
+        matches: () => false,
+      },
     };
     sut.dragStart(event);
     expect(ngsgSelectionService.selectElementIfNoSelection).not.toHaveBeenCalled();
@@ -68,8 +71,8 @@ describe('NgsgItemDirective', () => {
     sut.ngSortGridGroup = sortGroup;
     const event = {
       target: {
-        matches: () => true
-      }
+        matches: () => true,
+      },
     } as any;
     sut.dragStart(event);
     expect(ngsgSelectionService.selectElementIfNoSelection).toHaveBeenCalledWith(sortGroup, event.target);
@@ -80,29 +83,29 @@ describe('NgsgItemDirective', () => {
     sut.ngSortGridGroup = sortGroup;
     const event = {
       target: {
-        matches: () => true
-      }
+        matches: () => true,
+      },
     };
     sut.dragStart(event);
     expect(ngsgSortService.initSort).toHaveBeenCalledWith(sortGroup);
   });
 
   it('should call sort with the host if the event occured on the host', () => {
-    ngsgStore.hasSelectedItems.and.returnValue(true);
+    ngsgStore.hasSelectedItems = () => true;
 
     sut.dragEnter();
     expect(ngsgSortService.sort).toHaveBeenCalledWith(elementRef.nativeElement);
   });
 
   it('should sort the items if the event occured on the host and on the correct group', () => {
-    ngsgStore.hasSelectedItems.and.returnValue(true);
+    ngsgStore.hasSelectedItems = () => true;
     sut.dragEnter();
     expect(ngsgSortService.sort).toHaveBeenCalledWith(elementRef.nativeElement);
   });
 
   it('must call event preventDefault', () => {
     const preventDefaultSpy = createSpy();
-    const event = {preventDefault: preventDefaultSpy};
+    const event = { preventDefault: preventDefaultSpy };
     sut.dragOver(event);
     expect(preventDefaultSpy).toHaveBeenCalled();
   });
@@ -113,15 +116,15 @@ describe('NgsgItemDirective', () => {
   });
 
   it('should not call endSort if the group does not contain selectedItems', () => {
-    ngsgStore.hasSelectedItems.and.returnValue(false);
+    ngsgStore.hasSelectedItems = () => false;
     sut.drop();
     expect(ngsgSortService.endSort).not.toHaveBeenCalled();
   });
 
   it('should sort if the group contains selectedItems', () => {
-    ngsgStore.hasSelectedItems.and.returnValue(true);
-    ngsgStore.getItems.and.returnValue([]);
-    ngsgStore.hasItems.and.returnValue(true);
+    ngsgStore.hasSelectedItems = () => true;
+    ngsgStore.getItems = () => [];
+    ngsgStore.hasItems = () => true;
     sut.drop();
     expect(ngsgSortService.endSort).toHaveBeenCalled();
   });
@@ -129,23 +132,26 @@ describe('NgsgItemDirective', () => {
   it('should call the reflection service with the host if the event occured on it', () => {
     const group = 'test-group';
     sut.ngSortGridGroup = group;
-    ngsgStore.hasSelectedItems.and.returnValue(true);
-    ngsgStore.getItems.and.returnValue([]);
+    ngsgStore.hasSelectedItems = () => true;
+    ngsgStore.getItems = () => [];
 
     sut.drop();
     expect(ngsgReflectService.reflectChanges).toHaveBeenCalledWith(group, elementRef.nativeElement);
   });
 
-  it('should emit a OrderChange containing the previous item order and the new itemorder', done => {
+  it('should emit a OrderChange containing the previous item order and the new itemorder', (done) => {
     const group = 'test-group';
     const currentItemOrder = ['item one', 'item two', 'item three'];
     const newItemOrder = ['item two', 'item one', 'item three'];
-    const expectedOrderChange: NgsgOrderChange<string> = {previousOrder: currentItemOrder, currentOrder: newItemOrder};
+    const expectedOrderChange: NgsgOrderChange<string> = {
+      previousOrder: currentItemOrder,
+      currentOrder: newItemOrder,
+    };
 
-    ngsgStore.hasSelectedItems.and.returnValue(true);
-    ngsgStore.hasItems.and.returnValue(true);
-    ngsgStore.getItems.and.returnValue(currentItemOrder);
-    ngsgReflectService.reflectChanges.and.returnValue(newItemOrder);
+    ngsgStore.hasSelectedItems = () => true;
+    ngsgStore.hasItems = () => true;
+    ngsgStore.getItems = () => currentItemOrder;
+    ngsgReflectService.reflectChanges = () => newItemOrder;
     sut.ngSortGridGroup = group;
 
     sut.sorted.subscribe((orderChange: NgsgOrderChange<string>) => {
@@ -156,15 +162,15 @@ describe('NgsgItemDirective', () => {
   });
 
   it('should reset the selected items on drop', () => {
-    ngsgStore.hasSelectedItems.and.returnValue(true);
-    ngsgStore.hasItems.and.returnValue(true);
+    ngsgStore.hasSelectedItems = () => true;
+    ngsgStore.hasItems = () => true;
     sut.drop();
     expect(ngsgStore.resetSelectedItems).toHaveBeenCalled();
   });
 
-  it('should stream the dropped event on the eventservice', done => {
-    ngsgStore.hasSelectedItems.and.returnValue(true);
-    ngsgStore.hasItems.and.returnValue(true);
+  it('should stream the dropped event on the eventservice', (done) => {
+    ngsgStore.hasSelectedItems = () => true;
+    ngsgStore.hasItems = () => true;
     ngsgEventService.dropped$.subscribe(() => done());
     sut.drop();
   });
@@ -172,7 +178,7 @@ describe('NgsgItemDirective', () => {
   it('should call the selctionservice with the host if the event occured on the host', () => {
     const group = 'test-group';
     NgsgElementsHelper.findIndex = () => 0;
-    ngsgStore.getSelectedItems.and.returnValue([]);
+    ngsgStore.getSelectedItems = () => [];
     sut.ngSortGridGroup = group;
 
     sut.clicked();
@@ -182,9 +188,9 @@ describe('NgsgItemDirective', () => {
   it('should call the selection service with false if the item is selected', () => {
     const originalIndex = 0;
     const group = 'test-group';
-    const element = {originalIndex};
+    const element = { originalIndex };
     NgsgElementsHelper.findIndex = () => originalIndex;
-    ngsgStore.getSelectedItems.and.returnValue([element] as any);
+    ngsgStore.getSelectedItems = () => [element] as any;
     sut.ngSortGridGroup = group;
 
     sut.clicked();
@@ -196,11 +202,11 @@ describe('NgsgItemDirective', () => {
     const group = 'test-group';
     const changes = {
       ngSortGridItems: {
-        currentValue: null
-      }
+        currentValue: null,
+      },
     } as any;
     sut.ngSortGridGroup = group;
-    ngsgStore.hasGroup.and.returnValue(false);
+    ngsgStore.hasGroup = () => false;
 
     sut.ngOnChanges(changes);
     expect(ngsgStore.initState).toHaveBeenCalledWith(group, []);
@@ -210,11 +216,11 @@ describe('NgsgItemDirective', () => {
     const group = 'test-group';
     const changes = {
       ngSortGridItems: {
-        currentValue: null
-      }
+        currentValue: null,
+      },
     } as any;
     sut.ngSortGridGroup = group;
-    ngsgStore.hasGroup.and.returnValue(false);
+    ngsgStore.hasGroup = () => false;
 
     sut.ngOnChanges(changes);
     expect(ngsgStore.initState).toHaveBeenCalledWith(group, []);
@@ -225,22 +231,21 @@ describe('NgsgItemDirective', () => {
     const items = ['Item one', 'item two'];
     const changes = {
       ngSortGridItems: {
-        currentValue: items
-      }
+        currentValue: items,
+      },
     } as any;
     sut.ngSortGridGroup = group;
-    ngsgStore.hasGroup.and.returnValue(true);
+    ngsgStore.hasGroup = () => true;
 
     sut.ngOnChanges(changes);
     expect(ngsgStore.setItems).toHaveBeenCalledWith(group, items);
   });
 
   it('should log a warning message if you drop and you did not provide any items', () => {
-    const expectedWarniningMessage =
-      `Ng-sortgrid: No items provided - please use [sortGridItems] to pass in an array of items -
+    const expectedWarniningMessage = `Ng-sortgrid: No items provided - please use [sortGridItems] to pass in an array of items -
       otherwhise the ordered items can not be emitted in the (sorted) event`;
     const consoleWarnSpy = spyOn(console, 'warn');
-    ngsgStore.hasItems.and.returnValue(false);
+    ngsgStore.hasItems = () => false;
 
     sut.drop();
     expect(consoleWarnSpy).toHaveBeenCalledWith(expectedWarniningMessage);

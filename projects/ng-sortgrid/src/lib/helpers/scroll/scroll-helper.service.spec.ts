@@ -1,5 +1,4 @@
 import {ScrollHelperService} from './scroll-helper.service';
-import SpyObj = jasmine.SpyObj;
 
 describe('Scroll helper', () => {
 
@@ -12,7 +11,7 @@ describe('Scroll helper', () => {
       }
     } as any
   };
-  let scrollSpy: SpyObj<any>;
+  let scrollSpy: any;
 
   beforeEach(() => {
     sut = new ScrollHelperService(documentMock);
