@@ -122,8 +122,8 @@ describe('NgsgSelectionService', () => {
         const event = new KeyboardEvent('keyup', {
           key: 'Meta'
         });
-        const itemOne = { node: 'Foo' };
-        const itemTwo = { node: 'Bar' };
+        const itemOne = { node: 'Foo' } as any;
+        const itemTwo = { node: 'Bar' } as any;
         const items = [itemOne, itemTwo];
         const group = 'groupOne';
         const item = 'Some element' as any;

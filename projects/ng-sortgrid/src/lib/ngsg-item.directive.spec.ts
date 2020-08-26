@@ -13,7 +13,7 @@ import {NgsgElementsHelper} from './helpers/element/ngsg-elements.helper';
 describe('NgsgItemDirective', () => {
   let sut: NgsgItemDirective;
 
-  const elementRef = {nativeElement: {}};
+  const elementRef = {nativeElement: {}} as any;
   const ngsgSortService = createSpyObj<NgsgSortService>('ngsgSortService', ['initSort', 'sort', 'endSort']);
   const ngsgSelectionService = createSpyObj<NgsgSelectionService>('ngsgSelectionService', [
     'selectElementIfNoSelection',
@@ -70,7 +70,7 @@ describe('NgsgItemDirective', () => {
       target: {
         matches: () => true
       }
-    };
+    } as any;
     sut.dragStart(event);
     expect(ngsgSelectionService.selectElementIfNoSelection).toHaveBeenCalledWith(sortGroup, event.target);
   });
@@ -184,7 +184,7 @@ describe('NgsgItemDirective', () => {
     const group = 'test-group';
     const element = {originalIndex};
     NgsgElementsHelper.findIndex = () => originalIndex;
-    ngsgStore.getSelectedItems.and.returnValue([element]);
+    ngsgStore.getSelectedItems.and.returnValue([element] as any);
     sut.ngSortGridGroup = group;
 
     sut.clicked();

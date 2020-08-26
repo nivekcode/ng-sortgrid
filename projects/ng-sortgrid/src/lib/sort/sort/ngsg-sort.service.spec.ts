@@ -33,8 +33,8 @@ describe('NgsgSortService', () => {
     const dragElement = {originalIndex: 0, node: firstElement} as any;
     const dropElement = middleElement as any;
 
-    ngsgStore.getFirstSelectItem.and.returnValue({originalIndex: 0});
-    ngsgStore.getSelectedItems.and.returnValue([dragElement]);
+    ngsgStore.getFirstSelectItem.and.returnValue({originalIndex: 0} as any);
+    ngsgStore.getSelectedItems.and.returnValue([dragElement] as any);
     const insertBeforeSpy = spyOn(dropElement.parentNode, 'insertBefore');
     NgsgElementsHelper.findIndex = () => 1;
 
@@ -52,7 +52,7 @@ describe('NgsgSortService', () => {
     const dragElement = {originalIndex: 2, node: lastElement} as any;
     const dropElement = middleElement as any;
 
-    ngsgStore.getFirstSelectItem.and.returnValue({originalIndex: 2});
+    ngsgStore.getFirstSelectItem.and.returnValue({originalIndex: 2} as any);
     ngsgStore.getSelectedItems.and.returnValue([dragElement]);
     const insertBeforeSpy = spyOn(dropElement.parentNode, 'insertBefore');
     NgsgElementsHelper.findIndex = () => 1;
@@ -65,7 +65,7 @@ describe('NgsgSortService', () => {
 
   it('should remove the placeholder class on all selected elements if the sort ends', () => {
     const group = 'test-group';
-    const selectedItems = [{node: 'ItemOne'}, {node: 'ItemTwo'}];
+    const selectedItems = [{node: 'ItemOne'}, {node: 'ItemTwo'}] as any;
     ngsgStore.getSelectedItems.and.returnValue(selectedItems);
 
     sut.initSort(group);
@@ -77,7 +77,7 @@ describe('NgsgSortService', () => {
 
   it('should add the dropped class on all selected elements if the sort ends', () => {
     const group = 'test-group';
-    const selectedItems = [{node: 'ItemOne'}, {node: 'ItemTwo'}];
+    const selectedItems = [{node: 'ItemOne'}, {node: 'ItemTwo'}] as any;
     ngsgStore.getSelectedItems.and.returnValue(selectedItems);
 
     sut.initSort(group);
@@ -89,7 +89,7 @@ describe('NgsgSortService', () => {
 
   it('should remove the selected class on all selected elements if the sort ends', () => {
     const group = 'test-group';
-    const selectedItems = [{node: 'ItemOne'}, {node: 'ItemTwo'}];
+    const selectedItems = [{node: 'ItemOne'}, {node: 'ItemTwo'}] as any;
     ngsgStore.getSelectedItems.and.returnValue(selectedItems);
 
     sut.initSort(group);

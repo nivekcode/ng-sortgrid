@@ -31,10 +31,9 @@
     "@angular/platform-browser": "~10.0.12",
     "@angular/platform-browser-dynamic": "~10.0.12",
     "@angular/router": "~10.0.12",
-    "core-js": "^3.6.5",
-    "rxjs": "~6.6.2",
+    "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
-    "zone.js": "~0.11.1"
+    "zone.js": "~0.10.3"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1000.7",
@@ -45,9 +44,9 @@
     "@fortawesome/fontawesome-free": "^5.14.0",
     "@semantic-release/changelog": "^5.0.1",
     "@semantic-release/git": "^9.0.0",
-    "@types/jasmine": "~3.5.13",
-    "@types/jasminewd2": "~2.0.8",
-    "@types/node": "^14.6.0",
+    "@types/jasmine": "~3.5.0",
+    "@types/jasminewd2": "~2.0.3",
+    "@types/node": "^12.11.1",
     "codecov": "^3.7.2",
     "codelyzer": "^6.0.0",
     "copyfiles": "^2.3.0",
@@ -63,10 +62,9 @@
     "ng-packagr": "^10.0.0",
     "prettier": "^2.1.1",
     "protractor": "~7.0.0",
-    "ts-node": "~9.0.0",
-    "tsickle": "^0.39.1",
+    "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
-    "typescript": "^3.9.0"
+    "typescript": "^3.9.5"
   },
   "husky": {
     "hooks": {
