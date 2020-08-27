@@ -1,28 +1,35 @@
-import {NgsgSortService} from './ngsg-sort.service';
+import { NgsgSortService } from './ngsg-sort.service';
 import createSpyObj = jasmine.createSpyObj;
-import {NgsgClassService} from '../../helpers/class/ngsg-class.service';
-import {NgsgStoreService} from '../../store/ngsg-store.service';
-import {NgsgElementsHelper} from '../../helpers/element/ngsg-elements.helper';
+import { NgsgClassService } from '../../helpers/class/ngsg-class.service';
+import { NgsgStoreService } from '../../store/ngsg-store.service';
+import { NgsgElementsHelper } from '../../helpers/element/ngsg-elements.helper';
 
 describe('NgsgSortService', () => {
-
   let sut: NgsgSortService;
-  const classService = createSpyObj<NgsgClassService>('classService',
-    ['addPlaceHolderClass', 'removePlaceHolderClass', 'addDroppedClass', 'removeSelectedClass', 'removeDroppedClass']);
-  const ngsgStore = createSpyObj<NgsgStoreService>('ngsgStore', ['getFirstSelectItem', 'getSelectedItems']);
+  const classService = {
+    addPlaceHolderClass: jest.fn(),
+    removePlaceHolderClass: jest.fn(),
+    addDroppedClass: jest.fn(),
+    removeSelectedClass: jest.fn(),
+    removeDroppedClass: jest.fn(),
+  } as any;
+  const ngsgStore = {
+    getFirstSelectItem: jest.fn(),
+    getSelectedItems: jest.fn(),
+  } as any;
 
   beforeEach(() => {
     sut = new NgsgSortService(classService, ngsgStore);
   });
 
-  const createElement = (value, nextSibling) => ({
-    value,
-    nextSibling,
-    parentNode: {
-      insertBefore: () => {
-      }
-    }
-  }) as any;
+  const createElement = (value, nextSibling) =>
+    ({
+      value,
+      nextSibling,
+      parentNode: {
+        insertBefore: () => {},
+      },
+    } as any);
 
   it('should insert the first element in the middle if we drag it to the right', () => {
     const group = 'test-group';
@@ -30,11 +37,11 @@ describe('NgsgSortService', () => {
     const lastElement = createElement(3, null);
     const middleElement = createElement(2, lastElement);
     const firstElement = createElement(1, middleElement);
-    const dragElement = {originalIndex: 0, node: firstElement} as any;
+    const dragElement = { originalIndex: 0, node: firstElement } as any;
     const dropElement = middleElement as any;
 
-    ngsgStore.getFirstSelectItem.and.returnValue({originalIndex: 0});
-    ngsgStore.getSelectedItems.and.returnValue([dragElement]);
+    ngsgStore.getFirstSelectItem = () => ({ originalIndex: 0 } as any);
+    ngsgStore.getSelectedItems = () => [dragElement] as any;
     const insertBeforeSpy = spyOn(dropElement.parentNode, 'insertBefore');
     NgsgElementsHelper.findIndex = () => 1;
 
@@ -49,11 +56,11 @@ describe('NgsgSortService', () => {
 
     const lastElement = createElement(3, null);
     const middleElement = createElement(2, lastElement);
-    const dragElement = {originalIndex: 2, node: lastElement} as any;
+    const dragElement = { originalIndex: 2, node: lastElement } as any;
     const dropElement = middleElement as any;
 
-    ngsgStore.getFirstSelectItem.and.returnValue({originalIndex: 2});
-    ngsgStore.getSelectedItems.and.returnValue([dragElement]);
+    ngsgStore.getFirstSelectItem = () => ({ originalIndex: 2 } as any);
+    ngsgStore.getSelectedItems = () => [dragElement];
     const insertBeforeSpy = spyOn(dropElement.parentNode, 'insertBefore');
     NgsgElementsHelper.findIndex = () => 1;
 
@@ -65,8 +72,8 @@ describe('NgsgSortService', () => {
 
   it('should remove the placeholder class on all selected elements if the sort ends', () => {
     const group = 'test-group';
-    const selectedItems = [{node: 'ItemOne'}, {node: 'ItemTwo'}];
-    ngsgStore.getSelectedItems.and.returnValue(selectedItems);
+    const selectedItems = [{ node: 'ItemOne' }, { node: 'ItemTwo' }] as any;
+    ngsgStore.getSelectedItems = () => selectedItems;
 
     sut.initSort(group);
     sut.endSort();
@@ -77,8 +84,8 @@ describe('NgsgSortService', () => {
 
   it('should add the dropped class on all selected elements if the sort ends', () => {
     const group = 'test-group';
-    const selectedItems = [{node: 'ItemOne'}, {node: 'ItemTwo'}];
-    ngsgStore.getSelectedItems.and.returnValue(selectedItems);
+    const selectedItems = [{ node: 'ItemOne' }, { node: 'ItemTwo' }] as any;
+    ngsgStore.getSelectedItems = () => selectedItems;
 
     sut.initSort(group);
     sut.endSort();
@@ -89,8 +96,8 @@ describe('NgsgSortService', () => {
 
   it('should remove the selected class on all selected elements if the sort ends', () => {
     const group = 'test-group';
-    const selectedItems = [{node: 'ItemOne'}, {node: 'ItemTwo'}];
-    ngsgStore.getSelectedItems.and.returnValue(selectedItems);
+    const selectedItems = [{ node: 'ItemOne' }, { node: 'ItemTwo' }] as any;
+    ngsgStore.getSelectedItems = () => selectedItems;
 
     sut.initSort(group);
     sut.endSort();
@@ -98,5 +105,4 @@ describe('NgsgSortService', () => {
     expect(classService.removeSelectedClass).toHaveBeenCalledWith(selectedItems[0].node);
     expect(classService.removeSelectedClass).toHaveBeenCalledWith(selectedItems[1].node);
   });
-
 });

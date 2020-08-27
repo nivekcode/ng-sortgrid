@@ -21,14 +21,6 @@
             }
           }
         },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/ng-sortgrid/src/test.ts",
-            "tsConfig": "projects/ng-sortgrid/tsconfig.spec.json",
-            "karmaConfig": "projects/ng-sortgrid/karma.conf.js"
-          }
-        },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
@@ -68,8 +60,7 @@
               "projects/ng-sortgrid/src/lib/ngsg.css",
               "node_modules/@fortawesome/fontawesome-free/css/all.css"
             ],
-            "scripts": [],
-            "es5BrowserSupport": true
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -117,23 +108,6 @@
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
             "browserTarget": "ng-sortgrid-demo:build"
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/ng-sortgrid-demo/src/test.ts",
-            "polyfills": "projects/ng-sortgrid-demo/src/polyfills.ts",
-            "tsConfig": "projects/ng-sortgrid-demo/tsconfig.spec.json",
-            "karmaConfig": "projects/ng-sortgrid-demo/karma.conf.js",
-            "styles": [
-              "projects/ng-sortgrid-demo/src/styles.css"
-            ],
-            "scripts": [],
-            "assets": [
-              "projects/ng-sortgrid-demo/src/favicon.ico",
-              "projects/ng-sortgrid-demo/src/assets"
-            ]
           }
         },
         "lint": {
