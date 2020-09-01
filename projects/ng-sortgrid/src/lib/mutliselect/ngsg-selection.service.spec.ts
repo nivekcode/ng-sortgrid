@@ -1,5 +1,6 @@
-import { NgsgSelectionService } from './ngsg-selection.service';
 import { NgsgElementsHelper } from '../helpers/element/ngsg-elements.helper';
+
+import { NgsgSelectionService } from './ngsg-selection.service';
 
 describe('NgsgSelectionService', () => {
   const ngsgClassService = {

@@ -1,6 +1,7 @@
-import {NgsgReflectService} from './ngsg-reflect.service';
-import {NgsgDragelement} from '../../shared/ngsg-dragelement.model';
 import {NgsgElementsHelper} from '../../helpers/element/ngsg-elements.helper';
+import {NgsgDragelement} from '../../shared/ngsg-dragelement.model';
+
+import {NgsgReflectService} from './ngsg-reflect.service';
 
 describe('NgsgReflectService', () => {
   const ngsgStoreMock = {

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { timer } from 'rxjs';
 
-import {NgsgDragelement} from '../../shared/ngsg-dragelement.model';
 import {NgsgClassService} from '../../helpers/class/ngsg-class.service';
-import {NgsgStoreService} from '../../store/ngsg-store.service';
 import {NgsgElementsHelper} from '../../helpers/element/ngsg-elements.helper';
+import {NgsgDragelement} from '../../shared/ngsg-dragelement.model';
+import {NgsgStoreService} from '../../store/ngsg-store.service';
 
 @Injectable({
   providedIn: 'root'
