@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import {NgsgStoreService} from '../../store/ngsg-store.service';
-import {NgsgDragelement} from '../../shared/ngsg-dragelement.model';
+
 import {NgsgElementsHelper} from '../../helpers/element/ngsg-elements.helper';
+import {NgsgDragelement} from '../../shared/ngsg-dragelement.model';
+import {NgsgStoreService} from '../../store/ngsg-store.service';
 
 @Injectable({
   providedIn: 'root'

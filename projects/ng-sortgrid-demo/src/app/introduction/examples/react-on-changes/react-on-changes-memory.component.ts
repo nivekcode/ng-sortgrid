@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+
 import {NgsgOrderChange} from '../../../../../../ng-sortgrid/src/lib/shared/ngsg-order-change.model';
 
 @Component({

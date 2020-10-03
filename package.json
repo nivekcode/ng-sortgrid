@@ -8,6 +8,7 @@
     "copy:styles": "copyfiles -f ./projects/ng-sortgrid/src/lib/ngsg.css ./dist/ng-sortgrid/styles",
     "format:check": "prettier --list-different 'projects/**/*.ts'",
     "format:write": "prettier --write 'projects/**/*.ts'",
+    "import-conductor": "import-conductor --source 'projects/**/*.ts'",
     "test": "ng test",
     "test:coverage": "ng test --code-coverage --watch=false",
     "test:lib": "jest --config ./projects/ng-sortgrid/jest.config.js",
@@ -51,6 +52,7 @@
     "codelyzer": "^6.0.0",
     "copyfiles": "^2.3.0",
     "husky": "^4.2.5",
+    "import-conductor": "^2.0.1",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~5.0.0",
     "jest": "^26.4.2",
@@ -71,6 +73,7 @@
   },
   "lint-staged": {
     "{src,__mocks__,bin}/**/*.ts": [
+      "import-conductor --staged",
       "prettier --write",
       "git add"
     ]

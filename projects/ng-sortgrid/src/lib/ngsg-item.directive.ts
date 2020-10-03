@@ -11,18 +11,17 @@ import {
   Output,
   SimpleChanges
 } from '@angular/core';
-
 import {fromEvent, Subject} from 'rxjs';
 import {takeUntil, takeWhile, throttleTime} from 'rxjs/operators';
 
-import {NgsgSortService} from './sort/sort/ngsg-sort.service';
-import {NgsgSelectionService} from './mutliselect/ngsg-selection.service';
-import {NgsgReflectService} from './sort/reflection/ngsg-reflect.service';
-import {NgsgStoreService} from './store/ngsg-store.service';
-import {NgsgEventsService} from './shared/ngsg-events.service';
-import {ScrollHelperService} from './helpers/scroll/scroll-helper.service';
-import {NgsgOrderChange} from './shared/ngsg-order-change.model';
 import {NgsgElementsHelper} from './helpers/element/ngsg-elements.helper';
+import {ScrollHelperService} from './helpers/scroll/scroll-helper.service';
+import {NgsgSelectionService} from './mutliselect/ngsg-selection.service';
+import {NgsgEventsService} from './shared/ngsg-events.service';
+import {NgsgOrderChange} from './shared/ngsg-order-change.model';
+import {NgsgReflectService} from './sort/reflection/ngsg-reflect.service';
+import {NgsgSortService} from './sort/sort/ngsg-sort.service';
+import {NgsgStoreService} from './store/ngsg-store.service';
 
 const selector = '[ngSortgridItem]';
 

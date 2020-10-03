@@ -1,14 +1,11 @@
-import { NgsgItemDirective } from './ngsg-item.directive';
-
-import createSpyObj = jasmine.createSpyObj;
-import createSpy = jasmine.createSpy;
-import { NgsgSortService } from './sort/sort/ngsg-sort.service';
+import { NgsgElementsHelper } from './helpers/element/ngsg-elements.helper';
 import { NgsgSelectionService } from './mutliselect/ngsg-selection.service';
-import { NgsgReflectService } from './sort/reflection/ngsg-reflect.service';
-import { NgsgStoreService } from './store/ngsg-store.service';
+import { NgsgItemDirective } from './ngsg-item.directive';
 import { NgsgEventsService } from './shared/ngsg-events.service';
 import { NgsgOrderChange } from './shared/ngsg-order-change.model';
-import { NgsgElementsHelper } from './helpers/element/ngsg-elements.helper';
+import { NgsgReflectService } from './sort/reflection/ngsg-reflect.service';
+import { NgsgSortService } from './sort/sort/ngsg-sort.service';
+import { NgsgStoreService } from './store/ngsg-store.service';
 
 describe('NgsgItemDirective', () => {
   let sut: NgsgItemDirective;
