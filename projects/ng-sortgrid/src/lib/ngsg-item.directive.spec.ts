@@ -1,11 +1,7 @@
 import { NgsgElementsHelper } from './helpers/element/ngsg-elements.helper';
-import { NgsgSelectionService } from './mutliselect/ngsg-selection.service';
 import { NgsgItemDirective } from './ngsg-item.directive';
 import { NgsgEventsService } from './shared/ngsg-events.service';
 import { NgsgOrderChange } from './shared/ngsg-order-change.model';
-import { NgsgReflectService } from './sort/reflection/ngsg-reflect.service';
-import { NgsgSortService } from './sort/sort/ngsg-sort.service';
-import { NgsgStoreService } from './store/ngsg-store.service';
 
 describe('NgsgItemDirective', () => {
   let sut: NgsgItemDirective;
@@ -101,7 +97,7 @@ describe('NgsgItemDirective', () => {
   });
 
   it('must call event preventDefault', () => {
-    const preventDefaultSpy = createSpy();
+    const preventDefaultSpy = jest.fn();
     const event = { preventDefault: preventDefaultSpy };
     sut.dragOver(event);
     expect(preventDefaultSpy).toHaveBeenCalled();

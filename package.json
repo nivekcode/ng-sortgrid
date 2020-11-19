@@ -9,7 +9,7 @@
     "format:check": "prettier --list-different 'projects/**/*.ts'",
     "format:write": "prettier --write 'projects/**/*.ts'",
     "import-conductor": "import-conductor --source 'projects/**/*.ts'",
-    "test": "ng test",
+    "test": "npm run test:lib",
     "test:coverage": "ng test --code-coverage --watch=false",
     "test:lib": "jest --config ./projects/ng-sortgrid/jest.config.js",
     "test:lib:coverage": "jest --config ./projects/ng-sortgrid/jest.config.js --coverage",
@@ -74,7 +74,6 @@
   },
   "lint-staged": {
     "{src,__mocks__,bin}/**/*.ts": [
-      "import-conductor --staged",
       "prettier --write",
       "git add"
     ]
