@@ -22,7 +22,6 @@
     "publish:lib": "cd dist/ng-sortgrid && npx semantic-release",
     "lint": "ng lint"
   },
-  "private": true,
   "dependencies": {
     "@angular/animations": "~10.0.12",
     "@angular/common": "~10.0.12",
@@ -66,6 +65,8 @@
     "tslint": "~6.1.0",
     "typescript": "^3.9.5"
   },
+  "private": true,
+  "license": "MIT",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
