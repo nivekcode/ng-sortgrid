@@ -17,7 +17,7 @@
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/ng-sortgrid/tsconfig.lib.prod.json"
+              "tsConfig": "projects/ng-sortgrid/tsconfig.lib.json"
             }
           }
         },
