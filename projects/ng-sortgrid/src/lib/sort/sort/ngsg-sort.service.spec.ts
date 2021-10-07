@@ -8,8 +8,10 @@ describe('NgsgSortService', () => {
     addPlaceHolderClass: jest.fn(),
     removePlaceHolderClass: jest.fn(),
     addDroppedClass: jest.fn(),
+    addActiveClass: jest.fn(),
     removeSelectedClass: jest.fn(),
     removeDroppedClass: jest.fn(),
+    removeActiveClass: jest.fn(),
   } as any;
   const ngsgStore = {
     getFirstSelectItem: jest.fn(),
@@ -21,13 +23,13 @@ describe('NgsgSortService', () => {
   });
 
   const createElement = (value, nextSibling) =>
-    ({
-      value,
-      nextSibling,
-      parentNode: {
-        insertBefore: () => {},
-      },
-    } as any);
+  ({
+    value,
+    nextSibling,
+    parentNode: {
+      insertBefore: () => {},
+    },
+  } as any);
 
   it('should insert the first element in the middle if we drag it to the right', () => {
     const group = 'test-group';

@@ -58,6 +58,7 @@ export class NgsgSortService {
     this.classService.removePlaceHolderClass(item);
     this.classService.addDroppedClass(item);
     this.classService.removeSelectedClass(item);
+    this.classService.removeActiveClass(item);
     timer(500).subscribe(() => this.classService.removeDroppedClass(item));
   }
 }

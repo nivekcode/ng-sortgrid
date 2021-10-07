@@ -29,7 +29,10 @@ describe('NgsgItemDirective', () => {
   } as any;
   const ngsgEventService = new NgsgEventsService();
   const scrollHelperService = {
-    scrollIfNecessary: () => {},
+    scrollIfNecessary: () => { },
+  } as any;
+  const classService = {
+    addActiveClass: jest.fn()
   } as any;
 
   beforeEach(() => {
@@ -40,7 +43,8 @@ describe('NgsgItemDirective', () => {
       ngsgReflectService,
       ngsgStore,
       ngsgEventService,
-      scrollHelperService
+      scrollHelperService,
+      classService
     );
   });
 
@@ -69,6 +73,7 @@ describe('NgsgItemDirective', () => {
     } as any;
     sut.dragStart(event);
     expect(ngsgSelectionService.selectElementIfNoSelection).toHaveBeenCalledWith(sortGroup, event.target);
+    expect(classService.addActiveClass).toHaveBeenCalledWith(event.target);
   });
 
   it('should init the sort for the current group', () => {

@@ -87,6 +87,7 @@ Alternative you can provide custom styles for the different classes listed bello
 | ng-sg-placeholder | This class is added to the placeholder item which previews where the item is inserted                                                          |
 | ng-sg-dropped     | This class is added as soon after you drop an item. The class will be on the item for 500 milliseconds before it gets removed                  |
 | ng-sg-selected    | This class is added when you press the CMD or the Ctrl Key and Click on an item. It indicates which items are selected for the multi drag&drop |
+| ng-sg-active      | This class is added when dragging item| |
 
 # Scrolling
 The ng-sortgrid has a *autoScroll* flag which you can use to enable autoScroll. If you enable autoScroll the screen will start to scroll 

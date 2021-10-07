@@ -5,7 +5,9 @@ import { NgsgSelectionService } from './ngsg-selection.service';
 describe('NgsgSelectionService', () => {
   const ngsgClassService = {
     addSelectedClass: jest.fn(),
+    addActiveClass: jest.fn(),
     removeSelectedClass: jest.fn(),
+    removeActiveClass: jest.fn(),
   } as any;
 
   const ngsgStore = {
