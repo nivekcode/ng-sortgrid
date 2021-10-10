@@ -49,4 +49,17 @@ describe('NgsgClassService', () => {
     expect(removeClassSpy).toHaveBeenCalledWith('ng-sg-selected');
   });
 
+  it('should add the active class', () => {
+    const addClassSpy = createSpy();
+    const element = {classList: {add: addClassSpy}} as any;
+    sut.addActiveClass(element);
+    expect(addClassSpy).toHaveBeenCalledWith('ng-sg-active');
+  });
+
+  it('should remove the active class', () => {
+    const removeClassSpy = createSpy();
+    const element = {classList: {remove: removeClassSpy}} as any;
+    sut.removeActiveClass(element);
+    expect(removeClassSpy).toHaveBeenCalledWith('ng-sg-active');
+  });
 });

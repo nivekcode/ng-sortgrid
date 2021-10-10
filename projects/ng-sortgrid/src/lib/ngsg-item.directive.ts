@@ -22,6 +22,7 @@ import {NgsgOrderChange} from './shared/ngsg-order-change.model';
 import {NgsgReflectService} from './sort/reflection/ngsg-reflect.service';
 import {NgsgSortService} from './sort/sort/ngsg-sort.service';
 import {NgsgStoreService} from './store/ngsg-store.service';
+import { NgsgClassService } from './helpers/class/ngsg-class.service';
 
 const selector = '[ngSortgridItem]';
 
@@ -46,7 +47,8 @@ export class NgsgItemDirective implements OnInit, OnChanges, AfterViewInit, OnDe
     private reflectService: NgsgReflectService,
     private ngsgStore: NgsgStoreService,
     private ngsgEventService: NgsgEventsService,
-    private scrollHelperService: ScrollHelperService
+    private scrollHelperService: ScrollHelperService,
+    private classService: NgsgClassService
   ) {
   }
 
@@ -60,11 +62,11 @@ export class NgsgItemDirective implements OnInit, OnChanges, AfterViewInit, OnDe
       takeUntil(this.destroy$),
       takeWhile(() => this.autoScroll)
     ).subscribe(() => {
-        this.scrollHelperService.scrollIfNecessary(event, {
-          top: this.scrollPointTop,
-          bottom: this.scrollPointBottom
-        }, this.scrollSpeed);
-      }
+      this.scrollHelperService.scrollIfNecessary(event, {
+        top: this.scrollPointTop,
+        bottom: this.scrollPointBottom
+      }, this.scrollSpeed);
+    }
     );
   }
 
@@ -94,6 +96,7 @@ export class NgsgItemDirective implements OnInit, OnChanges, AfterViewInit, OnDe
       return;
     }
     this.selectionService.selectElementIfNoSelection(this.ngSortGridGroup, event.target);
+    this.classService.addActiveClass(event.target);
     this.sortService.initSort(this.ngSortGridGroup);
   }
 
