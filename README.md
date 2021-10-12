@@ -99,7 +99,7 @@ in the following scenario.
 - If you drag an element in the bottom 50px of the screen
 
 ## Custom scroll points
-Sometimes its not enough to onyl scroll once you drag over the top view port border. Imagine that you have a fixed navbar 
+Sometimes its not enough to only scroll once you drag over the top view port border. Imagine that you have a fixed navbar 
 at the top of your page. In this case you need to scroll once you drag an element over the navbar.
 
 ## Scroll speed (*default 50*)
