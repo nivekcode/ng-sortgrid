@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+  ContentChild,
   Directive,
   ElementRef,
   EventEmitter,
@@ -23,6 +24,7 @@ import {NgsgReflectService} from './sort/reflection/ngsg-reflect.service';
 import {NgsgSortService} from './sort/sort/ngsg-sort.service';
 import {NgsgStoreService} from './store/ngsg-store.service';
 import { NgsgClassService } from './helpers/class/ngsg-class.service';
+import { NgsgDragHandleDirective } from './ngsg-drag-handle.directive';
 
 const selector = '[ngSortgridItem]';
 
@@ -37,6 +39,9 @@ export class NgsgItemDirective implements OnInit, OnChanges, AfterViewInit, OnDe
 
   @Output() sorted = new EventEmitter<NgsgOrderChange<any>>();
 
+  @ContentChild(NgsgDragHandleDirective) handle: NgsgDragHandleDirective;
+
+  private handleElement: HTMLElement;
   private selected = false;
   private destroy$ = new Subject();
 
@@ -82,7 +87,14 @@ export class NgsgItemDirective implements OnInit, OnChanges, AfterViewInit, OnDe
   }
 
   ngAfterViewInit(): void {
-    this.el.nativeElement.draggable = true;
+    this.handleElement = this.handle?.el?.nativeElement || this.el.nativeElement;
+
+    fromEvent<DragEvent>(this.handleElement, 'mousedown').pipe(
+      takeUntil(this.destroy$)
+    ).subscribe(() => {
+      this.el.nativeElement.draggable = true;
+    }
+    );
   }
 
   ngOnDestroy(): void {
@@ -119,6 +131,7 @@ export class NgsgItemDirective implements OnInit, OnChanges, AfterViewInit, OnDe
 
   @HostListener('dragend')
   drop(): void {
+    this.el.nativeElement.draggable = false;
     if (!this.ngsgStore.hasSelectedItems(this.ngSortGridGroup)) {
       return;
     }
