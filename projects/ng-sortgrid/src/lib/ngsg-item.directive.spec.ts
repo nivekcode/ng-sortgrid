@@ -48,9 +48,9 @@ describe('NgsgItemDirective', () => {
     );
   });
 
-  it('should set the draggable attribute on the elment', () => {
+  it('should not set the draggable attribute on the elment', () => {
     sut.ngAfterViewInit();
-    expect((elementRef.nativeElement as any).draggable).toBeTruthy();
+    expect((elementRef.nativeElement as any).draggable).toBeFalsy();
   });
 
   it('should not set selectedElements if the event did not occur on the host', () => {
