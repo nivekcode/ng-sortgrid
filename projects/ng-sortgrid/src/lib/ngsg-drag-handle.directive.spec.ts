@@ -11,7 +11,7 @@ describe('NgsgDragHandleDirective', () => {
     );
   });
 
-  it('hould create an instance', () => {
+  it('should create an instance', () => {
     expect(sut).toBeTruthy();
   });
 });
