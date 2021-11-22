@@ -15,7 +15,9 @@ export class NgsgReflectService {
     const selectedElements = this.ngsgStore.getSelectedItems(key);
     const selectedElementIndices = this.getSelectedElementsIndices(selectedElements);
     const selectedItems = this.getSelectedItems(items, selectedElementIndices);
-    const sortedIndices = selectedElementIndices.sort();
+    const sortedIndices = selectedElementIndices.sort(function(a,b) {
+      return a - b;
+    });
     const dropIndex = this.findDropIndex(selectedElements, element);
 
     while (sortedIndices.length > 0) {
