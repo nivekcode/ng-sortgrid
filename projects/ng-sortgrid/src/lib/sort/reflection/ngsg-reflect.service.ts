@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 import {NgsgElementsHelper} from '../../helpers/element/ngsg-elements.helper';
 import {NgsgDragelement} from '../../shared/ngsg-dragelement.model';
@@ -8,16 +8,15 @@ import {NgsgStoreService} from '../../store/ngsg-store.service';
   providedIn: 'root'
 })
 export class NgsgReflectService {
-  constructor(private ngsgStore: NgsgStoreService) {}
+  constructor(private ngsgStore: NgsgStoreService) {
+  }
 
   public reflectChanges(key: string, element: Element): any[] {
     const items = this.ngsgStore.getItems(key);
     const selectedElements = this.ngsgStore.getSelectedItems(key);
     const selectedElementIndices = this.getSelectedElementsIndices(selectedElements);
     const selectedItems = this.getSelectedItems(items, selectedElementIndices);
-    const sortedIndices = selectedElementIndices.sort(function(a,b) {
-      return a - b;
-    });
+    const sortedIndices = selectedElementIndices.sort((a, b) => a - b);
     const dropIndex = this.findDropIndex(selectedElements, element);
 
     while (sortedIndices.length > 0) {
