@@ -11,7 +11,7 @@
 [Demo](https://kreuzerk.github.io/ng-sortgrid/)
 
 - [Getting started](#getting-started)
-  - [Download the module](#download-the-module)
+  - [Download](#download)
   - [Apply the directive](#apply-the-directive)
   - [React on changes](#react-on-changes)
 - [API](#api)
@@ -19,7 +19,7 @@
   - [Outputs](#outputs)
 
 # Getting started
-## Download the module
+## Download
 
 ```
 npm i -s ng-sortgrid
