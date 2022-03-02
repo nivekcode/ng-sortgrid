@@ -15,7 +15,7 @@ describe('Scroll helper', () => {
 
   beforeEach(() => {
     sut = new ScrollHelperService(documentMock);
-    scrollSpy = spyOn(documentMock.defaultView, 'scrollBy');
+    scrollSpy = jest.spyOn(documentMock.defaultView, 'scrollBy');
   });
 
   describe('Top scroll', () => {

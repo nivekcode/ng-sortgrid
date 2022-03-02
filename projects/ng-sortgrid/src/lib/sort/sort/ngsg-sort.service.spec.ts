@@ -42,7 +42,7 @@ describe('NgsgSortService', () => {
 
     ngsgStore.getFirstSelectItem = () => ({ originalIndex: 0 } as any);
     ngsgStore.getSelectedItems = () => [dragElement] as any;
-    const insertBeforeSpy = spyOn(dropElement.parentNode, 'insertBefore');
+    const insertBeforeSpy = jest.spyOn(dropElement.parentNode, 'insertBefore');
     NgsgElementsHelper.findIndex = () => 1;
 
     sut.initSort(group);
@@ -61,7 +61,7 @@ describe('NgsgSortService', () => {
 
     ngsgStore.getFirstSelectItem = () => ({ originalIndex: 2 } as any);
     ngsgStore.getSelectedItems = () => [dragElement];
-    const insertBeforeSpy = spyOn(dropElement.parentNode, 'insertBefore');
+    const insertBeforeSpy = jest.spyOn(dropElement.parentNode, 'insertBefore');
     NgsgElementsHelper.findIndex = () => 1;
 
     sut.initSort(group);
