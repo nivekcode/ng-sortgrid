@@ -29,10 +29,10 @@ describe('NgsgItemDirective', () => {
   } as any;
   const ngsgEventService = new NgsgEventsService();
   const scrollHelperService = {
-    scrollIfNecessary: () => { },
+    scrollIfNecessary: () => {},
   } as any;
   const classService = {
-    addActiveClass: jest.fn()
+    addActiveClass: jest.fn(),
   } as any;
 
   beforeEach(() => {
@@ -46,11 +46,6 @@ describe('NgsgItemDirective', () => {
       scrollHelperService,
       classService
     );
-  });
-
-  it('should not set the draggable attribute on the elment', () => {
-    sut.ngAfterViewInit();
-    expect((elementRef.nativeElement as any).draggable).toBeFalsy();
   });
 
   it('should not set selectedElements if the event did not occur on the host', () => {
