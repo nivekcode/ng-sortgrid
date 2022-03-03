@@ -243,4 +243,5 @@ describe('NgsgItemDirective', () => {
     sut.drop();
     expect(consoleWarnSpy).toHaveBeenCalledWith(expectedWarniningMessage);
   });
+
 });
