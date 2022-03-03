@@ -242,7 +242,7 @@ describe('NgsgItemDirective', () => {
   it('should log a warning message if you drop and you did not provide any items', () => {
     const expectedWarniningMessage = `Ng-sortgrid: No items provided - please use [sortGridItems] to pass in an array of items -
       otherwhise the ordered items can not be emitted in the (sorted) event`;
-    const consoleWarnSpy = spyOn(console, 'warn');
+    const consoleWarnSpy = jest.spyOn(console, 'warn');
     ngsgStore.hasItems = () => false;
 
     sut.drop();
