@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "bump-version": "rjp package.json version $VERSION",
     "copy:readme": "copyfiles ./README.md ./projects/ng-sortgrid",
     "copy:styles": "copyfiles -f ./projects/ng-sortgrid/src/lib/ngsg.css ./dist/ng-sortgrid/styles",
     "format:check": "prettier --list-different 'projects/**/*.ts'",
@@ -67,6 +68,7 @@
     "ng-packagr": "14.2",
     "prettier": "^2.1.1",
     "protractor": "~7.0.0",
+    "replace-json-property": "^1.8.0",
     "ts-jest": "^28.0.8",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
