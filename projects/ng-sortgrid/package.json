@@ -1,6 +1,6 @@
 {
   "name": "ng-sortgrid",
-  "version": "0.0.1",
+  "version": "13.0.0",
   "license": "MIT",
   "peerDependencies": {
     "@angular/common": "^14.0.0",
