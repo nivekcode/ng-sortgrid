@@ -7,8 +7,7 @@ describe('Scroll helper', () => {
     defaultView: {
       innerHeight: 0,
       innerWidth: 0,
-      scrollBy: () => {
-      }
+      scrollBy: jest.fn()
     } as any
   };
   let scrollSpy: any;

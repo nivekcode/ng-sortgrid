@@ -27,7 +27,7 @@ describe('NgsgSortService', () => {
     value,
     nextSibling,
     parentNode: {
-      insertBefore: () => {},
+      insertBefore: jest.fn(),
     },
   } as any);
 
