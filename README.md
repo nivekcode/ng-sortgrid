@@ -122,4 +122,4 @@ The *scrollSpeed* property accepts a number and allows you to specify the scroll
 ## Outputs
 | Value             | Description                                                                                                                                    | Default|
 |-------------------|------------------------------------------------------------------------------------------------------------------------------------------------|--------|
-| sorted: EventEmitter<NgsgOrderChange<T> | Emits an event after we sorted the items, each event is of type NgsgOrderChange. The NgsgOrderChange contains the previousOrder and the currentOrder                                                         |undefined|
+| sorted: EventEmitter<NgsgOrderChange<T> | Emits an event after we sorted the items, each event is of type NgsgOrderChange. The NgsgOrderChange contains the previousOrder and the currentOrder. Both are freshly created arrays.                                                         |undefined|
