@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {fromEvent, merge, NEVER, Observable, Subject} from 'rxjs';
-import {filter, mapTo, switchMap, withLatestFrom} from 'rxjs/operators';
+import {fromEvent, map, merge, Observable, Subject} from 'rxjs';
+import {filter, mapTo, withLatestFrom} from 'rxjs/operators';
 
 import {NgsgClassService} from '../helpers/class/ngsg-class.service';
 import {NgsgElementsHelper} from '../helpers/element/ngsg-elements.helper';
@@ -62,7 +62,7 @@ export class NgsgSelectionService {
         (keyboardEvent: KeyboardEvent) =>
           keyboardEvent.key === this.COMMAND_KEY || keyboardEvent.key === this.CONTROL_KEY
       ),
-      mapTo(true)
+      map(() => true)
     );
     const keyup = fromEvent(window, 'keyup').pipe(mapTo(false));
     return merge(selectionKeyPressed, keyup);

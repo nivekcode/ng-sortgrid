@@ -31,7 +31,7 @@ describe('NgsgItemDirective', () => {
   } as any;
   const ngsgEventService = new NgsgEventsService();
   const scrollHelperService = {
-    scrollIfNecessary: () => {},
+    scrollIfNecessary: jest.fn(),
   } as any;
   const classService = {
     addActiveClass: jest.fn(),
