@@ -6,6 +6,8 @@ import { NgsgOrderChange } from './shared/ngsg-order-change.model';
 describe('NgsgItemDirective', () => {
   let sut: NgsgItemDirective;
 
+  console.warn = jest.fn();
+
   const elementRef = { nativeElement: {} } as any;
   const ngsgSortService = {
     initSort: jest.fn(),
