@@ -1,24 +1,36 @@
+# Ng-sortgrid
+
 [![Travis build badge](https://img.shields.io/travis/kreuzerk/ng-sortgrid.svg)](https://travis-ci.org/kreuzerk/ng-sortgrid)
 [![codecov](https://codecov.io/gh/kreuzerk/ng-sortgrid/branch/master/graph/badge.svg)](https://codecov.io/gh/kreuzerk/ng-sortgrid)
 [![angular10](https://img.shields.io/badge/angular%2010%20ready-true-green.svg)]()
-
-# Ng-sortgrid
 
 ![Logo](https://raw.githubusercontent.com/kreuzerk/ng-sortgrid/master/projects/ng-sortgrid-demo/src/assets/ng-sortgrid-logo.png)
 
 ![Grid demo](https://raw.githubusercontent.com/kreuzerk/ng-sortgrid/master/projects/ng-sortgrid-demo/src/assets/grid-demo.gif)
 
-[Demo](https://kreuzerk.github.io/ng-sortgrid/)
+- - <!-- START doctoc generated TOC please keep comment here to allow auto update -->
+    <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+    **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+  
+    - [Ng-sortgrid](#ng-sortgrid)
+    - [Getting started](#getting-started)
+      - [Download](#download)
+      - [Apply the directive](#apply-the-directive)
+      - [React on changes](#react-on-changes)
+      - [Group sortgrids](#group-sortgrids)
+      - [Use the async pipe](#use-the-async-pipe)
+    - [Style your items on different events](#style-your-items-on-different-events)
+      - [Integrate the build in CSS](#integrate-the-build-in-css)
+    - [Scrolling](#scrolling)
+      - [Custom scroll points](#custom-scroll-points)
+      - [Scroll speed (*default 50*)](#scroll-speed-default-50)
+    - [API](#api)
+      - [Inputs](#inputs)
+      - [Outputs](#outputs)
+    - [Mobile usage](#mobile-usage)
+  
+    <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-- [Getting started](#getting-started)
-  - [Download](#download)
-  - [Apply the directive](#apply-the-directive)
-  - [React on changes](#react-on-changes)
-- [API](#api)
-  - [Inputs](#inputs)
-  - [Outputs](#outputs)
-
-# Getting started
 ## Download
 
 ```
@@ -123,3 +135,7 @@ The *scrollSpeed* property accepts a number and allows you to specify the scroll
 | Value             | Description                                                                                                                                    | Default|
 |-------------------|------------------------------------------------------------------------------------------------------------------------------------------------|--------|
 | sorted: EventEmitter<NgsgOrderChange<T> | Emits an event after we sorted the items, each event is of type NgsgOrderChange. The NgsgOrderChange contains the previousOrder and the currentOrder. Both are freshly created arrays.                                                         |undefined|
+
+# Mobile usage
+
+If you want to use those events on mobile you probably have to use some polyfills in order to emit all the needed events. Including this polyfill in your app should do the trick. https://github.com/timruffles/mobile-drag-drop.
