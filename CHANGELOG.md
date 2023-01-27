@@ -1,3 +1,10 @@
+## [15.0.1](https://github.com/kreuzerk/ng-sortgrid/compare/v15.0.0...v15.0.1) (2023-01-27)
+
+
+### Bug Fixes
+
+* **deps:** update package.json deps ([2e01f3f](https://github.com/kreuzerk/ng-sortgrid/commit/2e01f3f241dd3743438062316e24e5597973d04b))
+
 # [15.0.0](https://github.com/kreuzerk/ng-sortgrid/compare/v14.0.0...v15.0.0) (2023-01-18)
 
 
