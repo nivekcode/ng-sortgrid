@@ -1,3 +1,15 @@
+# [16.0.0](https://github.com/kreuzerk/ng-sortgrid/compare/v15.0.1...v16.0.0) (2023-06-21)
+
+
+### Features
+
+* 🎸 Angular 16 version ([5da5d74](https://github.com/kreuzerk/ng-sortgrid/commit/5da5d748194d66b0a40380b7f057e1e6ca69993a)), closes [#114](https://github.com/kreuzerk/ng-sortgrid/issues/114)
+
+
+### BREAKING CHANGES
+
+* 🧨 Angular 16
+
 ## [15.0.1](https://github.com/kreuzerk/ng-sortgrid/compare/v15.0.0...v15.0.1) (2023-01-27)
 
 
