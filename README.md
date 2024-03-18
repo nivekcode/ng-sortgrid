@@ -34,7 +34,7 @@
 ## Download
 
 ```
-npm i -s ng-sortgrid
+npm i ng-sortgrid
 ```
 
 Import the ```NgsgModule``` in your ```AppModule```.
