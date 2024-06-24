@@ -1,0 +1,26 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitType": "docs",
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "GonCarvalho98",
+      "name": "Gonçalo",
+      "avatar_url": "https://avatars.githubusercontent.com/u/103566451?v=4",
+      "profile": "https://github.com/GonCarvalho98",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "skipCi": true,
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "projectName": "ng-sortgrid",
+  "projectOwner": "kreuzerk"
+}

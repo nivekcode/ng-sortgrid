@@ -1,4 +1,7 @@
 # Ng-sortgrid
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![Travis build badge](https://img.shields.io/travis/kreuzerk/ng-sortgrid.svg)](https://travis-ci.org/kreuzerk/ng-sortgrid)
 [![codecov](https://codecov.io/gh/kreuzerk/ng-sortgrid/branch/master/graph/badge.svg)](https://codecov.io/gh/kreuzerk/ng-sortgrid)
@@ -139,3 +142,25 @@ The *scrollSpeed* property accepts a number and allows you to specify the scroll
 # Mobile usage
 
 If you want to use those events on mobile you probably have to use some polyfills in order to emit all the needed events. Including this polyfill in your app should do the trick. https://github.com/timruffles/mobile-drag-drop.
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/GonCarvalho98"><img src="https://avatars.githubusercontent.com/u/103566451?v=4?s=100" width="100px;" alt="Gonçalo"/><br /><sub><b>Gonçalo</b></sub></a><br /><a href="https://github.com/kreuzerk/ng-sortgrid/commits?author=GonCarvalho98" title="Code">💻</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
