@@ -1,8 +1,9 @@
 import {Component} from '@angular/core';
 
 @Component({
-  selector: 'ngsg-demo-memory',
-  templateUrl: 'getting-started-memory.component.html'
+    selector: 'ngsg-demo-memory',
+    templateUrl: 'getting-started-memory.component.html',
+    standalone: false
 })
 export class GettingStartedMemoryComponent {
 

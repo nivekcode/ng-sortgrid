@@ -1,9 +1,10 @@
 import {Component} from '@angular/core';
 
 @Component({
-  selector: 'ngsg-demo-drag-handle',
-  templateUrl: 'drag-handle.component.html',
-  styleUrls: ['./drag-handle.component.css']
+    selector: 'ngsg-demo-drag-handle',
+    templateUrl: 'drag-handle.component.html',
+    styleUrls: ['./drag-handle.component.css'],
+    standalone: false
 })
 export class DragHandleComponent {
 

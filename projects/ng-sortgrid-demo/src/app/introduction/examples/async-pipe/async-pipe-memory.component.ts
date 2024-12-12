@@ -5,9 +5,10 @@ import {delay, tap} from 'rxjs/operators';
 import {NgsgOrderChange} from '../../../../../../ng-sortgrid/src/lib/shared/ngsg-order-change.model';
 
 @Component({
-  selector: 'ngsg-demo-async',
-  templateUrl: './async-pipe-memory.component.html',
-  styleUrls: ['./async-pipe-memory.component.css']
+    selector: 'ngsg-demo-async',
+    templateUrl: './async-pipe-memory.component.html',
+    styleUrls: ['./async-pipe-memory.component.css'],
+    standalone: false
 })
 export class AsyncPipeMemoryComponent implements OnInit {
 

@@ -28,7 +28,10 @@ import { NgsgDragHandleDirective } from './ngsg-drag-handle.directive';
 
 const selector = '[ngSortgridItem]';
 
-@Directive({selector})
+@Directive({
+  selector,
+  standalone: false
+})
 export class NgsgItemDirective implements OnInit, OnChanges, AfterViewInit, OnDestroy {
   @Input() ngSortGridGroup = 'defaultGroup';
   @Input() ngSortGridItems: any[];
