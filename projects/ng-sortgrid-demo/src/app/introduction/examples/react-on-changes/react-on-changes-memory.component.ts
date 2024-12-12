@@ -3,8 +3,9 @@ import {Component, OnInit} from '@angular/core';
 import {NgsgOrderChange} from '../../../../../../ng-sortgrid/src/lib/shared/ngsg-order-change.model';
 
 @Component({
-  selector: 'ngsg-demo-react-on-changes-memory',
-  templateUrl: 'react-on-changes-memory.component.html'
+    selector: 'ngsg-demo-react-on-changes-memory',
+    templateUrl: 'react-on-changes-memory.component.html',
+    standalone: false
 })
 export class ReactOnChangesMemoryComponent implements OnInit {
 

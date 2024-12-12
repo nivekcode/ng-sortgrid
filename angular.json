@@ -34,12 +34,15 @@
       "schematics": {},
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/ng-sortgrid-demo",
+            "outputPath": {
+              "base": "dist/ng-sortgrid-demo"
+            },
             "index": "projects/ng-sortgrid-demo/src/index.html",
-            "main": "projects/ng-sortgrid-demo/src/main.ts",
-            "polyfills": "projects/ng-sortgrid-demo/src/polyfills.ts",
+            "polyfills": [
+              "projects/ng-sortgrid-demo/src/polyfills.ts"
+            ],
             "tsConfig": "projects/ng-sortgrid-demo/tsconfig.app.json",
             "assets": [
               "projects/ng-sortgrid-demo/src/favicon.ico",
@@ -51,12 +54,11 @@
               "node_modules/@fortawesome/fontawesome-free/css/all.css"
             ],
             "scripts": [],
-            "vendorChunk": true,
             "extractLicenses": false,
-            "buildOptimizer": false,
             "sourceMap": true,
             "optimization": false,
-            "namedChunks": true
+            "namedChunks": true,
+            "browser": "projects/ng-sortgrid-demo/src/main.ts"
           },
           "configurations": {
             "production": {
@@ -71,8 +73,6 @@
               "sourceMap": false,
               "namedChunks": false,
               "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",

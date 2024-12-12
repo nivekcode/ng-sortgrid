@@ -1,7 +1,8 @@
 import { Directive, ElementRef } from '@angular/core';
 
 @Directive({
-  selector: '[ngSortgridDragHandle]'
+    selector: '[ngSortgridDragHandle]',
+    standalone: false
 })
 export class NgsgDragHandleDirective {
 
