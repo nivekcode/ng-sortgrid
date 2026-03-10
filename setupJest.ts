@@ -1,1 +1,2 @@
-import 'jest-preset-angular/setup-jest';
+// Load Angular compiler for JIT compilation during testing
+import '@angular/compiler';

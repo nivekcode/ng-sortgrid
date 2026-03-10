@@ -26,6 +26,8 @@
         "dist/ng-sortgrid/*"
       ]
     },
-    "useDefineForClassFields": false
+    "useDefineForClassFields": false,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
   }
 }
