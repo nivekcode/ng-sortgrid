@@ -1,13 +1,13 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
     "module": "es2020",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "esModuleInterop": true,
+    "strict": false,
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "ES2022",
@@ -20,10 +20,10 @@
     ],
     "paths": {
       "ng-sortgrid": [
-        "dist/ng-sortgrid"
+        "./dist/ng-sortgrid"
       ],
       "ng-sortgrid/*": [
-        "dist/ng-sortgrid/*"
+        "./dist/ng-sortgrid/*"
       ]
     },
     "useDefineForClassFields": false,

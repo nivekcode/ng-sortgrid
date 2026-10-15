@@ -1,17 +1,17 @@
-import {Component, OnInit} from '@angular/core';
-import {Observable, of} from 'rxjs';
-import {delay, tap} from 'rxjs/operators';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { delay, tap } from 'rxjs/operators';
 
-import {NgsgOrderChange} from '../../../../../../ng-sortgrid/src/lib/shared/ngsg-order-change.model';
+import { NgsgOrderChange } from '../../../../../../ng-sortgrid/src/lib/shared/ngsg-order-change.model';
 
 @Component({
-    selector: 'ngsg-demo-async',
-    templateUrl: './async-pipe-memory.component.html',
-    styleUrls: ['./async-pipe-memory.component.css'],
-    standalone: false
+  selector: 'ngsg-demo-async',
+  templateUrl: './async-pipe-memory.component.html',
+  styleUrls: ['./async-pipe-memory.component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: false,
 })
 export class AsyncPipeMemoryComponent implements OnInit {
-
   item$: Observable<number[]>;
   loading = false;
   public currentSortOrder: number[];
@@ -26,7 +26,7 @@ export class AsyncPipeMemoryComponent implements OnInit {
     this.loading = true;
     this.item$ = of([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).pipe(
       delay(1500),
-      tap(() => this.loading = false)
+      tap(() => (this.loading = false)),
     );
   }
 

@@ -1,10 +1,10 @@
-import {Component} from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-    selector: 'ngsg-demo-header',
-    templateUrl: 'header.component.html',
-    styleUrls: ['./header.component.css'],
-    standalone: false
+  selector: 'ngsg-demo-header',
+  templateUrl: 'header.component.html',
+  styleUrls: ['./header.component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: false,
 })
-export class HeaderComponent {
-}
+export class HeaderComponent {}

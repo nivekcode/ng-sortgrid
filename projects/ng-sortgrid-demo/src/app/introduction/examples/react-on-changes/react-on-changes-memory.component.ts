@@ -1,14 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
-import {NgsgOrderChange} from '../../../../../../ng-sortgrid/src/lib/shared/ngsg-order-change.model';
+import { NgsgOrderChange } from '../../../../../../ng-sortgrid/src/lib/shared/ngsg-order-change.model';
 
 @Component({
-    selector: 'ngsg-demo-react-on-changes-memory',
-    templateUrl: 'react-on-changes-memory.component.html',
-    standalone: false
+  selector: 'ngsg-demo-react-on-changes-memory',
+  templateUrl: 'react-on-changes-memory.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: false,
 })
 export class ReactOnChangesMemoryComponent implements OnInit {
-
   public items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   public currentSortOrder: number[];
   public previousSortOrder: number[];
@@ -22,5 +22,4 @@ export class ReactOnChangesMemoryComponent implements OnInit {
     this.currentSortOrder = orderChange.currentOrder;
     this.previousSortOrder = orderChange.previousOrder;
   }
-
 }
