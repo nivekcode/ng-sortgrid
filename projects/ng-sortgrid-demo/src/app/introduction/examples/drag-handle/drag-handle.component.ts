@@ -1,13 +1,12 @@
-import {Component} from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-    selector: 'ngsg-demo-drag-handle',
-    templateUrl: 'drag-handle.component.html',
-    styleUrls: ['./drag-handle.component.css'],
-    standalone: false
+  selector: 'ngsg-demo-drag-handle',
+  templateUrl: 'drag-handle.component.html',
+  styleUrls: ['./drag-handle.component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: false,
 })
 export class DragHandleComponent {
-
   public items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 }
-

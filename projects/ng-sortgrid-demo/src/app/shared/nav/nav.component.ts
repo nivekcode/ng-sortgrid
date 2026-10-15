@@ -1,10 +1,11 @@
-import {Component, Input} from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-    selector: 'ngsg-demo-nav',
-    templateUrl: './nav.component.html',
-    styleUrls: ['./nav.component.css'],
-    standalone: false
+  selector: 'ngsg-demo-nav',
+  templateUrl: './nav.component.html',
+  styleUrls: ['./nav.component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: false,
 })
 export class NavComponent {
   @Input() fixed = false;
