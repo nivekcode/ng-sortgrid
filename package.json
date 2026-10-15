@@ -1,6 +1,6 @@
 {
   "name": "ng-sortgrid",
-  "version": "21.0.0",
+  "version": "22.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

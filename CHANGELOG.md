@@ -1,3 +1,20 @@
+# [22.0.0](https://github.com/nivekcode/ng-sortgrid/compare/v21.0.0...v22.0.0) (2026-10-15)
+
+
+* feat(deps)!: upgrade to Angular 22 ([53b89b1](https://github.com/nivekcode/ng-sortgrid/commit/53b89b17d02f006b9772abb5587dc4a493971a5a))
+
+
+### Bug Fixes
+
+* update repository url to nivekcode ([fdf2be9](https://github.com/nivekcode/ng-sortgrid/commit/fdf2be96c59a4ce9382b4791428e9fec2fd044b5))
+
+
+### BREAKING CHANGES
+
+* peer dependencies now require Angular ^22.0.0 (@angular/common, @angular/core). Also moves to TypeScript 6 and jest-preset-angular 17, and drops unused @angular-eslint packages.
+
+Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>
+
 # [18.0.0](https://github.com/kreuzerk/ng-sortgrid/compare/v17.0.0...v18.0.0) (2024-07-01)
 
 
