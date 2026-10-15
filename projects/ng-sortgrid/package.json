@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/kreuzerk/ng-sortgrid.git"
+    "url": "https://github.com/nivekcode/ng-sortgrid.git"
   },
   "bugs": {
-    "url": "https://github.com/kreuzerk/ng-sortgrid/issues"
+    "url": "https://github.com/nivekcode/ng-sortgrid/issues"
   },
-  "homepage": "https://github.com/kreuzerk/ng-sortgrid#readme"
+  "homepage": "https://github.com/nivekcode/ng-sortgrid#readme"
 }
